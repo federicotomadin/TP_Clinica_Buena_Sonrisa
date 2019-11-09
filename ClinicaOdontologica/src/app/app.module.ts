@@ -14,6 +14,10 @@ import { PonerHistoriaClinicaComponent } from './componentes/poner-historia-clin
 import { MedicoComponent } from './componentes/medico/medico.component';
 import { RecepcionistaComponent } from './componentes/recepcionista/recepcionista.component';
 
+import * as firebase from 'firebase/app';
+import { environment } from '../environments/environment'; 
+import { GeneralService } from './servicios/general.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,9 +34,10 @@ import { RecepcionistaComponent } from './componentes/recepcionista/recepcionist
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,    
+    // firebase.initializeApp(environment.firebase)
   ],
-  providers: [],
+  providers: [GeneralService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
