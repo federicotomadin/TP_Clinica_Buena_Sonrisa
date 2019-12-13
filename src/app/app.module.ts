@@ -17,6 +17,8 @@ import { RecepcionistaComponent } from './componentes/recepcionista/recepcionist
 import * as firebase from 'firebase/app';
 import { environment } from '../environments/environment'; 
 import { GeneralService } from './servicios/general.service';
+import { FiltrosPipe } from './pipes/filtros.pipe';
+import { FiltroPipe } from './pipes/filtro.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { GeneralService } from './servicios/general.service';
     PonerPuntajeComponent,
     PonerHistoriaClinicaComponent,
     MedicoComponent,
-    RecepcionistaComponent
+    RecepcionistaComponent,
+    FiltrosPipe,
+    FiltroPipe
   ],
   imports: [
     BrowserModule,
