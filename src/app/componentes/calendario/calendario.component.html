@@ -1,7 +1,10 @@
 <table>
 <tr *ngFor="let dia of dias">
- <td>{{dia.fecha}}</td>
- <td><div *ngFor="let e of dia.turnos">{{e.a}}</div></td>
+ <td><b>{{dia.dia}}/{{dia.mes}}/{{dia.ano}}</b>
+    <div *ngFor="let turno of dia.turnos">{{turno.hora}}:{{turno.minutos}}  
+        <span *ngIf="turno.hasOwnProperty('turno')"> - Turno: {{turno.turno.key}}</span>
+    </div>
+</td>
 </tr>
 
 </table>

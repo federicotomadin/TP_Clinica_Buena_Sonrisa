@@ -1,5 +1,5 @@
 export class Turno {
-    key?: string;
+    key?: any;
     comentario?: string;
     dniPaciente?: string;
     fecha?: Date;
@@ -8,6 +8,10 @@ export class Turno {
 
     constructor(fecha?:any){
         this.fecha=new Date(fecha);
+        this.key=Math.random();
+        this.comentario="";
+        this.dniPaciente="0";
+        this.nombreMedico="juan"
     }
 }
 
