@@ -1,1 +1,7 @@
-<p>calendario works!</p>
+<table>
+<tr *ngFor="let dia of dias">
+ <td>{{dia.fecha}}</td>
+ <td><div *ngFor="let e of dia.turnos">{{e.a}}</div></td>
+</tr>
+
+</table>
