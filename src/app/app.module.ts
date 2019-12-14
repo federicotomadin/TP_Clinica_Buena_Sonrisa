@@ -17,7 +17,6 @@ import { RecepcionistaComponent } from './componentes/recepcionista/recepcionist
 import * as firebase from 'firebase/app';
 import { environment } from '../environments/environment'; 
 import { GeneralService } from './servicios/general.service';
-// import { FiltrosPipe } from './pipes/filtros.pipe';
 import { FiltroPipe } from './pipes/filtro.pipe';
 
 import {RouterModule, Routes} from '@angular/router';
@@ -36,7 +35,6 @@ import {RouterModule, Routes} from '@angular/router';
     PonerHistoriaClinicaComponent,
     MedicoComponent,
     RecepcionistaComponent,
-    // FiltrosPipe,
     FiltroPipe
   ],
   imports: [
