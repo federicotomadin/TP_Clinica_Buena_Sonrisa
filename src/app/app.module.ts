@@ -19,6 +19,9 @@ import { environment } from '../environments/environment';
 import { GeneralService } from './servicios/general.service';
 import { FiltroPipe } from './pipes/filtro.pipe';
 
+import {RouterModule, Routes} from '@angular/router';
+
+
 @NgModule({
   declarations: [
     AppComponent,
