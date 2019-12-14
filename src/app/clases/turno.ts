@@ -3,6 +3,7 @@ export class Turno {
     comentario?: string;
     dniPaciente?: string;
     fecha?: string;
+    horario?: string;
     matriculaMedico?: string;
     nombreMedico?: string;
     }

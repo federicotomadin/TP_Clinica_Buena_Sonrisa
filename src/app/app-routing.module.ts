@@ -13,6 +13,7 @@ import {RegistroComponent} from '../app/componentes/registro/registro.component'
 
 
 const routes = [
+  { path: '', component: LoginComponent},
   { path: 'calendario', component: CalendarioComponent },
   { path: 'clientes', component: ClientesComponent },
   { path: 'historia', component: HistoriaclinicaComponent},
