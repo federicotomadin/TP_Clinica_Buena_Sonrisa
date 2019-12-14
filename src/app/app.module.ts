@@ -17,8 +17,11 @@ import { RecepcionistaComponent } from './componentes/recepcionista/recepcionist
 import * as firebase from 'firebase/app';
 import { environment } from '../environments/environment'; 
 import { GeneralService } from './servicios/general.service';
-import { FiltrosPipe } from './pipes/filtros.pipe';
+// import { FiltrosPipe } from './pipes/filtros.pipe';
 import { FiltroPipe } from './pipes/filtro.pipe';
+
+import {RouterModule, Routes} from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +36,7 @@ import { FiltroPipe } from './pipes/filtro.pipe';
     PonerHistoriaClinicaComponent,
     MedicoComponent,
     RecepcionistaComponent,
-    FiltrosPipe,
+    // FiltrosPipe,
     FiltroPipe
   ],
   imports: [
