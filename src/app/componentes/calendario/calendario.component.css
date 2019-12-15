@@ -1,0 +1,36 @@
+.calendario {
+    width: 100%;
+    position: relative;
+    height: 80vh;
+    overflow: scroll;
+    border: 2px solid #cccccc;
+    padding: 1vw;
+    font-size: 2vw;
+}
+
+.dia {
+    width: 14.15%;
+    display: inline-block;
+}
+
+.calendario b {
+    background: gray;
+    color: white;
+    padding: 0%;
+    margin-bottom:5px;
+}
+
+.turno {
+    min-height: 10px;
+    background: white;
+    max-height: 10px;
+    border: 1px solid #eeeeee;
+    font-size: 1.2vw;
+    line-height: 5px;
+}
+
+.turno:hover{
+
+background:#eeeeee;
+}
+    

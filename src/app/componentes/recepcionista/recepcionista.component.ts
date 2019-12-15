@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../clases/usuario';
+import { PrincipalService } from '../../servicios/principal.service';
 
 
 
@@ -13,14 +14,18 @@ export class RecepcionistaComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private ser:PrincipalService) {
+   
+
+   }
+
 
   ngOnInit() {
+   this.usuario= JSON.parse(localStorage["usuarioLogueado"]);
+    console.log(this.usuario);
 
 
-    // this.usuario = new Usuario();
-    // this.usuario.especialidad = Especialidad.Recepcionista;
-    // this.usuario.nombre = 'nombre';
+
   }
 
 }
