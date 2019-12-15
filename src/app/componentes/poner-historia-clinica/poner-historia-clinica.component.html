@@ -1,11 +1,35 @@
+<div class="container animated fadeInLeft faster">
+    <div class="jumbotron" style="padding:50px;">
 
-<p>puntaje paciente/cliente:</p> <select><option>1</option><option>2</option></select>
-<br>
+        <form (ngSubmit)="ngSubmit( f )" #f="ngForm" class="modal-content animate">
 
-<p>qué se hizo:</p><textarea></textarea>
+            <div *ngIf="mostrarImagen; then imagenUrl; else imagenIcono">
+                <!-- <img src=" ../../../assets/imagenes/login.png" alt="Smiley face "> -->
+            </div>
 
-<br>
-<p> tratamiento:</p>
-<select><option>sin tratamiento</option><option>tratamiento 1</option><option>tratamiento 2</option></select>
+            <!-- <ng-template #imagenIcono>
+                <div class="imgcontainer">
+                    <img src="{{urlFoto}}" alt="Smiley face ">
+                </div>
+            </ng-template> -->
 
-<button>mandar </button>
+            <div class="container">
+                <p>qué se hizo:</p>
+                <input type="text" placeholder="qué se hizo" [(ngModel)]="historia.descripcion" name="descripcion" required>
+                <br>
+                <p> tratamiento:</p>                
+                    <select name="tratamiento" ngModel>
+                      <option value="" disabled>Sin especificar</option>
+                      <option *ngFor="let trat of tratamientos" [ngValue]="trat.name">
+                        {{ trat.name }}
+                      </option>
+                    </select>
+                  
+ 
+                <button type="submit">Cargar Tratamiento</button><br>
+
+            </div>
+
+        </form>
+    </div>
+</div>
