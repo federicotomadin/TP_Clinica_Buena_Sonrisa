@@ -8,6 +8,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 import { Clinica } from '../clases/clinica';
 import { Usuario } from '../clases/usuario';
+import { HistoriaClinica } from '../clases/historiaClinica';
+import { sharedStylesheetJitUrl } from '@angular/compiler';
 
 
 
@@ -20,6 +22,10 @@ export class PrincipalService {
   clinicaCollection: AngularFirestoreCollection;
   clinica: Observable<Clinica[]>;
   clinicaDoc: AngularFirestoreDocument<Clinica>;
+  
+  HistoriaClinicaCollection: AngularFirestoreCollection<HistoriaClinica>;
+  historiaClinica: Observable<HistoriaClinica[]>;
+  historiaClinicaDoc: AngularFirestoreDocument<HistoriaClinica>;
 
   usuarioCollection: AngularFirestoreCollection;
   usuario: Observable<Usuario[]>;
@@ -76,6 +82,18 @@ export class PrincipalService {
       return false;
     }
   }
+
+  cargarHistoriaClinica(historia:HistoriaClinica, dniPaciente:string)
+  {
+    historia.dniPaciente = dniPaciente;
+    historia.matriculaEspecialista = "1234";
+    this.miBase.collection('historiaClinica').add({...historia});
+  }
+
+
+  async freno(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+}
 
   deleteConcesio(clinica: Clinica) {
     this.clinic = this.miBase.doc(`clinica/${clinica.key}`);

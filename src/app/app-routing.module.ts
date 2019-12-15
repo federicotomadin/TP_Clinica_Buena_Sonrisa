@@ -24,7 +24,7 @@ const routes = [
   { path: 'Turno', component: PedirturnoComponent},
   { path: 'Recepcionista', component: RecepcionistaComponent},
   { path: 'Laboratorista', component: LaboratoristaComponent},
-  { path: 'Poner-historia', component: PonerHistoriaClinicaComponent},
+  { path: 'ponerhistoria', component: PonerHistoriaClinicaComponent},
   { path: 'Registro', component: RegistroComponent},
 
 ];

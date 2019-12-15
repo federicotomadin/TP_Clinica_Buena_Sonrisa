@@ -24,7 +24,6 @@ import { MedicoComponent } from './componentes/medico/medico.component';
 import { RecepcionistaComponent } from './componentes/recepcionista/recepcionista.component';
 
 import { environment } from '../environments/environment';
-import { GeneralService } from './servicios/general.service';
 import { FiltroPipe } from './pipes/filtro.pipe';
 
 
@@ -61,7 +60,7 @@ import { LaboratoristaComponent } from './componentes/laboratorista/laboratorist
     AngularFireModule.initializeApp(environment.firebase)
     // firebase.initializeApp(environment.firebase)
   ],
-  providers: [GeneralService, PrincipalService, AuthService],
+  providers: [ PrincipalService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
