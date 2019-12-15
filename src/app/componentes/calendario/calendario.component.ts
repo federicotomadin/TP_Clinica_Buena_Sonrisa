@@ -34,7 +34,7 @@ export class CalendarioComponent implements OnInit {
       hora.setHours(8); //arranca a las 8
       hora.setMinutes(0);
       hora.setSeconds(0);
-      for (let j = 0; j < 40; j++) {
+      for (let j = 0; j < 50; j++) {
       
         this.dias[i].turnos.push({ "hora": hora.getHours(), "minutos": hora.getMinutes() })
         hora.setMinutes(hora.getMinutes() + 15)
@@ -45,21 +45,34 @@ export class CalendarioComponent implements OnInit {
 
 
   }
+  clickTurno(e:Event, turno:any, dia:any){
+   if(turno.hasOwnProperty("turno")){
+     console.log(turno.turno)
+    //HAY TURNO EN ESTE HORARIO
+    }else{
+      //NO HAY TURNO EN ESTE HORARIO
+      alert("agregar turno a este horario")
 
+
+    }
+  }
   traerTurnosQVeElUsuario() {
     console.log(this.arrayTurnos);
     this.ser.traerTurnos()
     this.ser.turnos.subscribe((e) => {
       this.arrayTurnos = e;
       console.log(this.arrayTurnos);
-
+      for(let i=0;i<e.length;i++){
+        this.agregarTurno(e[i]);
+        }
     });
   }
 
-  agregarTurno(t: Turno) {
-
-    let fechaTurno = t.fecha;
-
+  agregarTurno(t: any) {
+    window["calendario"]=this;
+    let fechaTurno = t.fecha.toDate();
+    
+    console.log(fechaTurno, this.dias[0].ano);
     if (fechaTurno.getFullYear() < this.dias[0].ano) {
       console.log("el turno es de un año anterior al actual")
       return

@@ -17,7 +17,9 @@
     background: gray;
     color: white;
     padding: 0%;
-    margin-bottom:5px;
+    border: 1px solid darkgray;
+    display: block;
+    margin-bottom: 5px;
 }
 
 .turno {
@@ -27,6 +29,10 @@
     border: 1px solid #eeeeee;
     font-size: 1.2vw;
     line-height: 5px;
+}
+
+.turno.ocupado{
+    background: #cccccc;
 }
 
 .turno:hover{

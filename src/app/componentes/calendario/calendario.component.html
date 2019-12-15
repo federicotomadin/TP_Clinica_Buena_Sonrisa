@@ -1,7 +1,7 @@
 <div class="calendario">
 
         <div class="dia" *ngFor="let dia of dias"><b>{{dia.dia}}/{{dia.mes}}/{{dia.ano}}</b>
-            <div class="turno" *ngFor="let turno of dia.turnos">
+            <div class="turno"  [class.ocupado]="turno.hasOwnProperty('turno')"  *ngFor="let turno of dia.turnos" (click)="clickTurno($event, turno, dia)">
                 <span  *ngIf="turno.minutos==0">{{turno.hora}}:{{turno.minutos}} </span>
                 <span *ngIf="turno.hasOwnProperty('turno')" class="turnoOcupado"> - Turno: {{turno.turno.key}}</span>
             </div>
