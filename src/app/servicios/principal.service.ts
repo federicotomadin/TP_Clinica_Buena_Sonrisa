@@ -8,6 +8,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 import { Clinica } from '../clases/clinica';
 import { Usuario } from '../clases/usuario';
+import { Turno } from '../clases/turno';
 
 
 
@@ -24,6 +25,8 @@ export class PrincipalService {
   usuarioCollection: AngularFirestoreCollection;
   usuario: Observable<Usuario[]>;
   usuarioDoc: AngularFirestoreDocument<Usuario>;
+
+  turnos: Observable<Turno[]>;
 
   public idTurnoActual: any;
   public razonSocial: string;
@@ -66,6 +69,23 @@ export class PrincipalService {
 
   getUsuario() {
     return this.usuario;
+  }
+
+
+  traerTurnos(){
+    
+
+    this.turnos=this.miBase.collection('turno').snapshotChanges().pipe(map(actions => {
+     // console.log(actions);
+      return actions.map(a => {
+       // console.log(a)
+        const data = a.payload.doc.data() as Turno;
+        return  data
+    })}));
+
+
+
+   
   }
 
 
