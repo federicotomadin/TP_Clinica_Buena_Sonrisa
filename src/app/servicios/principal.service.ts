@@ -2,31 +2,38 @@ import { Injectable } from '@angular/core';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, pipe } from 'rxjs';
-import { map, concat } from 'rxjs/operators';
-import { Action } from 'rxjs/internal/scheduler/Action';
+import { map } from 'rxjs/operators';
+
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Turno } from '../clases/turno';
+
 import { Clinica } from '../clases/clinica';
+import { Usuario } from '../clases/usuario';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConcesioService {
+export class PrincipalService {
 
   private dbPathClinica = '/Clinica';
   clinicaCollection: AngularFirestoreCollection;
   clinica: Observable<Clinica[]>;
   clinicaDoc: AngularFirestoreDocument<Clinica>;
 
-  public idTurnoActual
+  usuarioCollection: AngularFirestoreCollection;
+  usuario: Observable<Usuario[]>;
+  usuarioDoc: AngularFirestoreDocument<Usuario>;
+
+  public idTurnoActual: any;
   public razonSocial: string;
   public clinic;
 
   RefClinica: AngularFireList<Clinica> = null;
+  RefUsuario: AngularFireList<Usuario> = null;
 
-  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private miBase: AngularFirestore) {
+  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, 
+              private miBase: AngularFirestore) {
     this.RefClinica = db.list(this.dbPathClinica);
 
 
@@ -40,10 +47,25 @@ export class ConcesioService {
         return data;
       });
     }));
+
+    this.usuarioCollection = this.miBase.collection('usuario');
+    this.usuario = this.usuarioCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Usuario;
+        data.key = a.payload.doc.id;
+        this.idTurnoActual = a.payload.doc.id;
+        return data;
+      });
+    }));
+
   }
 
   getClinica() {
     return this.clinica;
+  }
+
+  getUsuario() {
+    return this.usuario;
   }
 
 
@@ -60,9 +82,11 @@ export class ConcesioService {
     this.clinic.delete();
         }
 
-  createConcesio(clinica: Clinica): void {
-    this.RefClinica.push({...clinica});
+  createUsuario(usuario: Usuario): void {
+    this.RefUsuario.push({...usuario});
   }
+
+
 
 
 

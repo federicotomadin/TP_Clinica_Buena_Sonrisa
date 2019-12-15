@@ -1,11 +1,15 @@
+
+
 export class Usuario {
-    dni?: number;
-    historiaClinica?: any[];
-    mail?: string;
+    key?: string;
+    dniUsuario?: string;
+    historiaClinica?: string;
+    email?: string;
     nombre?: string;
-    pass?: string;
-    pedidosEstudios?: any[];
-    rol:string
+    password?: string;
+    pedidosEstudios?: boolean;
+    especialidad: string;
+    matriculaMedico?: string;
     }
 
 

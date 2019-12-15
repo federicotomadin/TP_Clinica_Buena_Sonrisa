@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../clases/usuario';
 
+
+
 @Component({
   selector: 'app-recepcionista',
   templateUrl: './recepcionista.component.html',
@@ -9,15 +11,16 @@ import { Usuario } from '../../clases/usuario';
 export class RecepcionistaComponent implements OnInit {
   usuario: Usuario;
 
-  constructor() {
-   
-   }
+
+
+  constructor() { }
 
   ngOnInit() {
 
-    this.usuario=new Usuario();
-    this.usuario.rol="recepcionista";
-    this.usuario.nombre="bla";
+
+    // this.usuario = new Usuario();
+    // this.usuario.especialidad = Especialidad.Recepcionista;
+    // this.usuario.nombre = 'nombre';
   }
 
 }

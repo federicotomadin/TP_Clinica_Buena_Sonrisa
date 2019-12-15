@@ -1,6 +1,44 @@
+<div class="container animated fadeInLeft faster">
+    <div class="jumbotron" style="padding:50px;">
 
-mail: <input>
-pass: <input>
-<button>login</button>
+        <form (ngSubmit)="ngSubmit( f )" #f="ngForm" class="modal-content animate">
 
-<button (click)="traerDatos()">Test servicio</button>
+            <div *ngIf="mostrarImagen; then imagenUrl; else imagenIcono">
+                <!-- <img src=" ../../../assets/imagenes/login.png" alt="Smiley face "> -->
+            </div>
+
+            <ng-template #imagenUrl>
+                <div class="imgcontainer">
+                    <img src="{{urlFoto}}" alt="Smiley face ">
+                </div>
+            </ng-template>
+
+            <ng-template #imagenIcono>
+                <div class="imgcontainer">
+                    <img src="{{urlFoto}}" alt="Smiley face ">
+                </div>
+            </ng-template>
+
+            <div class="container">
+                <label><b>Usuario</b></label><br>
+                <span *ngIf="f.submitted && f.controls['email'].errors" class="text-danger animated fadeIn">El email es obligatorio</span>
+                <input type="text" placeholder="Email" [(ngModel)]="usuario.email" name="email" required>
+
+                <label><b>Clave</b></label><br>
+                <span *ngIf="f.submitted && f.controls['password'].errors" class="text-danger animated fadeIn">La contraseña es obligatoria</span>
+                <input type="password" placeholder="Clave" [(ngModel)]="usuario.password" name="password" minlength="6" required>
+
+                <button type="submit">Ingresar</button><br>
+                <!-- <app-mi-captcha (captcha)="ReconociendoCaptcha($event)"></app-mi-captcha> -->
+
+                <input type="checkbox" [(ngModel)]="recordarme" name="remember-me">Recordar mis datos <br>
+            </div>
+
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" class="aceptbtn" routerLink="/Registro">Registrar Usuario</button>
+                <!-- <span class="psw ">Te olvidaste <a href="# ">la clave?</a></span> -->
+            </div>
+        </form>
+    </div>
+</div>

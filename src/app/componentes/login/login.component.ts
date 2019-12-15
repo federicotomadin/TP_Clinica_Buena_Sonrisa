@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { GeneralService} from '../../servicios/general.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {AppRoutingModule} from '../../app-routing.module';
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/servicios/auth.service';
+
+import { Usuario } from '../../clases/usuario';
+import { PrincipalService } from '../../servicios/principal.service';
 
 
 @Component({
@@ -11,20 +15,59 @@ import {AppRoutingModule} from '../../app-routing.module';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private servicio:GeneralService, public ruta: Router) { }
+  recordarme = false;
+  usuario: Usuario;
+  authError: any;
+  logueado: string;
+  mostrarImagen = false;
+  urlFoto: string;
+
+  constructor(private principalService: PrincipalService,
+              public ruta: Router, private authService: AuthService) {
+                this.TraerImagenLogin();
+              }
 
   ngOnInit() {
+    this.usuario = new Usuario();
+
+    if (localStorage.getItem('email')) {
+      this.usuario.email = localStorage.getItem('email');
+      this.recordarme = true;
+    }
   }
 
-  traerDatos()
-  {
-    console.log("Estoy en trater datos");
-   
-    this.ruta.navigateByUrl('/registro');
-
-    // this.router.navigateByUrl('/login');
-
-      //this.servicio.traerDatos_servicio();
+  TraerImagenLogin() {
+  if (localStorage.getItem('urlFoto')) {
+    this.mostrarImagen = true;
+    this.urlFoto = localStorage.getItem('urlFoto');
+  } else {
+    this.urlFoto = '../../../assets/imagenes/login.png';
   }
+}
+
+  Login(form: NgForm) {
+
+    if (form.invalid) { return; }
+
+    Swal.fire({
+    allowOutsideClick: false,
+    icon: 'info',
+    text: 'Ingresando...',
+    timer: 4000
+    });
+
+    this.authService.Login(form.value);
+    Swal.showLoading();
+    if (this.recordarme) {
+    localStorage.setItem('email', this.usuario.email);
+  }
+    Swal.close();
+}
+
+ngSubmit(form: NgForm) {
+
+this.Login(form);
 
 }
+}
+

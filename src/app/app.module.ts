@@ -1,9 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+// import { FirebaseStorageService } from './servicios/firebase-storage.service';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClientesComponent } from './componentes/clientes/clientes.component';
+import { ClienteComponent } from './componentes/cliente/cliente.component';
 import { PedirturnoComponent } from './componentes/pedirturno/pedirturno.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { LoginComponent } from './componentes/login/login.component';
@@ -14,18 +23,20 @@ import { PonerHistoriaClinicaComponent } from './componentes/poner-historia-clin
 import { MedicoComponent } from './componentes/medico/medico.component';
 import { RecepcionistaComponent } from './componentes/recepcionista/recepcionista.component';
 
-import * as firebase from 'firebase/app';
-import { environment } from '../environments/environment'; 
+import { environment } from '../environments/environment';
 import { GeneralService } from './servicios/general.service';
 import { FiltroPipe } from './pipes/filtro.pipe';
 
-import {RouterModule, Routes} from '@angular/router';
+
+import { AuthService } from './servicios/auth.service';
+import { PrincipalService } from './servicios/principal.service';
+import { LaboratoristaComponent } from './componentes/laboratorista/laboratorista.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClientesComponent,
+    ClienteComponent,
     PedirturnoComponent,
     RegistroComponent,
     LoginComponent,
@@ -35,14 +46,22 @@ import {RouterModule, Routes} from '@angular/router';
     PonerHistoriaClinicaComponent,
     MedicoComponent,
     RecepcionistaComponent,
-    FiltroPipe
+    FiltroPipe,
+    LaboratoristaComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
-    AppRoutingModule,    
+    AppRoutingModule,
+    AngularFireModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebase)
     // firebase.initializeApp(environment.firebase)
   ],
-  providers: [GeneralService],
+  providers: [GeneralService, PrincipalService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
