@@ -18,12 +18,20 @@ export class CalendarioComponent implements OnInit {
   constructor(private ser: PrincipalService) {
 
 
-    const today = new Date()
     // this.dias.push({fecha:today.getDate()+"/"+String(Number(today.getMonth()+1))+"/"+today.getUTCFullYear(), turnos:[]})
 
 
 
+    this.setearArray()
 
+
+
+  }
+
+
+  setearArray(){
+    
+    const today = new Date()
     for (let i = 0; i < 30; i++) {
       let unDiaMas = new Date(today)
       unDiaMas.setDate(unDiaMas.getDate() + i);
@@ -41,9 +49,6 @@ export class CalendarioComponent implements OnInit {
       }
 
     }
-
-
-
   }
   clickTurno(e:Event, turno:any, dia:any){
    if(turno.hasOwnProperty("turno")){
@@ -57,11 +62,11 @@ export class CalendarioComponent implements OnInit {
     }
   }
   traerTurnosQVeElUsuario() {
-    console.log(this.arrayTurnos);
+    this.setearArray() //VACIO TODO
     this.ser.traerTurnos()
     this.ser.turnos.subscribe((e) => {
       this.arrayTurnos = e;
-      console.log(this.arrayTurnos);
+      
       for(let i=0;i<e.length;i++){
         this.agregarTurno(e[i]);
         }
@@ -97,8 +102,10 @@ export class CalendarioComponent implements OnInit {
                   let tur = this.dias[i].turnos[j];
 
                   if (tur.hora == fechaTurno.getHours()) {
-                    this.dias[i].turnos[j]["turno"] = t;
-                    return 1;
+                    if (Math.abs(tur.minutos - fechaTurno.getMinutes())<10) {
+                      this.dias[i].turnos[j]["turno"] = t;
+                      return 1;
+                    }
                   }
                 }//for j
               }
