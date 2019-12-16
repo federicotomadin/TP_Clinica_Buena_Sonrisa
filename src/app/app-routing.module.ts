@@ -11,6 +11,7 @@ import {PonerHistoriaClinicaComponent} from '../app/componentes/poner-historia-c
 import {RegistroComponent} from '../app/componentes/registro/registro.component';
 import { RecepcionistaComponent } from './componentes/recepcionista/recepcionista.component';
 import { LaboratoristaComponent } from './componentes/laboratorista/laboratorista.component';
+import { AdministradorComponent } from './componentes/administrador/administrador.component';
 
 
 
@@ -26,7 +27,7 @@ const routes = [
   { path: 'Laboratorista', component: LaboratoristaComponent},
   { path: 'ponerhistoria', component: PonerHistoriaClinicaComponent},
   { path: 'Registro', component: RegistroComponent},
-
+  { path: 'Administrador', component: AdministradorComponent},
 ];
 
 @NgModule({

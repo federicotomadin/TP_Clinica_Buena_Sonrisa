@@ -30,6 +30,8 @@ import { FiltroPipe } from './pipes/filtro.pipe';
 import { AuthService } from './servicios/auth.service';
 import { PrincipalService } from './servicios/principal.service';
 import { LaboratoristaComponent } from './componentes/laboratorista/laboratorista.component';
+import { AdministradorComponent } from './componentes/administrador/administrador.component';
+import { FirestorageService } from './servicios/firestorage.service';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import { LaboratoristaComponent } from './componentes/laboratorista/laboratorist
     MedicoComponent,
     RecepcionistaComponent,
     FiltroPipe,
-    LaboratoristaComponent
+    LaboratoristaComponent,
+    AdministradorComponent
   ],
   imports: [
     FormsModule,
@@ -60,7 +63,9 @@ import { LaboratoristaComponent } from './componentes/laboratorista/laboratorist
     AngularFireModule.initializeApp(environment.firebase)
     // firebase.initializeApp(environment.firebase)
   ],
-  providers: [ PrincipalService, AuthService],
+
+  providers: [PrincipalService, AuthService, FirestorageService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

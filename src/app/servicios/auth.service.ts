@@ -20,10 +20,10 @@ export class AuthService {
 
 
   constructor(private afAuth: AngularFireAuth,
-    private db: AngularFirestore,
-    private dbBase: AngularFireDatabase,
-    private router: Router,
-    private principalService: PrincipalService) { }
+              private db: AngularFirestore,
+              private dbBase: AngularFireDatabase,
+              private router: Router,
+              private principalService: PrincipalService) { }
 
   CrearUsuario(usuario: Usuario) {
     this.afAuth.auth.createUserWithEmailAndPassword(usuario.email, usuario.password)
@@ -54,12 +54,12 @@ export class AuthService {
 
               if (data.email === usuarioCredential.user.email) {
                // console.log("USUARIO LOGUEADO:", data);
-              localStorage["usuarioLogueado"]=JSON.stringify(data);
-              //usuarioCredential.providerData[0]
-                
+              localStorage.usuarioLogueado = JSON.stringify(data);
+              // usuarioCredential.providerData[0]
 
 
-                if (data.especialidad === 'Recepcionista') {
+
+              if (data.especialidad === 'Recepcionista') {
 
                   Swal.fire({
                     allowOutsideClick: false,
@@ -68,8 +68,7 @@ export class AuthService {
                     timer: 2000
                   });
                   this.router.navigate(['/Recepcionista']);
-                }
-                else if (data.especialidad === 'Odontologo') {
+                } else if (data.especialidad === 'Odontologo') {
                   Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
@@ -77,8 +76,7 @@ export class AuthService {
                     timer: 2000
                   });
                   this.router.navigate(['/Medico']);
-                }
-                else if (data.especialidad === 'Paciente') {
+                } else if (data.especialidad === 'Paciente') {
                   Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
@@ -86,8 +84,7 @@ export class AuthService {
                     timer: 2000
                   });
                   this.router.navigate(['/Cliente']);
-                }
-                else if (data.especialidad === 'Laboratorista') {
+                } else if (data.especialidad === 'Laboratorista') {
                   Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
@@ -99,12 +96,11 @@ export class AuthService {
 
               }
 
-
-
             });
           });
 
           this.router.navigate(['/Login']);
+
 
         }
       });

@@ -22,7 +22,7 @@ import { formatDate } from '@angular/common';
 export class PrincipalService {
 
   private dbPathClinica = '/Clinica';
-  clinicaCollection: AngularFirestoreCollection;
+  clinicaCollection: AngularFirestoreCollection<Clinica>;
   clinica: Observable<Clinica[]>;
   clinicaDoc: AngularFirestoreDocument<Clinica>;
 
@@ -121,8 +121,8 @@ export class PrincipalService {
   cargarHistoriaClinica(historia: HistoriaClinica, dniPaciente: string) {
     
     historia.dniPaciente = dniPaciente;
-    historia.matriculaEspecialista = "1234";
-    historia.especialista = (JSON.parse(localStorage["usuarioLogueado"])).nombre;
+    historia.matriculaEspecialista = '1234';
+    historia.especialista = (JSON.parse(localStorage['usuarioLogueado'])).nombre;
     historia.fecha = formatDate(new Date(), 'yyyy/MM/dd', 'en');
     this.miBase.collection('historiaClinica').add({ ...historia });
   }
@@ -134,7 +134,7 @@ export class PrincipalService {
       return actions.map(a => {
         // console.log(a)
         const data = a.payload.doc.data() as HistoriaClinica;
-        return data
+        return data;
       })
     }));
   }
