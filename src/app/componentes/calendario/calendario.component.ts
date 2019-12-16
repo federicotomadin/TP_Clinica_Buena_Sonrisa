@@ -13,8 +13,9 @@ import { PonerHistoriaClinicaComponent } from '../../componentes/poner-historia-
 })
 export class CalendarioComponent implements OnInit {
   @Input() usuario: string;
+  @Input() rol: string;
 
-  mostrarPonerHistoriaClinica:Boolean=false
+  mostrarPonerHistoriaClinica: Boolean = false
   dias = [];
   arrayTurnos = [];
 
@@ -30,12 +31,12 @@ export class CalendarioComponent implements OnInit {
 
 
   }
-  sacarHistoriaClinica(){
-    this.mostrarPonerHistoriaClinica=false
-    }
+  sacarHistoriaClinica() {
+    this.mostrarPonerHistoriaClinica = false
+  }
 
-  setearArray(){
-    
+  setearArray() {
+
     const today = new Date()
     for (let i = 0; i < 30; i++) {
       let unDiaMas = new Date(today)
@@ -48,21 +49,21 @@ export class CalendarioComponent implements OnInit {
       hora.setMinutes(0);
       hora.setSeconds(0);
       for (let j = 0; j < 50; j++) {
-      
+
         this.dias[i].turnos.push({ "hora": hora.getHours(), "minutos": hora.getMinutes() })
         hora.setMinutes(hora.getMinutes() + 15)
       }
 
     }
   }
-  clickTurno(e:Event, turno:any, dia:any){
-   if(turno.hasOwnProperty("turno")){
-     console.log(turno.turno)
-    //HAY TURNO EN ESTE HORARIO
-  //  if(JSON.parse(localStorage["usuarioLogueado"]).especialidad=="Odontologo"){
-    this.mostrarPonerHistoriaClinica=true;
-   //   }
-    }else{
+  clickTurno(e: Event, turno: any, dia: any) {
+    if (turno.hasOwnProperty("turno")) {
+      console.log(turno.turno)
+      //HAY TURNO EN ESTE HORARIO
+      //  if(JSON.parse(localStorage["usuarioLogueado"]).especialidad=="Odontologo"){
+      this.mostrarPonerHistoriaClinica = true;
+      //   }
+    } else {
       //NO HAY TURNO EN ESTE HORARIO
       alert("agregar turno a este horario")
 
@@ -70,21 +71,33 @@ export class CalendarioComponent implements OnInit {
     }
   }
   traerTurnosQVeElUsuario() {
+
+
+
+    let usuario = JSON.parse(localStorage["usuarioLogueado"])
     this.setearArray() //VACIO TODO
     this.ser.traerTurnos()
     this.ser.turnos.subscribe((e) => {
-      this.arrayTurnos = e;
-      
-      for(let i=0;i<e.length;i++){
-        this.agregarTurno(e[i]);
-        }
+      if (this.rol == "recepcionista") {
+        this.arrayTurnos = e;
+      } else if (this.rol == "paciente") {
+
+        this.arrayTurnos = e.filter(turno => turno.dniPaciente == usuario.dni);
+
+      }else if(this.rol=="odontologo"){
+        this.arrayTurnos = e.filter(turno => turno.matriculaMedico == usuario.matricula);
+
+      }
+      for (let i = 0; i < this.arrayTurnos.length; i++) {
+        this.agregarTurno(this.arrayTurnos[i]);
+      }
     });
   }
 
   agregarTurno(t: any) {
-    window["calendario"]=this;
+    window["calendario"] = this;
     let fechaTurno = t.fecha.toDate();
-    
+
     console.log(fechaTurno, this.dias[0].ano);
     if (fechaTurno.getFullYear() < this.dias[0].ano) {
       console.log("el turno es de un año anterior al actual")
@@ -110,7 +123,7 @@ export class CalendarioComponent implements OnInit {
                   let tur = this.dias[i].turnos[j];
 
                   if (tur.hora == fechaTurno.getHours()) {
-                    if (Math.abs(tur.minutos - fechaTurno.getMinutes())<10) {
+                    if (Math.abs(tur.minutos - fechaTurno.getMinutes()) < 10) {
                       this.dias[i].turnos[j]["turno"] = t;
                       return 1;
                     }
@@ -125,6 +138,7 @@ export class CalendarioComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.traerTurnosQVeElUsuario();/*
     let t = new Turno(new Date("1981-04-05 20:20"));
     let t2 = new Turno(new Date("2019-12-15 15:20"));
