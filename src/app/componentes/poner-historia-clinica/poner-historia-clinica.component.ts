@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -16,7 +16,7 @@ import { PrincipalService } from '../../servicios/principal.service';
   styleUrls: ['./poner-historia-clinica.component.css']
 })
 export class PonerHistoriaClinicaComponent implements OnInit {
-
+  @Output() sacar : EventEmitter <Boolean> = new EventEmitter<Boolean>();
 
   checked: boolean = true;
 
@@ -29,7 +29,9 @@ export class PonerHistoriaClinicaComponent implements OnInit {
     { name: 'Perno y corona', abbrev: 'CO' },
   ];
 
-
+  sacarPonerHistoria(){
+    this.sacar.emit(true);
+  }
   constructor(private principalService: PrincipalService,
     public ruta: Router, private authService: AuthService) { }
 
