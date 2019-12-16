@@ -1,0 +1,8 @@
+#cont {
+    position: fixed;
+    top: 0px;
+    background: rgba(0,0,0,0.5);
+    width: 100vw;
+    height: 100vh;
+    padding-top: 21%;
+}

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Usuario } from '../../clases/usuario';
 import { Turno } from '../../clases/turno';
 import { PrincipalService } from '../../servicios/principal.service';
+import { PonerHistoriaClinicaComponent } from '../../componentes/poner-historia-clinica/poner-historia-clinica.component';
 
 
 
@@ -12,10 +13,12 @@ import { PrincipalService } from '../../servicios/principal.service';
 })
 export class CalendarioComponent implements OnInit {
   @Input() usuario: string;
+
+  mostrarPonerHistoriaClinica:Boolean=false
   dias = [];
   arrayTurnos = [];
 
-  constructor(private ser: PrincipalService) {
+  constructor(private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
 
 
     // this.dias.push({fecha:today.getDate()+"/"+String(Number(today.getMonth()+1))+"/"+today.getUTCFullYear(), turnos:[]})
@@ -27,7 +30,9 @@ export class CalendarioComponent implements OnInit {
 
 
   }
-
+  sacarHistoriaClinica(){
+    this.mostrarPonerHistoriaClinica=false
+    }
 
   setearArray(){
     
@@ -54,6 +59,9 @@ export class CalendarioComponent implements OnInit {
    if(turno.hasOwnProperty("turno")){
      console.log(turno.turno)
     //HAY TURNO EN ESTE HORARIO
+  //  if(JSON.parse(localStorage["usuarioLogueado"]).especialidad=="Odontologo"){
+    this.mostrarPonerHistoriaClinica=true;
+   //   }
     }else{
       //NO HAY TURNO EN ESTE HORARIO
       alert("agregar turno a este horario")
