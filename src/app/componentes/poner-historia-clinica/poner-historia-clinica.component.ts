@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/servicios/auth.service';
 
 import { Usuario } from '../../clases/usuario';
-import {HistoriaClinica} from '../../clases/historiaClinica';
+import { HistoriaClinica } from '../../clases/historiaClinica';
 import { PrincipalService } from '../../servicios/principal.service';
 
 
@@ -18,11 +18,15 @@ import { PrincipalService } from '../../servicios/principal.service';
 export class PonerHistoriaClinicaComponent implements OnInit {
 
 
-  historia:HistoriaClinica; 
+  checked: boolean = true;
+
+  historias:HistoriaClinica[];
+
+  historia: HistoriaClinica;
   tratamientos = [
-    {name: 'Ortodoncia', abbrev: 'AZ'},
-    {name: 'Radiografía', abbrev: 'CA'},
-    {name: 'Perno y corona', abbrev: 'CO'},
+    { name: 'Ortodoncia', abbrev: 'AZ' },
+    { name: 'Radiografía', abbrev: 'CA' },
+    { name: 'Perno y corona', abbrev: 'CO' },
   ];
 
 
@@ -30,30 +34,60 @@ export class PonerHistoriaClinicaComponent implements OnInit {
     public ruta: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    if (this.validarAcceso() == false) {
+      this.ruta.navigate(['/Login']);
+    }
+
+    this.traerHistorias();
     this.historia = new HistoriaClinica();
   }
 
+
+
+  async freno(ms: number) {
+    await new Promise(resolve => setTimeout(() => resolve(), ms));
+  }
+
+
+  validarAcceso(): boolean {
+
+     let usu:Usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
+
+     return usu.especialidad == "Recepcionista";
+    
+
+  }
+
+
   ngSubmit(form: NgForm) {
     this.CargarHistoria(form);
-}
+  }
+
+  traerHistorias(){
+
+    this.principalService.traerHistoriasClinicas();
+    this.principalService.historiaClinica.subscribe((e) => {
+      this.historias = e;  
+      console.log(this.historias)    
+    });
+
+  }
 
 
-CargarHistoria(form: NgForm) {
+  CargarHistoria(form: NgForm) {
 
-  alert("local: "+this.historia.descripcion)
+    if (form.invalid) { return; }
 
-  if (form.invalid) { return; }
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text: 'Cargando historia...',
+      timer: 2000
+    });
 
-  Swal.fire({
-  allowOutsideClick: false,
-  icon: 'info',
-  text: 'Cargando historia...',
-  timer: 2000
-  });
-
-  this.principalService.cargarHistoriaClinica(form.value, "123456");
-  Swal.showLoading();
-}
+    this.principalService.cargarHistoriaClinica(form.value, "123456");
+    Swal.showLoading();
+  }
 
 
 

@@ -4,5 +4,6 @@ export class HistoriaClinica {
     descripcion: string;
     matriculaEspecialista?:string;
     tratamiento:string;
-
+    fecha:string;
+    especialista:string;
     }
