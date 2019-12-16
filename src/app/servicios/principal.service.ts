@@ -40,13 +40,13 @@ export class PrincipalService {
   public razonSocial: string;
   public clinic;
 
-  public error:string;
+  public error: string;
 
   RefClinica: AngularFireList<Clinica> = null;
   RefUsuario: AngularFireList<Usuario> = null;
-  
+
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase,
-    private miBase: AngularFirestore) {
+              private miBase: AngularFirestore) {
     this.RefClinica = db.list(this.dbPathClinica);
 
 
@@ -88,22 +88,22 @@ export class PrincipalService {
   }
 
 
-  //========================Usuarios
+  // ========================Usuarios
 
   getUsuario() {
     return this.usuario;
   }
-  
 
-  //========================Turnos
+
+  // ========================Turnos
 
   traerTurnos() {
 
     this.turnos = this.miBase.collection('turno').snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Turno;
-        return data
-      })
+        return data;
+      });
     }));
   }
 
@@ -116,13 +116,12 @@ export class PrincipalService {
   //   }
   // }
 
-  //========================Historia Clinica
+  // ========================Historia Clinica
 
   cargarHistoriaClinica(historia: HistoriaClinica, dniPaciente: string) {
-    
     historia.dniPaciente = dniPaciente;
     historia.matriculaEspecialista = '1234';
-    historia.especialista = (JSON.parse(localStorage['usuarioLogueado'])).nombre;
+    historia.especialista = (JSON.parse(localStorage.usuarioLogueado)).nombre;
     historia.fecha = formatDate(new Date(), 'yyyy/MM/dd', 'en');
     this.miBase.collection('historiaClinica').add({ ...historia });
   }
@@ -135,7 +134,7 @@ export class PrincipalService {
         // console.log(a)
         const data = a.payload.doc.data() as HistoriaClinica;
         return data;
-      })
+      });
     }));
   }
 
@@ -149,7 +148,7 @@ export class PrincipalService {
   }
 
   createUsuario(usuario: Usuario): void {
-    this.RefUsuario.push({ ...usuario });
+    this.usuarioCollection.add({ ...usuario });
   }
 
 

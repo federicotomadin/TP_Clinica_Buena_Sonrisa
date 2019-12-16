@@ -30,7 +30,6 @@ export class AdministradorComponent implements OnInit {
   ngSubmit(form: NgForm) {
 
     if (form.invalid) { return; }
-  
     Swal.fire({
         allowOutsideClick: false,
         icon: 'info',
@@ -40,15 +39,14 @@ export class AdministradorComponent implements OnInit {
       // Swal.showLoading();
     this.authService.CrearUsuario(form.value);
     this.router.navigate(['/Administrador']);
-  
     }
 
   public onFileSelectd($event) {
     if ($event.target.files.length === 1) {
       this.serviceFireStorage.referenciaCloudStorage($event.target.files[0].name).getDownloadURL()
        .subscribe(resp  => {
-         this.urlPublica = resp + '_thumb_' + '480.' + ($event.target.files[0].type).substr(6, 4).toString();
-         this.usuario.foto =  resp + '_thumb_' + '480.' + ($event.target.files[0].type).substr(6, 4).toString();
+         this.urlPublica = resp + '_thumb_' + '480.' + ($event.target.files[0].type).substr(6, 3).toString();
+         this.usuario.foto =  resp + '_thumb_' + '480.' + ($event.target.files[0].type).substr(6, 3).toString();
 
          Swal.fire({
           allowOutsideClick: false,

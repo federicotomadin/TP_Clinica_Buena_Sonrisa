@@ -29,9 +29,9 @@
                     <label><b>Especialidad</b></label>
                     <span *ngIf="f.submitted && f.controls['especialidad'].errors" class="text-danger animated fadeIn">La especialidad es obligatoria</span><br>
                     <select class="custom-select custom-select-lg col-md-3" name="especialidad" [(ngModel)]="usuario.especialidad" required>
-                <option value="Auto" selected>Recepcionista</option>
-                <option value="Camioneta">Laboratorista</option>
-                <option value="Camion">Odontólogo</option>
+                <option value="Recepcionista" selected>Recepcionista</option>
+                <option value="Laboratorista">Laboratorista</option>
+                <option value="Odontólogo">Odontólogo</option>
              </select><br>
                 </div>
             </div>
@@ -60,7 +60,7 @@
             </div>
 
             <div class="clearfix">
-                <button type="submit" class="signupbtn">Cargar Auto</button>
+                <button type="submit" class="signupbtn">Cargar Usuario</button>
             </div>
         </div>
     </form>
