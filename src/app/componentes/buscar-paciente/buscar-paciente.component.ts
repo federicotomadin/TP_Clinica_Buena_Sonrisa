@@ -1,0 +1,46 @@
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { Usuario } from 'src/app/clases/usuario';
+import { PrincipalService } from '../../servicios/principal.service';
+
+
+
+@Component({
+  selector: 'app-buscar-paciente',
+  templateUrl: './buscar-paciente.component.html',
+  styleUrls: ['./buscar-paciente.component.css']
+})
+export class BuscarPacienteComponent implements OnInit {
+
+  public dniPaciente: any;
+  public listaPacientes = []
+  public resultadosBusqueda = []
+
+  constructor(private auth: AuthService, private ser: PrincipalService) {
+    window["buscar"] = this
+  }
+
+  ngOnInit() {
+    this.ser.traerUsuarios();
+    this.ser.usuarios.subscribe((e) => {
+      this.listaPacientes=e;
+    });
+  }
+
+  buscar() {
+    console.log(this.listaPacientes)
+    this.resultadosBusqueda = [];
+    for (let i = 0; i < this.listaPacientes.length; i++) {
+      
+        console.log(this.listaPacientes[i].dniUsuario , this.dniPaciente);
+        if (this.listaPacientes[i].dniUsuario == this.dniPaciente) {
+          this.resultadosBusqueda.push(this.listaPacientes[i]);
+        }
+
+
+    }
+   if(this.resultadosBusqueda.length==0) this.resultadosBusqueda=this.listaPacientes;
+  }
+
+}
+

@@ -75,6 +75,10 @@ export class PrincipalService {
       });
     }));
 
+
+
+
+
     this.HistoriaClinicaCollection = this.miBase.collection('historiaClinica');
     this.historiaClinica = this.HistoriaClinicaCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
