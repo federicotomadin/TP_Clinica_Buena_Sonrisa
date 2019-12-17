@@ -21,6 +21,9 @@ export class CalendarioComponent implements OnInit {
 
 
   mostrarPonerHistoriaClinica: Boolean = false;
+
+  mostrarPedirTurno:Boolean = false;
+
   dias = [];
   arrayTurnos = [];
   todosLosTurnos = [];
@@ -41,6 +44,9 @@ export class CalendarioComponent implements OnInit {
   }
   sacarHistoriaClinica() {
     this.mostrarPonerHistoriaClinica = false;
+  }
+  sacarPedirTurno(){
+    this.mostrarPedirTurno=false;
   }
 
   cambioElSelect(val: any) {
@@ -90,7 +96,7 @@ export class CalendarioComponent implements OnInit {
       //   }
     } else {
       // NO HAY TURNO EN ESTE HORARIO
-      alert('agregar turno a este horario');
+      this.mostrarPedirTurno=true;
 
 
     }

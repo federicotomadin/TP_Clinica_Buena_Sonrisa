@@ -29,8 +29,12 @@ export class PonerHistoriaClinicaComponent implements OnInit {
     { name: 'Perno y corona', abbrev: 'CO' },
   ];
 
-  sacarPonerHistoria(){
-    this.sacar.emit(true);
+  sacarPonerHistoria(e:Event){
+    if(e["toElement"].id=="cont"){
+      this.sacar.emit(true);
+    }
+
+   
   }
   constructor(private principalService: PrincipalService,
     public ruta: Router, private authService: AuthService) { }
