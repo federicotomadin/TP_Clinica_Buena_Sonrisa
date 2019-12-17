@@ -16,8 +16,6 @@ export class AuthGuard implements CanActivate {
               private principalService: PrincipalService) {}
 
 
-  url: string;
-
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> |  boolean {
@@ -25,7 +23,9 @@ export class AuthGuard implements CanActivate {
       // this.afsAuth.auth.signOut();
 
         if (state.url === '/Laboratorista' || state.url === '/Recepcionista' 
-            || state.url === '/Medico' || state.url === '/Cliente' || state.url === '/Administrador' ) {
+            || state.url === '/Medico' || state.url === '/Cliente' || state.url === '/Administrador' || state.url === '/Turno' 
+            || state.url === '/Historia' ||  state.url === '/Clinica' 
+            || state.url === '/ponerHistoria' || state.url === '/Calendario' ) {
       
          this.afsAuth.idTokenResult.subscribe(dat => {   
            if (isNullOrUndefined(dat)) {

@@ -17,15 +17,15 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes = [
   { path: '', component: LoginComponent},
-  { path: 'Calendario', component: CalendarioComponent },
+  { path: 'Calendario', component: CalendarioComponent, canActivate: [AuthGuard] },
   { path: 'Cliente', component: ClienteComponent, canActivate: [AuthGuard] },
-  { path: 'Historia', component: HistoriaclinicaComponent},
+  { path: 'Historia', component: HistoriaclinicaComponent, canActivate: [AuthGuard]},
   { path: 'Login', component: LoginComponent},
   { path: 'Medico', component: MedicoComponent, canActivate: [AuthGuard]},
-  { path: 'Turno', component: PedirturnoComponent},
+  { path: 'Turno', component: PedirturnoComponent, canActivate: [AuthGuard]},
   { path: 'Recepcionista', component: RecepcionistaComponent, canActivate: [AuthGuard]},
   { path: 'Laboratorista', component: LaboratoristaComponent, canActivate: [AuthGuard]},
-  { path: 'ponerhistoria', component: PonerHistoriaClinicaComponent},
+  { path: 'ponerhistoria', component: PonerHistoriaClinicaComponent, canActivate: [AuthGuard]},
   { path: 'Registro', component: RegistroComponent},
   { path: 'Administrador', component: AdministradorComponent, canActivate: [AuthGuard]},
 ];
