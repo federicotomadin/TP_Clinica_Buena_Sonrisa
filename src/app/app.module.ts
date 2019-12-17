@@ -34,6 +34,7 @@ import { AdministradorComponent } from './componentes/administrador/administrado
 import { FirestorageService } from './servicios/firestorage.service';
 import { BarraSuperiorComponent } from './componentes/barra-superior/barra-superior.component';
 import { BuscarPacienteComponent } from './componentes/buscar-paciente/buscar-paciente.component';
+import { VerTurnoComponent } from './componentes/ver-turno/ver-turno.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { BuscarPacienteComponent } from './componentes/buscar-paciente/buscar-pa
     LaboratoristaComponent,
     AdministradorComponent,
     BarraSuperiorComponent,
-    BuscarPacienteComponent
+    BuscarPacienteComponent,
+    VerTurnoComponent
   ],
   imports: [
     FormsModule,

@@ -31,7 +31,12 @@ export class CalendarioComponent implements OnInit {
 
   constructor(private auth: AuthService,  private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
 
-    this.usuarioLogueado = this.auth.usuarioLogueado;
+    if(this.auth.usuarioLogueado==undefined || this.auth.usuarioLogueado==null){
+      this.usuarioLogueado=new Usuario()
+    }else{
+      this.usuarioLogueado = this.auth.usuarioLogueado;
+      }
+
 
     // this.dias.push({fecha:today.getDate()+"/"+String(Number(today.getMonth()+1))+"/"+today.getUTCFullYear(), turnos:[]})
 
@@ -89,14 +94,21 @@ export class CalendarioComponent implements OnInit {
   }
   clickTurno(e: Event, turno: any, dia: any) {
     if (turno.hasOwnProperty('turno')) {
+      if(this.rol=="Paciente" || this.rol=="Recepcionista"){
+        alert("ver turno")
+      }else if(this.rol=="Odontologo"){
+        this.mostrarPonerHistoriaClinica = true;
+
+      }
       console.log(turno.turno);
       // HAY TURNO EN ESTE HORARIO
       //  if(JSON.parse(localStorage["usuarioLogueado"]).especialidad=="Odontologo"){
-      this.mostrarPonerHistoriaClinica = true;
       //   }
     } else {
       // NO HAY TURNO EN ESTE HORARIO
-      this.mostrarPedirTurno=true;
+      if(this.rol!="Odontologo"){
+        this.mostrarPedirTurno=true;
+      }
 
 
     }
