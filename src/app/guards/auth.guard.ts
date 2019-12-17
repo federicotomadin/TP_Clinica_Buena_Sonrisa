@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { take, map, tap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PrincipalService } from '../servicios/principal.service';
+import { isNullOrUndefined } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -19,28 +20,25 @@ export class AuthGuard implements CanActivate {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): boolean {
+    state: RouterStateSnapshot): Observable<boolean> |  boolean {
 
+      // this.afsAuth.auth.signOut();
 
-       this.afsAuth.authState.subscribe(resp => {
-
-        console.log(this.principalService.getUsuario());
-
-
-        const especialidad =  this.principalService.traerEspecialidad(resp.email);
-
-        if (state.url === '/' + especialidad) {
-           this.router.navigate([state.url]);
-           return true;
-         } else {
-            this.router.navigate(['/' + especialidad]);
+        if (state.url === '/Laboratorista' || state.url === '/Recepcionista' 
+            || state.url === '/Medico' || state.url === '/Cliente' || state.url === '/Administrador' ) {
+      
+         this.afsAuth.idTokenResult.subscribe(dat => {   
+           if (isNullOrUndefined(dat)) {
+            this.router.navigate(['/Login']);
             return false;
-          }
-       });
-
-       this.router.navigate(['/Login']);
-       return false;
-
+           }
+         })
+    
+          return true;
+          
+         } else {
+          this.router.navigate(['/Login'])
+         }
 }
   }
 

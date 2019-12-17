@@ -43,6 +43,7 @@ export class PrincipalService {
   public error: string;
 
   public medicos:any;
+  public usuarios: any;
   public listaMedicos:[];
 
   RefClinica: AngularFireList<Clinica> = null;
@@ -107,7 +108,11 @@ export class PrincipalService {
 
   // ========================Turnos
 
+traerUsuarios() {
+  this.usuarios = this.miBase.collection('usuario').snapshotChanges().pipe(map(actions => 
+    actions.map(a => a.payload.doc.data())));
 
+}
 
   traerTodosLosMedicos() {
 
@@ -168,15 +173,6 @@ export class PrincipalService {
     this.usuarioCollection.add({ ...usuario });
   }
 
-  traerEspecialidad(email: string) {
-
-   this.getUsuario().subscribe(resp => {
-    console.log(resp);
-    resp.map(data => {
-      console.log(data);
-    });
-   });
-  }
 
 
 
