@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {CalendarioComponent} from '../app/componentes/calendario/calendario.component';
 import {ClienteComponent} from './componentes/cliente/cliente.component';
-import {HistoriaclinicaComponent} from '../app/componentes/historiaclinica/historiaclinica.component';
+//import {HistoriaclinicaComponent} from '../app/componentes/historiaclinica/historiaclinica.component';
 import {LoginComponent} from '../app/componentes/login/login.component';
 import {MedicoComponent} from '../app/componentes/medico/medico.component';
 import {PedirturnoComponent} from '../app/componentes/pedirturno/pedirturno.component';
@@ -19,7 +19,7 @@ const routes = [
   { path: '', component: LoginComponent},
   { path: 'Calendario', component: CalendarioComponent, canActivate: [AuthGuard] },
   { path: 'Cliente', component: ClienteComponent, canActivate: [AuthGuard] },
-  { path: 'Historia', component: HistoriaclinicaComponent, canActivate: [AuthGuard]},
+  //{ path: 'Historia', component: HistoriaclinicaComponent, canActivate: [AuthGuard]},
   { path: 'Login', component: LoginComponent},
   { path: 'Medico', component: MedicoComponent, canActivate: [AuthGuard]},
   { path: 'Turno', component: PedirturnoComponent, canActivate: [AuthGuard]},
