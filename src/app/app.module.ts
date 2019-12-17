@@ -32,6 +32,7 @@ import { PrincipalService } from './servicios/principal.service';
 import { LaboratoristaComponent } from './componentes/laboratorista/laboratorista.component';
 import { AdministradorComponent } from './componentes/administrador/administrador.component';
 import { FirestorageService } from './servicios/firestorage.service';
+import { BarraSuperiorComponent } from './componentes/barra-superior/barra-superior.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { FirestorageService } from './servicios/firestorage.service';
     RecepcionistaComponent,
     FiltroPipe,
     LaboratoristaComponent,
-    AdministradorComponent
+    AdministradorComponent,
+    BarraSuperiorComponent
   ],
   imports: [
     FormsModule,
