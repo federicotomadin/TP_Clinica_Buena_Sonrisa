@@ -13,21 +13,21 @@ import { RecepcionistaComponent } from './componentes/recepcionista/recepcionist
 import { LaboratoristaComponent } from './componentes/laboratorista/laboratorista.component';
 import { AdministradorComponent } from './componentes/administrador/administrador.component';
 
-
+import { AuthGuard } from './guards/auth.guard';
 
 const routes = [
   { path: '', component: LoginComponent},
   { path: 'Calendario', component: CalendarioComponent },
-  { path: 'Cliente', component: ClienteComponent },
+  { path: 'Cliente', component: ClienteComponent, canActivate: [AuthGuard] },
   { path: 'Historia', component: HistoriaclinicaComponent},
   { path: 'Login', component: LoginComponent},
-  { path: 'Medico', component: MedicoComponent},
+  { path: 'Medico', component: MedicoComponent, canActivate: [AuthGuard]},
   { path: 'Turno', component: PedirturnoComponent},
-  { path: 'Recepcionista', component: RecepcionistaComponent},
-  { path: 'Laboratorista', component: LaboratoristaComponent},
+  { path: 'Recepcionista', component: RecepcionistaComponent, canActivate: [AuthGuard]},
+  { path: 'Laboratorista', component: LaboratoristaComponent, canActivate: [AuthGuard]},
   { path: 'ponerhistoria', component: PonerHistoriaClinicaComponent},
   { path: 'Registro', component: RegistroComponent},
-  { path: 'Administrador', component: AdministradorComponent},
+  { path: 'Administrador', component: AdministradorComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

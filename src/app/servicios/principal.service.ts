@@ -30,7 +30,7 @@ export class PrincipalService {
   historiaClinica: Observable<HistoriaClinica[]>;
   historiaClinicaDoc: AngularFirestoreDocument<HistoriaClinica>;
 
-  usuarioCollection: AngularFirestoreCollection;
+  usuarioCollection: AngularFirestoreCollection<Usuario>;
   usuario: Observable<Usuario[]>;
   usuarioDoc: AngularFirestoreDocument<Usuario>;
 
@@ -149,6 +149,16 @@ export class PrincipalService {
 
   createUsuario(usuario: Usuario): void {
     this.usuarioCollection.add({ ...usuario });
+  }
+
+  traerEspecialidad(email: string) {
+
+   this.getUsuario().subscribe(resp => {
+    console.log(resp);
+    resp.map(data => {
+      console.log(data);
+    });
+   });
   }
 
 

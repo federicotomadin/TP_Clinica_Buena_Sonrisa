@@ -1,0 +1,18 @@
+button {
+    background-color: #4CAF50;
+    color: white;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 25%;
+}
+
+.container {
+    padding: 16px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}

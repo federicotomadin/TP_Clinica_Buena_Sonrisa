@@ -14,15 +14,15 @@ export class RecepcionistaComponent implements OnInit {
 
 
 
-  constructor(private ser:PrincipalService) {
+  constructor(private ser: PrincipalService) {
    
 
    }
 
 
   ngOnInit() {
-   this.usuario= JSON.parse(localStorage["usuarioLogueado"]);
-    console.log(this.usuario);
+   this.usuario = JSON.parse(localStorage['usuarioLogueado']);
+   console.log(this.usuario);
 
 
 

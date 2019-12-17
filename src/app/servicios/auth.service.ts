@@ -7,6 +7,7 @@ import { PrincipalService } from './principal.service';
 import { Usuario } from '../clases/usuario';
 import Swal from 'sweetalert2';
 import { BehaviorSubject } from 'rxjs';
+import { isNullOrUndefined } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class AuthService {
   public eventAuthErrors = this.eventAuthError.asObservable();
   public usuarioConectado = false;
   public isLogin = false;
+  public especialidad;
 
 
   constructor(private afAuth: AngularFireAuth,
@@ -26,6 +28,14 @@ export class AuthService {
               private principalService: PrincipalService) { }
 
   CrearUsuario(usuario: Usuario) {
+    this.afAuth.auth.createUserWithEmailAndPassword(usuario.email, usuario.password)
+      .then(resp => {
+        this.principalService.createUsuario(usuario);
+      });
+  }
+
+  CrearPaciente(usuario: Usuario) {
+    usuario.especialidad = 'Paciente';
     this.afAuth.auth.createUserWithEmailAndPassword(usuario.email, usuario.password)
       .then(resp => {
         this.principalService.createUsuario(usuario);
@@ -60,15 +70,17 @@ export class AuthService {
 
 
               if (data.especialidad === 'Recepcionista') {
+                this.especialidad = data.especialidad;
 
-                  Swal.fire({
+                Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
                     text: 'RECEPCIONISTA',
                     timer: 2000
                   });
-                  this.router.navigate(['/Recepcionista']);
+                this.router.navigate(['/Recepcionista']);
                 } else if (data.especialidad === 'Odontologo') {
+                  this.especialidad = data.especialidad;
                   Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
@@ -77,6 +89,7 @@ export class AuthService {
                   });
                   this.router.navigate(['/Medico']);
                 } else if (data.especialidad === 'Paciente') {
+                  this.especialidad = data.especialidad;
                   Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
@@ -85,6 +98,7 @@ export class AuthService {
                   });
                   this.router.navigate(['/Cliente']);
                 } else if (data.especialidad === 'Laboratorista') {
+                  this.especialidad = data.especialidad;
                   Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
@@ -105,4 +119,11 @@ export class AuthService {
         }
       });
   }
+
+  Logout() {
+    return this.afAuth.auth.signOut();
+  }
+
+  
+
 }
