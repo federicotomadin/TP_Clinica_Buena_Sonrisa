@@ -1,0 +1,6 @@
+<div class="navbar" *ngIf="taLogueado">
+    <p>{{usuario.nombre}}</p>
+    <button *ngIf="this.usuario.especialidad=='Recepcionista'">boton para recepcionista</button>
+    
+    <button *ngIf="this.usuario.especialidad=='Odontologo'">boton para odontologo</button>
+</div>

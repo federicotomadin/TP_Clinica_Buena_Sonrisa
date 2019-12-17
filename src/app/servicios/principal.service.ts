@@ -42,6 +42,9 @@ export class PrincipalService {
 
   public error: string;
 
+  public medicos:any;
+  public listaMedicos:[];
+
   RefClinica: AngularFireList<Clinica> = null;
   RefUsuario: AngularFireList<Usuario> = null;
 
@@ -81,6 +84,13 @@ export class PrincipalService {
       });
     }));
 
+
+
+    this.traerTodosLosMedicos();
+    this.medicos.subscribe((e) => {
+      this.listaMedicos=e.filter((user)=>user.matriculaMedico.length>2)
+      });
+
   }
 
   getClinica() {
@@ -96,6 +106,13 @@ export class PrincipalService {
 
 
   // ========================Turnos
+
+
+
+  traerTodosLosMedicos() {
+
+    this.medicos = this.miBase.collection('usuario').snapshotChanges().pipe(map(actions => actions.map(a =>      a.payload.doc.data()     )));
+  }
 
   traerTurnos() {
 

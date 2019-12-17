@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../clases/usuario';
 import { PrincipalService } from '../../servicios/principal.service';
+import {AuthService  } from '../../servicios/auth.service';
 
 
 
@@ -13,16 +14,11 @@ export class RecepcionistaComponent implements OnInit {
   usuario: Usuario;
 
 
-
-  constructor(private ser: PrincipalService) {
-   
-
-   }
+  constructor(private auth: AuthService, private ser: PrincipalService) {}
 
 
   ngOnInit() {
-   this.usuario = JSON.parse(localStorage['usuarioLogueado']);
-   console.log(this.usuario);
+   this.usuario = this.auth.usuarioLogueado;
 
 
 

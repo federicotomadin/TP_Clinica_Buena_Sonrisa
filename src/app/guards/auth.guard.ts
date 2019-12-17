@@ -27,21 +27,19 @@ export class AuthGuard implements CanActivate {
         console.log(this.principalService.getUsuario());
 
 
-        });
+        const especialidad =  this.principalService.traerEspecialidad(resp.email);
 
-       const especialidad =  this.principalService.traerEspecialidad(resp.email);
-
-       if (state.url === '/' + especialidad) {
+        if (state.url === '/' + especialidad) {
            this.router.navigate([state.url]);
            return true;
          } else {
             this.router.navigate(['/' + especialidad]);
             return false;
           }
-       })
+       });
 
-this.router.navigate(['/Login']);
-return false;
+       this.router.navigate(['/Login']);
+       return false;
 
 }
   }
