@@ -6,7 +6,7 @@ export class Turno {
     horario?: string;
     matriculaMedico?: string;
     nombre?: string;
-    cancelado: string;
+    cancelado = false;
 }
 
 
