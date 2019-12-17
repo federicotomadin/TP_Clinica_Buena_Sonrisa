@@ -22,11 +22,11 @@ export class AuthService {
   especialidad: string;
 
 
-  constructor(private afAuth: AngularFireAuth,
-              private db: AngularFirestore,
-              private dbBase: AngularFireDatabase,
-              private router: Router,
-              private principalService: PrincipalService) { }
+  constructor(public afAuth: AngularFireAuth,
+    public db: AngularFirestore,
+    public dbBase: AngularFireDatabase,
+    public router: Router,
+    public principalService: PrincipalService) { }
 
   CrearUsuario(usuario: Usuario) {
     this.afAuth.auth.createUserWithEmailAndPassword(usuario.email, usuario.password)

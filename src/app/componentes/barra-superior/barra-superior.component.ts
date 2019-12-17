@@ -27,7 +27,8 @@ export class BarraSuperiorComponent implements OnInit {
   }
 
   logout(){
-    this.auth.Logout();  
+    this.auth.afAuth.auth.signOut();
+     
     this.router.navigate(['/Login']);
   }
 

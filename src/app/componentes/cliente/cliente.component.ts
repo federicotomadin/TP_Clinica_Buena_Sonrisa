@@ -11,7 +11,9 @@ import { Turno } from '../../clases/turno';
 export class ClienteComponent implements OnInit {
   public nombre: string;
   public usuario: Usuario;
-
+  
+  public mostrarCalendario:Boolean=true;
+  public mostrarBuscadorPacientes:Boolean=false;
 
   constructor() {
     this.usuario = JSON.parse(localStorage.usuarioLogueado);
@@ -20,7 +22,17 @@ export class ClienteComponent implements OnInit {
   }
 
 
+  verBuscador(){
+    console.log("ver buscador - func recepcionista")
+  this.mostrarBuscadorPacientes=true;
+  this.mostrarCalendario=false;
+   }
 
+   verCalendario(){
+     console.log("ver calendario - func recepcionista")
+    this.mostrarBuscadorPacientes=false;
+    this.mostrarCalendario=true;
+     }
 
   ngOnInit() {
   }
