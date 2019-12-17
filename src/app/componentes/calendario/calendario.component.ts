@@ -19,6 +19,7 @@ export class CalendarioComponent implements OnInit {
   public usuarioLogueado: Usuario;
 
 
+
   mostrarPonerHistoriaClinica: Boolean = false;
   dias = [];
   arrayTurnos = [];

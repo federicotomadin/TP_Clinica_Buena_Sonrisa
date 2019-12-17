@@ -1,0 +1,6 @@
+<h2>buscar paciente por dni:</h2>
+dni: <input [(ngModel)]="dniPaciente" (change)="buscar()">
+
+<div class="container">
+    <div *ngFor="let pac of resultadosBusqueda">{{pac.dniUsuario}} - {{pac.nombre}}</div>
+</div>

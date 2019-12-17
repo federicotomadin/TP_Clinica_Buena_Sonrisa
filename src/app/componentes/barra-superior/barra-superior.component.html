@@ -1,6 +1,17 @@
 <div class="navbar" *ngIf="taLogueado">
-    <p>{{usuario.nombre}}</p>
-    <button *ngIf="this.usuario.especialidad=='Recepcionista'">boton para recepcionista</button>
+    <p>{{usuario.nombre.toUpperCase()}} - {{usuario.especialidad}}</p>
+
     
-    <button *ngIf="this.usuario.especialidad=='Odontologo'">boton para odontologo</button>
+    <button (click)="mostrarBuscadorPorDni()" *ngIf="this.usuario.especialidad=='Odontologo' || this.usuario.especialidad=='Recepcionista' ">buscar paciente por dni</button>
+    <!--<button *ngIf="this.usuario.especialidad=='Paciente'">boton para paciente</button>-->
+
+
+    <button (click)="verCalendario()" *ngIf="this.usuario.especialidad=='Odontologo' || this.usuario.especialidad=='Recepcionista' ">calendario</button>
+
+
+    
+
+    <button (click)="logout()">logout</button>
+
+
 </div>

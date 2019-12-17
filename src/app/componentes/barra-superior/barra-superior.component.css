@@ -1,7 +1,17 @@
 .navbar{
-    background:black;
+    background:#333333;
 }
 
 p{
 color:white;
+}
+
+.navbar button{
+    width: 180px;
+    margin: 10px;
+    font-size: 13px;
+    height: 47px;
+    line-height: 11px;
+    border: none;
+
 }

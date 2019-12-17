@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PrincipalService } from '../../servicios/principal.service';
 import { Usuario } from '../../clases/usuario';
 import {AuthService  } from '../../servicios/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-barra-superior',
@@ -11,13 +12,33 @@ import {AuthService  } from '../../servicios/auth.service';
 export class BarraSuperiorComponent implements OnInit {
   public usuario: Usuario;
   public taLogueado = false;
+  @Output() mostrarBuscador : EventEmitter <Boolean> = new EventEmitter<Boolean>();
+  @Output() mostrarCalendario : EventEmitter <Boolean> = new EventEmitter<Boolean>();
 
-  constructor(private auth: AuthService) {
+  
+
+  constructor(private auth: AuthService, private router: Router) {
     this.usuario = this.auth.usuarioLogueado;
     if (this.auth.usuarioLogueado) {
       this.taLogueado = true;
     }
+
+    window["barra_sup"]=this;
   }
+
+  logout(){
+    this.auth.Logout();  
+    this.router.navigate(['/Login']);
+  }
+
+  verCalendario(){
+    this.mostrarCalendario.emit(true);
+    console.log("mostrar calendario")
+    }
+  mostrarBuscadorPorDni(){
+    console.log("mostrar buscador por dni")
+    this.mostrarBuscador.emit(true);
+    }
 
   ngOnInit() {
   }

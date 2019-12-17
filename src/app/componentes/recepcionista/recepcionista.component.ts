@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../clases/usuario';
 import { PrincipalService } from '../../servicios/principal.service';
 import {AuthService  } from '../../servicios/auth.service';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,13 +12,31 @@ import {AuthService  } from '../../servicios/auth.service';
 })
 export class RecepcionistaComponent implements OnInit {
   usuario: Usuario;
+  public mostrarCalendario:Boolean=true;
+  public mostrarBuscadorPacientes:Boolean=false;
 
+  constructor(private auth: AuthService, private ser: PrincipalService,   private router: Router) {}
+  
+  verBuscador(){
+    console.log("ver buscador - func recepcionista")
+  this.mostrarBuscadorPacientes=true;
+  this.mostrarCalendario=false;
+   }
 
-  constructor(private auth: AuthService, private ser: PrincipalService) {}
-
+   verCalendario(){
+     console.log("ver calendario - func recepcionista")
+    this.mostrarBuscadorPacientes=false;
+    this.mostrarCalendario=true;
+     }
 
   ngOnInit() {
-   this.usuario = this.auth.usuarioLogueado;
+  
+    if(this.auth.usuarioLogueado==undefined){
+      this.router.navigate(['/Login']);
+      localStorage.usuarioLogueado=undefined;
+      }
+    this.usuario = this.auth.usuarioLogueado;
+  
 
 
 

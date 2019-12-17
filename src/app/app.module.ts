@@ -33,6 +33,7 @@ import { LaboratoristaComponent } from './componentes/laboratorista/laboratorist
 import { AdministradorComponent } from './componentes/administrador/administrador.component';
 import { FirestorageService } from './servicios/firestorage.service';
 import { BarraSuperiorComponent } from './componentes/barra-superior/barra-superior.component';
+import { BuscarPacienteComponent } from './componentes/buscar-paciente/buscar-paciente.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { BarraSuperiorComponent } from './componentes/barra-superior/barra-super
     FiltroPipe,
     LaboratoristaComponent,
     AdministradorComponent,
-    BarraSuperiorComponent
+    BarraSuperiorComponent,
+    BuscarPacienteComponent
   ],
   imports: [
     FormsModule,

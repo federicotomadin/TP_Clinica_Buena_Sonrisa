@@ -1,5 +1,6 @@
-<app-barra-superior></app-barra-superior>
+<app-barra-superior (mostrarBuscador)="verBuscador($event)" (mostrarCalendario)="verCalendario($event)"></app-barra-superior>
 
-recepcionista!<br>
 
-<app-calendario rol="recepcionista"></app-calendario> 
+<app-calendario rol="recepcionista"  *ngIf="mostrarCalendario"></app-calendario> 
+
+<app-buscar-paciente *ngIf="mostrarBuscadorPacientes"   ></app-buscar-paciente> 
