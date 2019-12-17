@@ -29,7 +29,7 @@ export class BuscarPacienteComponent implements OnInit {
   }
 
   buscar() {
-    
+    this.historiaClinicaActiva=[];
     this.resultadosBusqueda = [];
     for (let i = 0; i < this.listaPacientes.length; i++) {
       
