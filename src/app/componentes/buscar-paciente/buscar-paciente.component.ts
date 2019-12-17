@@ -15,6 +15,7 @@ export class BuscarPacienteComponent implements OnInit {
   public dniPaciente: any;
   public listaPacientes = []
   public resultadosBusqueda = []
+  public historiaClinicaActiva:any;
 
   constructor(private auth: AuthService, private ser: PrincipalService) {
     window["buscar"] = this
@@ -28,11 +29,11 @@ export class BuscarPacienteComponent implements OnInit {
   }
 
   buscar() {
-    console.log(this.listaPacientes)
+    
     this.resultadosBusqueda = [];
     for (let i = 0; i < this.listaPacientes.length; i++) {
       
-        console.log(this.listaPacientes[i].dniUsuario , this.dniPaciente);
+        
         if (this.listaPacientes[i].dniUsuario == this.dniPaciente) {
           this.resultadosBusqueda.push(this.listaPacientes[i]);
         }
@@ -40,6 +41,18 @@ export class BuscarPacienteComponent implements OnInit {
 
     }
    if(this.resultadosBusqueda.length==0) this.resultadosBusqueda=this.listaPacientes;
+  }
+
+
+  mostrarHistoriaClinica(dni:any){
+    console.log(dni);
+
+    this.ser.historiaClinica.subscribe((e)=>{
+      
+      this.historiaClinicaActiva=e.filter(a=>a.dniPaciente==dni);
+
+    })
+  
   }
 
 }
