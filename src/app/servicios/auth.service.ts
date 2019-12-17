@@ -15,8 +15,9 @@ export class AuthService {
 
   public eventAuthError = new BehaviorSubject<boolean>(true);
   public eventAuthErrors = this.eventAuthError.asObservable();
-  public usuarioConectado = false;
+  
   public isLogin = false;
+  public usuarioLogueado:Usuario;
 
 
   constructor(private afAuth: AngularFireAuth,
@@ -55,6 +56,7 @@ export class AuthService {
               if (data.email === usuarioCredential.user.email) {
                // console.log("USUARIO LOGUEADO:", data);
               localStorage.usuarioLogueado = JSON.stringify(data);
+              this.usuarioLogueado=data;
               // usuarioCredential.providerData[0]
 
 

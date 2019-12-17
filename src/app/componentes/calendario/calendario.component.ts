@@ -3,6 +3,7 @@ import { Usuario } from '../../clases/usuario';
 import { Turno } from '../../clases/turno';
 import { PrincipalService } from '../../servicios/principal.service';
 import { PonerHistoriaClinicaComponent } from '../../componentes/poner-historia-clinica/poner-historia-clinica.component';
+import {AuthService  } from '../../servicios/auth.service';
 
 
 
@@ -15,25 +16,48 @@ export class CalendarioComponent implements OnInit {
   @Input() usuario: string;
   @Input() rol: string;
 
+  public usuarioLogueado:Usuario;
+  
+
   mostrarPonerHistoriaClinica: Boolean = false
   dias = [];
   arrayTurnos = [];
+  todosLosTurnos=[]
 
-  constructor(private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
 
+  constructor(private auth: AuthService,  private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
+
+    this.usuarioLogueado=this.auth.usuarioLogueado;
 
     // this.dias.push({fecha:today.getDate()+"/"+String(Number(today.getMonth()+1))+"/"+today.getUTCFullYear(), turnos:[]})
 
 
 
     this.setearArray()
-
-
+ 
+ 
 
   }
   sacarHistoriaClinica() {
     this.mostrarPonerHistoriaClinica = false
   }
+
+  cambioElSelect(val:any){
+  // let select=e.target;
+  this.setearArray()
+  this.arrayTurnos=[]
+   for(let i=0;i<this.todosLosTurnos.length;i++){
+     if(this.todosLosTurnos[i].matriculaMedico==val){
+      this.arrayTurnos.push(this.todosLosTurnos[i]);
+      }
+   }
+     
+    
+  this.ponerTurnosVisualmente()
+
+ 
+   
+}
 
   setearArray() {
 
@@ -74,26 +98,31 @@ export class CalendarioComponent implements OnInit {
 
 
 
-    let usuario = JSON.parse(localStorage["usuarioLogueado"])
+    let usuario = this.auth.usuarioLogueado;
     this.setearArray() //VACIO TODO
     this.ser.traerTurnos()
     this.ser.turnos.subscribe((e) => {
+    
       if (this.rol == "recepcionista") {
-        this.arrayTurnos = e;
+       this.todosLosTurnos= this.arrayTurnos = e;
       } else if (this.rol == "paciente") {
 
-        this.arrayTurnos = e.filter(turno => turno.dniPaciente == usuario.dni);
+        this.arrayTurnos = e.filter(turno => turno.dniPaciente == usuario.dniUsuario);
 
       }else if(this.rol=="odontologo"){
-        this.arrayTurnos = e.filter(turno => turno.matriculaMedico == usuario.matricula);
+        this.arrayTurnos = e.filter(turno => turno.matriculaMedico == usuario.matriculaMedico);
 
       }
-      for (let i = 0; i < this.arrayTurnos.length; i++) {
-        this.agregarTurno(this.arrayTurnos[i]);
-      }
+      this.ponerTurnosVisualmente()
     });
   }
+  ponerTurnosVisualmente(){
 
+    for (let i = 0; i < this.arrayTurnos.length; i++) {
+      this.agregarTurno(this.arrayTurnos[i]);
+    }
+
+    }
   agregarTurno(t: any) {
     window["calendario"] = this;
     let fechaTurno = t.fecha.toDate();
@@ -138,6 +167,8 @@ export class CalendarioComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    
 
     this.traerTurnosQVeElUsuario();/*
     let t = new Turno(new Date("1981-04-05 20:20"));
