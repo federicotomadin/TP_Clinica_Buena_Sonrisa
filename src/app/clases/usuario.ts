@@ -1,5 +1,4 @@
 
-
 export class Usuario {
     key?: string;
     dniUsuario?: string;
