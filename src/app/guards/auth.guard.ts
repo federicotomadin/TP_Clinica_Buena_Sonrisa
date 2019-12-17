@@ -10,6 +10,7 @@ import { isNullOrUndefined } from 'util';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthGuard implements CanActivate {
 
   constructor(private afsAuth: AngularFireAuth, private authService: AuthService, private router: Router,
@@ -26,16 +27,16 @@ export class AuthGuard implements CanActivate {
             || state.url === '/Medico' || state.url === '/Cliente' || state.url === '/Administrador' || state.url === '/Turno' 
             || state.url === '/Historia' ||  state.url === '/Clinica' 
             || state.url === '/ponerHistoria' || state.url === '/Calendario' ) {
-      
-         this.afsAuth.idTokenResult.subscribe(dat => {   
+
+         this.afsAuth.idTokenResult.subscribe(dat => {
            if (isNullOrUndefined(dat)) {
             this.router.navigate(['/Login']);
             return false;
            }
-         })
-    
-          return true;
-          
+         });
+
+         return true;
+
          } else {
           this.router.navigate(['/Login'])
          }
