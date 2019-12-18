@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/servicios/auth.service';
 
 import { Usuario } from '../../clases/usuario';
 import { PrincipalService } from '../../servicios/principal.service';
+import { HorarioLogueo } from 'src/app/clases/horarioLogueo';
+import { isNullOrUndefined } from 'util';
 
 
 @Component({
@@ -21,10 +23,13 @@ export class LoginComponent implements OnInit {
   logueado: string;
   mostrarImagen = false;
   urlFoto: string;
+  horarioLogueo: HorarioLogueo;
 
   constructor(private principalService: PrincipalService,
               public ruta: Router, private authService: AuthService) {
                 this.TraerImagenLogin();
+                this.horarioLogueo = new HorarioLogueo();
+
               }
 
   ngOnInit() {
@@ -57,6 +62,16 @@ export class LoginComponent implements OnInit {
     });
 
     this.authService.Login(form.value);
+    const usu: Usuario = form.value;
+    this.horarioLogueo.horarioEntrada = new Date();
+    if (!isNullOrUndefined(this.authService.usuarioLogueado)) {
+      this.horarioLogueo.email = this.authService.usuarioLogueado.email;
+    } else {
+      this.horarioLogueo.email = '';
+    }
+    this.horarioLogueo.dniUsuario = usu.dniUsuario;
+    this.horarioLogueo.matriculaMedico = usu.matriculaMedico;
+    this.principalService.crearFechaLogueo(this.horarioLogueo);
     Swal.showLoading();
     if (this.recordarme) {
     localStorage.setItem('email', this.usuario.email);

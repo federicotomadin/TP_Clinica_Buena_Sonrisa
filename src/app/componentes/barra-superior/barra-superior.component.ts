@@ -3,6 +3,8 @@ import { PrincipalService } from '../../servicios/principal.service';
 import { Usuario } from '../../clases/usuario';
 import {AuthService  } from '../../servicios/auth.service';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { HorarioLogueo } from '../../clases/horarioLogueo';
 
 @Component({
   selector: 'app-barra-superior',
@@ -12,32 +14,39 @@ import { Router } from '@angular/router';
 export class BarraSuperiorComponent implements OnInit {
   public usuario: Usuario;
   public taLogueado = false;
-  @Output() mostrarBuscador : EventEmitter <Boolean> = new EventEmitter<Boolean>();
-  @Output() mostrarCalendario : EventEmitter <Boolean> = new EventEmitter<Boolean>();
+  @Output() mostrarBuscador: EventEmitter <Boolean> = new EventEmitter<Boolean>();
+  @Output() mostrarCalendario: EventEmitter <Boolean> = new EventEmitter<Boolean>();
+  horarioLogueo: HorarioLogueo;
 
-  
 
-  constructor(private auth: AuthService, private router: Router) {
+
+  constructor(private principalService: PrincipalService, private auth: AuthService,
+              private router: Router, private afsAuth: AngularFireAuth) {
     this.usuario = this.auth.usuarioLogueado;
+    this.horarioLogueo = new HorarioLogueo();
     if (this.auth.usuarioLogueado) {
       this.taLogueado = true;
     }
 
-    window["barra_sup"]=this;
+    window["barra_sup"] = this;
   }
 
-  logout(){
-    this.auth.afAuth.auth.signOut();
-     
+  logout() {
+    this.horarioLogueo.horarioSalida = new Date();
+    this.horarioLogueo.dniUsuario = this.auth.usuarioLogueado.dniUsuario;
+    this.horarioLogueo.matriculaMedico = this.auth.usuarioLogueado.matriculaMedico;
+    this.horarioLogueo.email = this.auth.usuarioLogueado.email;
+    this.principalService.crearFechaLogueo(this.horarioLogueo);
+    this.afsAuth.auth.signOut();
     this.router.navigate(['/Login']);
   }
 
-  verCalendario(){
+  verCalendario() {
     this.mostrarCalendario.emit(true);
-    console.log("mostrar calendario")
+    console.log('mostrar calendario');
     }
-  mostrarBuscadorPorDni(){
-    console.log("mostrar buscador por dni")
+  mostrarBuscadorPorDni() {
+    console.log('mostrar buscador por dni');
     this.mostrarBuscador.emit(true);
     }
 

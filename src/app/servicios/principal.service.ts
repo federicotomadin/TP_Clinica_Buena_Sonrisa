@@ -13,6 +13,7 @@ import { HistoriaClinica } from '../clases/historiaClinica';
 import { sharedStylesheetJitUrl } from '@angular/compiler';
 import { element } from 'protractor';
 import { formatDate } from '@angular/common';
+import { HorarioLogueo } from '../clases/horarioLogueo';
 
 
 
@@ -34,6 +35,9 @@ export class PrincipalService {
   usuario: Observable<Usuario[]>;
   usuarioDoc: AngularFirestoreDocument<Usuario>;
 
+  horarioLogueoCollection: AngularFirestoreCollection<HorarioLogueo>;
+  horarioLogueo: Observable<HorarioLogueo[]>;
+
   turnos: Observable<Turno[]>;
 
   public idTurnoActual: any;
@@ -42,7 +46,7 @@ export class PrincipalService {
 
   public error: string;
 
-  public medicos:any;
+  public medicos: any;
   public usuarios: any;
   public listaMedicos:[];
 
@@ -75,10 +79,6 @@ export class PrincipalService {
       });
     }));
 
-
-
-
-
     this.HistoriaClinicaCollection = this.miBase.collection('historiaClinica');
     this.historiaClinica = this.HistoriaClinicaCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
@@ -89,11 +89,19 @@ export class PrincipalService {
       });
     }));
 
+    this.horarioLogueoCollection = this.miBase.collection('horarioLogueo');
+    this.horarioLogueo = this.horarioLogueoCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as HorarioLogueo;
+        return data;
+      });
+    }));
+
 
 
     this.traerTodosLosMedicos();
     this.medicos.subscribe((e) => {
-      this.listaMedicos=e.filter((user)=>user.matriculaMedico.length>2)
+      this.listaMedicos = e.filter((user) => user.matriculaMedico.length > 2);
       });
 
   }
@@ -120,7 +128,8 @@ traerUsuarios() {
 
   traerTodosLosMedicos() {
 
-    this.medicos = this.miBase.collection('usuario').snapshotChanges().pipe(map(actions => actions.map(a =>      a.payload.doc.data()     )));
+    this.medicos = this.miBase.collection('usuario').snapshotChanges().pipe(map(actions => 
+      actions.map(a =>      a.payload.doc.data()     )));
   }
 
   traerTurnos() {
@@ -178,6 +187,14 @@ traerUsuarios() {
 
   createUsuario(usuario: Usuario): void {
     this.usuarioCollection.add({ ...usuario });
+  }
+
+  crearFechaLogueo(horarioLogueo: HorarioLogueo): void {
+    this.horarioLogueoCollection.add({...horarioLogueo});
+  }
+
+  getFechasLogueo() {
+    return this.horarioLogueo;
   }
 
 

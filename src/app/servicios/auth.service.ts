@@ -23,10 +23,10 @@ export class AuthService {
 
 
   constructor(public afAuth: AngularFireAuth,
-    public db: AngularFirestore,
-    public dbBase: AngularFireDatabase,
-    public router: Router,
-    public principalService: PrincipalService) { }
+              public db: AngularFirestore,
+              public dbBase: AngularFireDatabase,
+              public router: Router,
+              public principalService: PrincipalService) { }
 
   CrearUsuario(usuario: Usuario) {
     this.afAuth.auth.createUserWithEmailAndPassword(usuario.email, usuario.password)
@@ -108,8 +108,17 @@ export class AuthService {
                     timer: 2000
                   });
                   this.router.navigate(['/Laboratorista']);
+                }  else if (data.especialidad === 'Administrador') {
+                  this.especialidad = data.especialidad;
+                  Swal.fire({
+                    allowOutsideClick: false,
+                    icon: 'info',
+                    text: 'ADMINISTRADOR',
+                    timer: 2000
+                  });
+                  this.router.navigate(['/Administrador']);
                 }
-
+ 
               }
 
             });

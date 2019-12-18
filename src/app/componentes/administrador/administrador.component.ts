@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { FirestorageService } from '../../servicios/firestorage.service';
 import { Usuario } from 'src/app/clases/usuario';
+import { PrincipalService } from '../../servicios/principal.service';
 
 @Component({
   selector: 'app-administrador',
@@ -19,13 +20,24 @@ export class AdministradorComponent implements OnInit {
   laboratorista = false;
   usuario: Usuario;
   urlPublica: string;
+  altaUsuario =  false;
+  horariosUsuario = false;
 
-  constructor(private serviceFireStorage: FirestorageService, private authService: AuthService,
-              private router: Router) { }
+  listaFechasLogueo = [];
+
+  constructor(private principalService: PrincipalService, private serviceFireStorage: FirestorageService, private authService: AuthService,
+              private router: Router) {}
 
   ngOnInit() {
     this.usuario = new Usuario();
+
+    this.principalService.getFechasLogueo().subscribe( resp => {
+      resp.map( fecha =>  {
+          this.listaFechasLogueo.push(fecha);
+      });
+      });
   }
+
 
   ngSubmit(form: NgForm) {
 

@@ -14,18 +14,23 @@ import { LaboratoristaComponent } from './componentes/laboratorista/laboratorist
 import { AdministradorComponent } from './componentes/administrador/administrador.component';
 
 import { AuthGuard } from './guards/auth.guard';
+import { RecepcionistaGuardGuard } from './guards/recepcionista-guard.guard';
+import { MedicoGuardGuard } from './guards/medico-guard.guard';
+
+
+
 
 const routes = [
   { path: '', component: LoginComponent},
   { path: 'Calendario', component: CalendarioComponent, canActivate: [AuthGuard] },
-  { path: 'Cliente', component: ClienteComponent, canActivate: [AuthGuard] },
+  { path: 'Cliente', component: ClienteComponent, canActivate: [AuthGuard,MedicoGuardGuard, RecepcionistaGuardGuard] },
   //{ path: 'Historia', component: HistoriaclinicaComponent, canActivate: [AuthGuard]},
   { path: 'Login', component: LoginComponent},
-  { path: 'Medico', component: MedicoComponent, canActivate: [AuthGuard]},
+  { path: 'Medico', component: MedicoComponent, canActivate: [MedicoGuardGuard]},
   { path: 'Turno', component: PedirturnoComponent, canActivate: [AuthGuard]},
-  { path: 'Recepcionista', component: RecepcionistaComponent, canActivate: [AuthGuard]},
+  { path: 'Recepcionista', component: RecepcionistaComponent, canActivate: [RecepcionistaGuardGuard]},
   { path: 'Laboratorista', component: LaboratoristaComponent, canActivate: [AuthGuard]},
-  { path: 'ponerhistoria', component: PonerHistoriaClinicaComponent, canActivate: [AuthGuard]},
+  { path: 'ponerhistoria', component: PonerHistoriaClinicaComponent, canActivate: [AuthGuard, MedicoGuardGuard, RecepcionistaGuardGuard]},
   { path: 'Registro', component: RegistroComponent},
   { path: 'Administrador', component: AdministradorComponent, canActivate: [AuthGuard]},
 ];

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from '../servicios/auth.service';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { take, map, tap } from 'rxjs/operators';
+import { AuthService } from '../servicios/auth.service';
+
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PrincipalService } from '../servicios/principal.service';
 import { isNullOrUndefined } from 'util';
@@ -10,8 +10,7 @@ import { isNullOrUndefined } from 'util';
 @Injectable({
   providedIn: 'root'
 })
-
-export class AuthGuard implements CanActivate {
+export class RecepcionistaGuardGuard implements CanActivate {
 
   constructor(private afsAuth: AngularFireAuth, private authService: AuthService, private router: Router,
               private principalService: PrincipalService) {}
@@ -21,12 +20,12 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> |  boolean {
 
-      this.afsAuth.auth.signOut();
+      // this.afsAuth.auth.signOut();
 
       if (state.url === '/Laboratorista' || state.url === '/Recepcionista'
-            || state.url === '/Medico' || state.url === '/Cliente' || state.url === '/Administrador' || state.url === '/Turno'
+            || state.url === '/Turno'
             || state.url === '/Historia' ||  state.url === '/Clinica'
-            || state.url === '/ponerHistoria' || state.url === '/Calendario' ) {
+            || state.url === '/Calendario' ) {
 
          this.afsAuth.idTokenResult.subscribe(dat => {
            if (isNullOrUndefined(dat)) {
@@ -41,5 +40,4 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/Login']);
          }
 }
-  }
-
+}
