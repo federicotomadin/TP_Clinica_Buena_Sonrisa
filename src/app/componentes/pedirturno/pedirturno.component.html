@@ -3,10 +3,14 @@
     <div class="cuadrito">
 
         <h2> pedir turno</h2>
-        medico: <input><br>
-        paciente: <input> <br>
+        
+        medico: <select [(ngModel)]="matriculaMedico">
+            <option *ngFor="let medico of ser.listaMedicos"  [ngValue]="medico.matriculaMedico" >{{medico.matriculaMedico}}</option>
+            </select>
 
-        <button (click)="pedirTurno()"></button>
+        paciente: <input [(ngModel)]="dniUsuario"> <br>
+
+        <button (click)="pedirTurno()"> pedir turno</button>
 
     </div>
 

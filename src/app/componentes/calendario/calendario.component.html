@@ -19,4 +19,4 @@
 
 <app-poner-historia-clinica *ngIf="mostrarPonerHistoriaClinica" (sacar)="sacarHistoriaClinica($event)" ></app-poner-historia-clinica>
 
-<app-pedirturno *ngIf="mostrarPedirTurno" (sacar)="sacarPedirTurno($event)"  ></app-pedirturno>
+<app-pedirturno *ngIf="mostrarPedirTurno" (sacar)="sacarPedirTurno($event)"  [fecha]="fechaClickeada" ></app-pedirturno>

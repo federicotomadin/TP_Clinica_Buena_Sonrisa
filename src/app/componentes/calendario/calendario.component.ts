@@ -3,7 +3,7 @@ import { Usuario } from '../../clases/usuario';
 import { Turno } from '../../clases/turno';
 import { PrincipalService } from '../../servicios/principal.service';
 import { PonerHistoriaClinicaComponent } from '../../componentes/poner-historia-clinica/poner-historia-clinica.component';
-import {AuthService  } from '../../servicios/auth.service';
+import { AuthService } from '../../servicios/auth.service';
 
 
 
@@ -17,25 +17,25 @@ export class CalendarioComponent implements OnInit {
   @Input() rol: string;
 
   public usuarioLogueado: Usuario;
-
+  public fechaClickeada:Date;
 
 
   mostrarPonerHistoriaClinica: Boolean = false;
 
-  mostrarPedirTurno:Boolean = false;
+  mostrarPedirTurno: Boolean = false;
 
   dias = [];
   arrayTurnos = [];
   todosLosTurnos = [];
 
 
-  constructor(private auth: AuthService,  private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
+  constructor(private auth: AuthService, private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
 
-    if(this.auth.usuarioLogueado==undefined || this.auth.usuarioLogueado==null){
-      this.usuarioLogueado=new Usuario()
-    }else{
+    if (this.auth.usuarioLogueado == undefined || this.auth.usuarioLogueado == null) {
+      this.usuarioLogueado = new Usuario()
+    } else {
       this.usuarioLogueado = this.auth.usuarioLogueado;
-      }
+    }
 
 
     // this.dias.push({fecha:today.getDate()+"/"+String(Number(today.getMonth()+1))+"/"+today.getUTCFullYear(), turnos:[]})
@@ -44,32 +44,37 @@ export class CalendarioComponent implements OnInit {
 
     this.setearArray();
 
-
+    window["calendario"] = this;
 
   }
   sacarHistoriaClinica() {
     this.mostrarPonerHistoriaClinica = false;
   }
-  sacarPedirTurno(){
-    this.mostrarPedirTurno=false;
+  sacarPedirTurno() {
+    this.mostrarPedirTurno = false;
   }
 
   cambioElSelect(val: any) {
-  // let select=e.target;
-  this.setearArray();
-  this.arrayTurnos = [];
-  for (let i = 0; i < this.todosLosTurnos.length; i++) {
-     if (this.todosLosTurnos[i].matriculaMedico === val) {
-      this.arrayTurnos.push(this.todosLosTurnos[i]);
+    // let select=e.target;
+ 
+    this.setearArray();
+    this.arrayTurnos = [];
+    for (let i = 0; i < this.todosLosTurnos.length; i++) {
+      if (val != -1) {
+        if (this.todosLosTurnos[i].matriculaMedico == val) {
+          this.arrayTurnos.push(this.todosLosTurnos[i]);
+        }
+      } else {
+        this.arrayTurnos = this.todosLosTurnos;
       }
-   }
+    }
 
 
-  this.ponerTurnosVisualmente();
+    this.ponerTurnosVisualmente();
 
 
 
-}
+  }
 
   setearArray() {
 
@@ -93,10 +98,14 @@ export class CalendarioComponent implements OnInit {
     }
   }
   clickTurno(e: Event, turno: any, dia: any) {
+    let a=new Date(dia.ano+"-"+dia.mes+"-"+dia.dia+" "+turno.hora+":"+turno.minutos+":00");
+    //localStorage["dia"] = JSON.stringify(a);
+    this.fechaClickeada=a;
+
     if (turno.hasOwnProperty('turno')) {
-      if(this.rol=="Paciente" || this.rol=="Recepcionista"){
+      if (this.rol.toLowerCase() == "paciente" || this.rol.toLowerCase() == "recepcionista") {
         alert("ver turno")
-      }else if(this.rol=="Odontologo"){
+      } else if (this.rol == "Odontologo") {
         this.mostrarPonerHistoriaClinica = true;
 
       }
@@ -106,8 +115,8 @@ export class CalendarioComponent implements OnInit {
       //   }
     } else {
       // NO HAY TURNO EN ESTE HORARIO
-      if(this.rol!="Odontologo"){
-        this.mostrarPedirTurno=true;
+      if (this.rol != "Odontologo") {
+        this.mostrarPedirTurno = true;
       }
 
 
@@ -123,7 +132,7 @@ export class CalendarioComponent implements OnInit {
     this.ser.turnos.subscribe((e) => {
 
       if (this.rol === 'recepcionista') {
-       this.todosLosTurnos = this.arrayTurnos = e;
+        this.todosLosTurnos = this.arrayTurnos = e;
       } else if (this.rol === 'paciente') {
 
         this.arrayTurnos = e.filter(turno => turno.dniPaciente === usuario.dniUsuario);
@@ -141,36 +150,55 @@ export class CalendarioComponent implements OnInit {
       this.agregarTurno(this.arrayTurnos[i]);
     }
 
-    }
+  }
   agregarTurno(t: any) {
-    // window.calendario = this;
+  
     const fechaTurno = t.fecha.toDate();
 
-    console.log(fechaTurno, this.dias[0].ano);
+ 
+
+    for (let i = 0; i < this.dias.length; i++) {
+      for(let j=0;j<this.dias[i].turnos.length;j++){
+        let a=new Date( this.dias[i].ano+"-"+this.dias[i].mes+"-"+ this.dias[i].dia+" "+this.dias[i].turnos[j].hora+":"+this.dias[i].turnos[j].minutos+":00")
+         let dif= a.getTime()-fechaTurno.getTime();
+         //console.log(dif);
+         if(Math.abs(dif)<9*1000*60){
+          this.dias[i].turnos[j].turno = t;
+          return;
+          }
+       
+        
+       
+       }
+    }
+/*
     if (fechaTurno.getFullYear() < this.dias[0].ano) {
-      console.log('el turno es de un año anterior al actual');
+    //  console.log('el turno es de un año anterior al actual');
       return;
     } else {
       if (fechaTurno.getMonth() + 1 < this.dias[0].mes) {
-        console.log('el turno es de un mes anterior..');
+      //  console.log('el turno es de un mes anterior..');
         return;
       } else {
         if (fechaTurno.getDate() < this.dias[0].dia) {
-          console.log('el turno tiene dia menor');
+        //  console.log('el turno tiene dia menor');
           return;
         } else {
           if (fechaTurno.getHours() < 9) {
-            console.log('el turno es para antes de las 9 de la mañana..cualca');
+          //  console.log('el turno es para antes de las 9 de la mañana..cualca');
             return;
           } else {
+          //  console.log(t)
             // esta todo bien y se carga
             for (let i = 0; i < this.dias.length; i++) {
-              if (fechaTurno.getMonth() + 1 === this.dias[i].mes && fechaTurno.getDate() === this.dias[i].dia) {
+             // console.log(this.dias[i].ano, fechaTurno.getFullYear())
+             // console.log(fechaTurno.getMonth() + 1 ,this.dias[i].mes , fechaTurno.getDate() , this.dias[i].dia)
+              if (fechaTurno.getMonth() + 1 == this.dias[i].mes && fechaTurno.getDate() == this.dias[i].dia) {
                 // es de este dia
                 for (let j = 0; j < this.dias[i].turnos.length; j++) {
                   const tur = this.dias[i].turnos[j];
 
-                  if (tur.hora === fechaTurno.getHours()) {
+                  if (tur.hora == fechaTurno.getHours()) {
                     if (Math.abs(tur.minutos - fechaTurno.getMinutes()) < 10) {
                       this.dias[i].turnos[j].turno = t;
                       return 1;
@@ -182,7 +210,7 @@ export class CalendarioComponent implements OnInit {
           }
         }
       }
-    }
+    }*/
   }
 
   ngOnInit() {

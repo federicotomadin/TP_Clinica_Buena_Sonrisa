@@ -151,7 +151,10 @@ traerUsuarios() {
     historia.fecha = formatDate(new Date(), 'yyyy/MM/dd', 'en');
     this.miBase.collection('historiaClinica').add({ ...historia });
   }
-
+  cargarTurno(t: Turno) {
+   
+    this.miBase.collection('turno').add({ ...t });
+  }
   traerHistoriasClinicas() {
 
     this.historiaClinica = this.miBase.collection('historiaClinica').snapshotChanges().pipe(map(actions => {
