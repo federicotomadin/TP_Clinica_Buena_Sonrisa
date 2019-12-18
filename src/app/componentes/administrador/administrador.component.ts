@@ -31,9 +31,13 @@ export class AdministradorComponent implements OnInit {
   listaTurnos = [];
   cantidadTurno: any;
   cantidadLaboratorista: any;
+  cantidadOdontologo: any;
 
   constructor(private principalService: PrincipalService, private serviceFireStorage: FirestorageService, private authService: AuthService,
-              private router: Router) {}
+              private router: Router) {
+                this.cantidadLaboratorista = 0;
+                this.cantidadOdontologo = 0;
+              }
 
   ngOnInit() {
     this.usuario = new Usuario();
@@ -47,12 +51,14 @@ export class AdministradorComponent implements OnInit {
 
     this.principalService.getTurnos().subscribe( resp => {
       resp.map(dat => {
-         if (dat.es === 'Laboratorista') {
-             
+         if (dat.especialidad === 'Laboratorista') {
+             this.cantidadLaboratorista += 1;
 
+         } else if (dat.especialidad === 'Odontologo') {
+           this.cantidadOdontologo += 1;
          }
 
-        this.listaTurnos.push(dat);
+         this.listaTurnos.push(dat);
 
       });
     });

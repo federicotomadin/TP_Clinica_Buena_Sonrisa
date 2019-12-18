@@ -14,7 +14,7 @@ import { HorarioLogueo } from '../clases/horarioLogueo';
   providedIn: 'root'
 })
 export class AuthService {
-  public  horarioLogueo:HorarioLogueo;
+  public  horarioLogueo: HorarioLogueo;
   public eventAuthError = new BehaviorSubject<boolean>(true);
   public eventAuthErrors = this.eventAuthError.asObservable();
 
@@ -70,14 +70,14 @@ export class AuthService {
               this.usuarioLogueado = data;
               // usuarioCredential.providerData[0]
 
-                
-              this.horarioLogueo=new HorarioLogueo()
-              this.horarioLogueo.horarioEntrada = new Date();
-      this.horarioLogueo.email = this.usuarioLogueado.email;
-    
-    this.horarioLogueo.dniUsuario = this.usuarioLogueado.dniUsuario;
-    this.horarioLogueo.matriculaMedico = this.usuarioLogueado.matriculaMedico;
-    this.principalService.crearFechaLogueo(this.horarioLogueo);
+
+              this.horarioLogueo = new HorarioLogueo();
+              this.horarioLogueo.horarioEntrada = new Date().toDateString();
+              this.horarioLogueo.email = this.usuarioLogueado.email;
+
+              this.horarioLogueo.dniUsuario = this.usuarioLogueado.dniUsuario;
+              this.horarioLogueo.matriculaMedico = this.usuarioLogueado.matriculaMedico;
+              this.principalService.crearFechaLogueo(this.horarioLogueo);
 
 
 
@@ -128,7 +128,7 @@ export class AuthService {
                   });
                   this.router.navigate(['/Administrador']);
                 }
- 
+
               }
 
             });
