@@ -64,19 +64,11 @@ export class LoginComponent implements OnInit {
     this.authService.Login(form.value);
     localStorage.setItem('email', this.usuario.email);
     const usu: Usuario = form.value;
-    console.log(new Date().toDateString());
-    this.horarioLogueo.horarioEntrada = (new Date()).toDateString();
-    if (!isNullOrUndefined(this.authService.usuarioLogueado)) {
-      this.horarioLogueo.email = this.authService.usuarioLogueado.email;
-    } else {
-      this.horarioLogueo.email = '';
-    }
-    this.horarioLogueo.dniUsuario = usu.dniUsuario;
-    this.horarioLogueo.matriculaMedico = usu.matriculaMedico;
-    this.principalService.crearFechaLogueo(this.horarioLogueo);
+
     Swal.showLoading();
     if (this.recordarme) {
-  }
+      localStorage.setItem('email', this.usuario.email);
+    }
     Swal.close();
 }
 

@@ -29,6 +29,7 @@ export class PedirturnoComponent implements OnInit {
   pedirTurno(f:Date){
     let n=new Turno();
     n.dniPaciente=this.dniUsuario;
+    n.especialidad=this.ser.matricula2Especialidad(this.matriculaMedico);
     n.matriculaMedico=this.matriculaMedico;
   
     n.fecha=this.fecha

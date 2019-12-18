@@ -171,6 +171,11 @@ traerUsuarios() {
    
     this.miBase.collection('turno').add({ ...t });
   }
+
+  matricula2Especialidad(m:any){
+    return this.listaMedicos.filter((med:any)=>{ return med.matriculaMedico==m})[0]["especialidad"];
+
+    }
   traerHistoriasClinicas() {
 
     this.historiaClinica = this.miBase.collection('historiaClinica').snapshotChanges().pipe(map(actions => {

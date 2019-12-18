@@ -47,17 +47,22 @@ export class AdministradorComponent implements OnInit {
 
     this.principalService.getTurnos().subscribe( resp => {
       resp.map(dat => {
+         if (dat.es === 'Laboratorista') {
+             
+
+         }
+
         this.listaTurnos.push(dat);
+
       });
     });
 
+
+
+    
+
   }
 
-contarTurnos(listaTurnos: []) {
-
-return cantidad,
-
-}
 
   ngSubmit(form: NgForm) {
 

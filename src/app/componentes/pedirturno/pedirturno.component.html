@@ -5,7 +5,7 @@
         <h2> pedir turno</h2>
         
         medico: <select [(ngModel)]="matriculaMedico">
-            <option *ngFor="let medico of ser.listaMedicos"  [ngValue]="medico.matriculaMedico" >{{medico.matriculaMedico}}</option>
+            <option *ngFor="let medico of ser.listaMedicos"  value="{{medico.matriculaMedico}}" >{{medico.especialidad}} - ({{medico.matriculaMedico}}) {{medico.nombre}}</option>
             </select>
 
         paciente: <input [(ngModel)]="dniUsuario"> <br>

@@ -8,12 +8,13 @@ import { Usuario } from '../clases/usuario';
 import Swal from 'sweetalert2';
 import { BehaviorSubject } from 'rxjs';
 import { isNullOrUndefined } from 'util';
+import { HorarioLogueo } from '../clases/horarioLogueo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  public  horarioLogueo:HorarioLogueo;
   public eventAuthError = new BehaviorSubject<boolean>(true);
   public eventAuthErrors = this.eventAuthError.asObservable();
 
@@ -68,6 +69,15 @@ export class AuthService {
               localStorage.usuarioLogueado = JSON.stringify(data);
               this.usuarioLogueado = data;
               // usuarioCredential.providerData[0]
+
+                
+              this.horarioLogueo=new HorarioLogueo()
+              this.horarioLogueo.horarioEntrada = new Date();
+      this.horarioLogueo.email = this.usuarioLogueado.email;
+    
+    this.horarioLogueo.dniUsuario = this.usuarioLogueado.dniUsuario;
+    this.horarioLogueo.matriculaMedico = this.usuarioLogueado.matriculaMedico;
+    this.principalService.crearFechaLogueo(this.horarioLogueo);
 
 
 
