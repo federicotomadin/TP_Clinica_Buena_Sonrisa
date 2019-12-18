@@ -6,12 +6,17 @@ import { take, map, tap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PrincipalService } from '../servicios/principal.service';
 import { isNullOrUndefined } from 'util';
+import { HorarioLogueo } from 'src/app/clases/horarioLogueo';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthGuard implements CanActivate {
+
+  horarioLogueo: HorarioLogueo;
 
   constructor(private afsAuth: AngularFireAuth, private authService: AuthService, private router: Router,
               private principalService: PrincipalService) {}
