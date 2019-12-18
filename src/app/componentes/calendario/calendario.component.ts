@@ -18,7 +18,7 @@ export class CalendarioComponent implements OnInit {
 
   public usuarioLogueado: Usuario;
   public fechaClickeada:Date;
-
+  public mostrarVerTurno=false;
 
   mostrarPonerHistoriaClinica: Boolean = false;
 
@@ -27,6 +27,7 @@ export class CalendarioComponent implements OnInit {
   dias = [];
   arrayTurnos = [];
   todosLosTurnos = [];
+  public turnoActivo:Turno;
 
 
   constructor(private auth: AuthService, private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
@@ -52,6 +53,9 @@ export class CalendarioComponent implements OnInit {
   }
   sacarPedirTurno() {
     this.mostrarPedirTurno = false;
+  }
+  sacarVerTurno() {
+    this.mostrarVerTurno = false;
   }
 
   cambioElSelect(val: any) {
@@ -104,12 +108,14 @@ export class CalendarioComponent implements OnInit {
 
     if (turno.hasOwnProperty('turno')) {
       if (this.rol.toLowerCase() == "paciente" || this.rol.toLowerCase() == "recepcionista") {
-        alert("ver turno")
+        this.turnoActivo=turno.turno;
+        this.mostrarVerTurno=true;
+        console.log(this.turnoActivo);
       } else if (this.rol == "Odontologo") {
         this.mostrarPonerHistoriaClinica = true;
 
       }
-      console.log(turno.turno);
+    //  console.log(turno.turno);
       // HAY TURNO EN ESTE HORARIO
       //  if(JSON.parse(localStorage["usuarioLogueado"]).especialidad=="Odontologo"){
       //   }
