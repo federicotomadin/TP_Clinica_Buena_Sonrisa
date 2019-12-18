@@ -13,9 +13,9 @@ import { PrincipalService } from '../../servicios/principal.service';
 export class BuscarPacienteComponent implements OnInit {
 
   public dniPaciente: any;
-  public listaPacientes = []
-  public resultadosBusqueda = []
-  public historiaClinicaActiva:any;
+  public listaPacientes = [];
+  public resultadosBusqueda = [];
+  public historiaClinicaActiva: any;
 
   constructor(private auth: AuthService, private ser: PrincipalService) {
     window["buscar"] = this
@@ -44,15 +44,20 @@ export class BuscarPacienteComponent implements OnInit {
   }
 
 
-  mostrarHistoriaClinica(dni:any){
-    console.log(dni);
+  mostrarHistoriaClinica(dni: any) {
 
-    this.ser.historiaClinica.subscribe((e)=>{
+
+    this.ser.getHistoraClinica().subscribe(resp => {
+      resp.map(dat => {
+        console.log(dat);
+      });
+    });
+
+    // this.ser.historiaClinica.subscribe((e)=>{
       
-      this.historiaClinicaActiva=e.filter(a=>a.dniPaciente==dni);
+    //   this.historiaClinicaActiva=e.filter(a=>a.dniPaciente==dni);
 
-    })
-  
+    // });
   }
 
 }

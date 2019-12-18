@@ -108,7 +108,7 @@ export class PrincipalService {
 
     this.traerTodosLosMedicos();
     this.medicos.subscribe((e) => {
-      this.listaMedicos = e.filter((user) => user.matriculaMedico.length > 2);
+      this.listaMedicos = e.filter((user) => user.matriculaMedico.length > 2 && user.especialidad !== 'Administrador') ;
       });
 
   }
@@ -172,11 +172,12 @@ traerUsuarios() {
     this.miBase.collection('turno').add({ ...t });
   }
 
-  matricula2Especialidad(m:any){
-    return this.listaMedicos.filter((med:any)=>{ return med.matriculaMedico==m})[0]["especialidad"];
-
+  matricula2Especialidad(m: any){
+    return this.listaMedicos.filter((med: any ) => {
+        return med.matriculaMedico == m})[0]["especialidad"];
     }
-  traerHistoriasClinicas() {
+
+traerHistoriasClinicas() {
 
     this.historiaClinica = this.miBase.collection('historiaClinica').snapshotChanges().pipe(map(actions => {
       // console.log(actions);
@@ -211,6 +212,10 @@ traerUsuarios() {
 
   getTurnos() {
     return this.turnos;
+  }
+
+  getHistoraClinica() {
+    return this.historiaClinica;
   }
 
 

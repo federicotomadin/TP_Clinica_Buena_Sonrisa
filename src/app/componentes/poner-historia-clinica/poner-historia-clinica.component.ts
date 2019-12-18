@@ -38,9 +38,9 @@ export class PonerHistoriaClinicaComponent implements OnInit {
               public ruta: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    if (this.validarAcceso() === false) {
-      this.ruta.navigate(['/Login']);
-    }
+    // if (this.validarAcceso() === false) {
+    //   this.ruta.navigate(['/Login']);
+    // }
 
     this.traerHistorias();
     this.historia = new HistoriaClinica();
@@ -62,7 +62,7 @@ export class PonerHistoriaClinicaComponent implements OnInit {
     this.CargarHistoria(form);
   }
 
-  traerHistorias(){
+  traerHistorias() {
 
     this.principalService.traerHistoriasClinicas();
     this.principalService.historiaClinica.subscribe((e) => {

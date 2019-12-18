@@ -9,7 +9,7 @@ export class Usuario {
     pedidosEstudios?: boolean;
     especialidad: string;
     matriculaMedico?: string;
-    foto: string;
+    foto?: string;
     }
 
 

@@ -15,7 +15,7 @@ export class FirestorageService {
   }
 
   // Referencia del archivo
-  public referenciaCloudStorage(nombreArchivo: string) {
+  public referenciaCloudStorage(nombreArchivo: string): any {
     return this.storage.ref(nombreArchivo);
   }
 }

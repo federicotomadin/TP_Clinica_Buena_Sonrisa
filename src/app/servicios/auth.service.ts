@@ -136,7 +136,6 @@ export class AuthService {
 
           this.router.navigate(['/Login']);
 
-
         }
       });
   }
@@ -144,7 +143,4 @@ export class AuthService {
   Logout() {
     return this.afAuth.auth.signOut();
   }
-
-
-
 }

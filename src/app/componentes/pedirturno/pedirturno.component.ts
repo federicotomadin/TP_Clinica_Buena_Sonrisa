@@ -17,27 +17,24 @@ export class PedirturnoComponent implements OnInit {
   @Input() fecha: Date;
 
 
-  public matriculaMedico:any;
-  public dniUsuario:any;
+  public matriculaMedico: any;
+  public dniUsuario: any;
 
-  constructor(public ser:PrincipalService) { }
+  constructor(public ser: PrincipalService) { }
 
   ngOnInit() {
-    console.log(this.fecha)
+    console.log(this.fecha);
   }
 
-  pedirTurno(f:Date){
-    let n=new Turno();
-    n.dniPaciente=this.dniUsuario;
-    n.especialidad=this.ser.matricula2Especialidad(this.matriculaMedico);
-    n.matriculaMedico=this.matriculaMedico;
+  pedirTurno(f: Date) {
+    let n = new Turno();
+    n.dniPaciente = this.dniUsuario;
+    n.especialidad =  this.ser.matricula2Especialidad(this.matriculaMedico);
+    n.matriculaMedico = this.matriculaMedico;
   
-    n.fecha=this.fecha
-    
+    n.fecha = this.fecha;
 
-    
-
-    console.log(n)
+    console.log(n);
     this.ser.cargarTurno(n);
     this.sacar.emit(true);
   }

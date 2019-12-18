@@ -35,8 +35,6 @@ export class AdministradorComponent implements OnInit {
 
   constructor(private principalService: PrincipalService, private serviceFireStorage: FirestorageService, private authService: AuthService,
               private router: Router) {
-                this.cantidadLaboratorista = 0;
-                this.cantidadOdontologo = 0;
               }
 
   ngOnInit() {
@@ -50,6 +48,8 @@ export class AdministradorComponent implements OnInit {
       });
 
     this.principalService.getTurnos().subscribe( resp => {
+      this.cantidadLaboratorista = 0;
+      this.cantidadOdontologo = 0;
       resp.map(dat => {
          if (dat.especialidad === 'Laboratorista') {
              this.cantidadLaboratorista += 1;
@@ -62,11 +62,6 @@ export class AdministradorComponent implements OnInit {
 
       });
     });
-
-
-
-    
-
   }
 
 
@@ -80,12 +75,20 @@ export class AdministradorComponent implements OnInit {
         timer: 1500
       });
       // Swal.showLoading();
+
     this.authService.CrearUsuario(form.value);
     this.router.navigate(['/Administrador']);
     }
 
   public onFileSelectd($event) {
     if ($event.target.files.length === 1) {
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text: 'Subiendo imagen',
+        timer: 2000
+        });
+      Swal.showLoading();
       this.serviceFireStorage.referenciaCloudStorage($event.target.files[0].name).getDownloadURL()
        .subscribe(resp  => {
          this.urlPublica = resp + '_thumb_' + '480.' + ($event.target.files[0].type).substr(6, 3).toString();
@@ -97,9 +100,10 @@ export class AdministradorComponent implements OnInit {
           text: 'Imagen cargada con exito',
           timer: 2000
           });
-      }, (error) => {
-        console.error(error);
       });
+      // (error) => {
+      //   console.error(error);
+      // });
       this.serviceFireStorage.tareaCloudStorage($event.target.files[0].name, $event.target.files[0]);
 }
   }
