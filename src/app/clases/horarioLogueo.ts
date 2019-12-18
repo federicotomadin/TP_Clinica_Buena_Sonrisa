@@ -2,8 +2,8 @@
 export class HorarioLogueo {
     key?: any;
     email?: string;
-    horarioEntrada?: Date;
-    horarioSalida?: Date;
+    horarioEntrada?: string;
+    horarioSalida?: string;
     dniUsuario: string;
     matriculaMedico: string;
 }

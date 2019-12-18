@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FirestorageService } from '../../servicios/firestorage.service';
 import { Usuario } from 'src/app/clases/usuario';
 import { PrincipalService } from '../../servicios/principal.service';
+import { HorarioLogueo } from 'src/app/clases/horarioLogueo';
 
 @Component({
   selector: 'app-administrador',
@@ -22,22 +23,41 @@ export class AdministradorComponent implements OnInit {
   urlPublica: string;
   altaUsuario =  false;
   horariosUsuario = false;
+  cantidadTurnos = false;
+  fechaServer: HorarioLogueo;
+  filterFecha = '2019-12-11';
 
   listaFechasLogueo = [];
+  listaTurnos = [];
+  cantidadTurno: any;
+  cantidadLaboratorista: any;
 
   constructor(private principalService: PrincipalService, private serviceFireStorage: FirestorageService, private authService: AuthService,
               private router: Router) {}
 
   ngOnInit() {
     this.usuario = new Usuario();
+    this.fechaServer = new HorarioLogueo();
 
     this.principalService.getFechasLogueo().subscribe( resp => {
       resp.map( fecha =>  {
-          this.listaFechasLogueo.push(fecha);
+         this.listaFechasLogueo.push(fecha);
       });
       });
+
+    this.principalService.getTurnos().subscribe( resp => {
+      resp.map(dat => {
+        this.listaTurnos.push(dat);
+      });
+    });
+
   }
 
+contarTurnos(listaTurnos: []) {
+
+return cantidad,
+
+}
 
   ngSubmit(form: NgForm) {
 

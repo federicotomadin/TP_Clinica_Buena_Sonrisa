@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> |  boolean {
 
-     // this.afsAuth.auth.signOut();
+    //  this.afsAuth.auth.signOut();
 
       if (state.url === '/Laboratorista' || state.url === '/Recepcionista'
             || state.url === '/Medico' || state.url === '/Cliente' || state.url === '/Administrador' || state.url === '/Turno'

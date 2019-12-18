@@ -32,7 +32,7 @@ export class BarraSuperiorComponent implements OnInit {
   }
 
   logout() {
-    this.horarioLogueo.horarioSalida = new Date();
+    this.horarioLogueo.horarioSalida = Date();
     this.horarioLogueo.dniUsuario = this.auth.usuarioLogueado.dniUsuario;
     this.horarioLogueo.matriculaMedico = this.auth.usuarioLogueado.matriculaMedico;
     this.horarioLogueo.email = this.auth.usuarioLogueado.email;

@@ -97,6 +97,13 @@ export class PrincipalService {
       });
     }));
 
+    this.turnos = this.miBase.collection('turno').snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Turno;
+        return data;
+      });
+    }));
+
 
 
     this.traerTodosLosMedicos();
@@ -195,6 +202,10 @@ traerUsuarios() {
 
   getFechasLogueo() {
     return this.horarioLogueo;
+  }
+
+  getTurnos() {
+    return this.turnos;
   }
 
 
