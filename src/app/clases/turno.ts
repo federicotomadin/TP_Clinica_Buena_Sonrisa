@@ -7,6 +7,7 @@ export class Turno {
     matriculaMedico?: string;
     nombre?: string;
     cancelado = false;
+    especialidad:string="";
 }
 
 
