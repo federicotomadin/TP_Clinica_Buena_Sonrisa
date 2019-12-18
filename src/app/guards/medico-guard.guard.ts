@@ -19,7 +19,7 @@ export class MedicoGuardGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> |  boolean {
 
-      this.afsAuth.auth.signOut();
+    //  this.afsAuth.auth.signOut();
 
       if (state.url === '/Laboratorista'
             || state.url === '/Turno' || state.url === '/Medico'
