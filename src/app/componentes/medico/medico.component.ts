@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Usuario } from '../../clases/usuario';
+import { PrincipalService } from '../../servicios/principal.service';
+import {AuthService  } from '../../servicios/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-medico',
@@ -8,8 +12,24 @@ import { Component, OnInit } from '@angular/core';
 export class MedicoComponent implements OnInit {
 
 
-  constructor() { }
+  usuario: Usuario;
+  public mostrarCalendario:Boolean=true;
+  public mostrarBuscadorPacientes:Boolean=false;
 
+  constructor(private auth: AuthService, private ser: PrincipalService,   private router: Router) {
+    
+  }
+  verBuscador(){
+    console.log("ver buscador - func recepcionista")
+  this.mostrarBuscadorPacientes=true;
+  this.mostrarCalendario=false;
+   }
+
+   verCalendario(){
+     console.log("ver calendario - func recepcionista")
+    this.mostrarBuscadorPacientes=false;
+    this.mostrarCalendario=true;
+     }
   ngOnInit() {
   }
 
