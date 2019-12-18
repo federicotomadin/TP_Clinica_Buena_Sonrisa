@@ -20,7 +20,7 @@ export class CalendarioComponent implements OnInit {
   public fechaClickeada:Date;
   public mostrarVerTurno=false;
 
-  mostrarPonerHistoriaClinica: Boolean = false;
+  mostrarPonerHistoriaClinica = false;
 
   mostrarPedirTurno: Boolean = false;
 
@@ -33,7 +33,8 @@ export class CalendarioComponent implements OnInit {
   constructor(private auth: AuthService, private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
 
     if (this.auth.usuarioLogueado == undefined || this.auth.usuarioLogueado == null) {
-      this.usuarioLogueado = new Usuario()
+      this.usuarioLogueado = new Usuario();
+
     } else {
       this.usuarioLogueado = this.auth.usuarioLogueado;
     }
@@ -112,6 +113,7 @@ export class CalendarioComponent implements OnInit {
         this.mostrarVerTurno=true;
         console.log(this.turnoActivo);
       } else if (this.rol == "Odontologo") {
+
         this.mostrarPonerHistoriaClinica = true;
 
       }

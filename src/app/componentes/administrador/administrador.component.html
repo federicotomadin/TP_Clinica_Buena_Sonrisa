@@ -1,69 +1,113 @@
 <app-barra-superior ></app-barra-superior>
 
 <div class="container">
-    <h1 style="text-align: center;">Alta de Usuarios</h1><br>
+    <h1 style="text-align: center;">Panel Administrador</h1>
 </div>
 
 <div class="container">
-    <form (ngSubmit)="ngSubmit( f )" #f="ngForm" class="modal-content animate">
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    <label><b>Nombre</b></label>
-                    <span *ngIf="f.submitted && f.controls['nombre'].errors" class="text-danger animated fadeIn">Nombre del paciente obligatorio</span><br>
-                    <input type="text" placeholder="Nombre" [(ngModel)]="usuario.nombre" name="nombre" required><br>
-                </div>
-                <div class="col-sm">
-                    <label><b>Dni del Usuario</b></label>
-                    <span *ngIf="f.submitted && f.controls['dniUsuario'].errors" class="text-danger animated fadeIn">El dni es obligatorio</span><br>
-                    <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Ingresá el año" [(ngModel)]="usuario.dniUsuario" name="dniUsuario" maxlength="8" minlength="8" required><br>
-                </div>
-            </div>
+    <button type="button" style="margin: 10px" (click)="altaUsuario=!altaUsuario" class="btn btn-outline-secondary btn-lg">Cargar Usuario</button>
+    <button type="button" style="margin: 10px" (click)="horariosUsuario=!horariosUsuario" class="btn btn-outline-secondary btn-lg">Hoarios Usuario</button>
 
-            <div class="row">
-                <div class="col-sm">
-                    <label><b>Matricula</b></label><br>
-                    <input type="text" placeholder="Ingresá la matricula" [(ngModel)]="usuario.matriculaMedico" name="matriculaMedico"><br>
+
+</div>
+
+
+<div *ngIf="horariosUsuario" class="container-fluid">
+    <table class="table" id="tablaFechas">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Dni Usuario</th>
+                <th scope="col">Matricula Medico</th>
+                <th scope="col">Horario Entrada</th>
+                <th scope="col">Horario Salida</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of listaFechasLogueo">
+            <tr>
+                <td>{{item.email}}</td>
+                <td>{{item.dniUsuario}}</td>
+                <td>{{item.matriculaMedico}}</td>
+                <td>{{item.horarioEntrada | date:"medium" }}</td>
+                <td>{{item.horarioSalida | date:"medium" }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div><br>
+
+
+
+
+
+
+
+
+<div *ngIf="!altaUsuario" class="container">
+    <h1 style="text-align: center;">Alta de Usuarios</h1><br>
+
+
+    <div class="container">
+        <form (ngSubmit)="ngSubmit( f )" #f="ngForm" class="modal-content animate">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <label><b>Nombre</b></label>
+                        <span *ngIf="f.submitted && f.controls['nombre'].errors" class="text-danger animated fadeIn">Nombre del paciente obligatorio</span><br>
+                        <input type="text" placeholder="Nombre" [(ngModel)]="usuario.nombre" name="nombre" required><br>
+                    </div>
+                    <div class="col-sm">
+                        <label><b>Dni del Usuario</b></label>
+                        <span *ngIf="f.submitted && f.controls['dniUsuario'].errors" class="text-danger animated fadeIn">El dni es obligatorio</span><br>
+                        <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Ingresá el año" [(ngModel)]="usuario.dniUsuario" name="dniUsuario" maxlength="8" minlength="8" required><br>
+                    </div>
                 </div>
 
-                <div class="col-lg">
-                    <label><b>Especialidad</b></label>
-                    <span *ngIf="f.submitted && f.controls['especialidad'].errors" class="text-danger animated fadeIn">La especialidad es obligatoria</span><br>
-                    <select class="custom-select custom-select-lg col-md-3" name="especialidad" [(ngModel)]="usuario.especialidad" required>
+                <div class="row">
+                    <div class="col-sm">
+                        <label><b>Matricula</b></label><br>
+                        <input type="text" placeholder="Ingresá la matricula" [(ngModel)]="usuario.matriculaMedico" name="matriculaMedico"><br>
+                    </div>
+
+                    <div class="col-lg">
+                        <label><b>Especialidad</b></label>
+                        <span *ngIf="f.submitted && f.controls['especialidad'].errors" class="text-danger animated fadeIn">La especialidad es obligatoria</span><br>
+                        <select class="custom-select custom-select-lg col-md-3" name="especialidad" [(ngModel)]="usuario.especialidad" required>
                 <option value="Recepcionista" selected>Recepcionista</option>
                 <option value="Laboratorista">Laboratorista</option>
                 <option value="Odontólogo">Odontólogo</option>
              </select><br>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm">
-                    <label><b>Email</b></label>
-                    <span *ngIf="f.submitted && f.controls['email'].errors" class="text-danger animated fadeIn">La email es obligatorio</span><br>
-                    <input type="text" placeholder="Ingresá la email" [(ngModel)]="usuario.email" name="email" required><br>
+                    </div>
                 </div>
 
-                <div class="col-sm">
-                    <label><b>Clave</b></label><br>
-                    <span *ngIf="f.submitted && f.controls['password'].errors" class="text-danger animated fadeIn">La contraseña es obligatoria, minimo 6 caracteres</span>
-                    <input type="password" placeholder="Acá la clave" [(ngModel)]="usuario.password" name="password" minlength="6" required><br><br>
+                <div class="row">
+                    <div class="col-sm">
+                        <label><b>Email</b></label>
+                        <span *ngIf="f.submitted && f.controls['email'].errors" class="text-danger animated fadeIn">La email es obligatorio</span><br>
+                        <input type="text" placeholder="Ingresá la email" [(ngModel)]="usuario.email" name="email" required><br>
+                    </div>
+
+                    <div class="col-sm">
+                        <label><b>Clave</b></label><br>
+                        <span *ngIf="f.submitted && f.controls['password'].errors" class="text-danger animated fadeIn">La contraseña es obligatoria, minimo 6 caracteres</span>
+                        <input type="password" placeholder="Acá la clave" [(ngModel)]="usuario.password" name="password" minlength="6" required><br><br>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <label><b>Foto</b></label>
+                        <input style="display: none;" type="file" (change)="onFileSelectd($event)" class="col-md-6" name="fileInput" #fileInput/>
+                        <button type="button" (click)="fileInput.click()" class="btn btn-secondary col-md-3 btn-sm">Subir Foto</button><br>
+                        <a href="{{urlPublica}}" target="_blank" [(ngModel)]="usuario.foto" name="foto" ngDefaultControl>Foto Subida</a><br><br>
+                    </div>
+                </div>
+
+                <div class="clearfix">
+                    <button type="submit" class="signupbtn">Cargar Usuario</button>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-sm">
-                    <label><b>Foto</b></label>
-                    <input style="display: none;" type="file" (change)="onFileSelectd($event)" class="col-md-6" name="fileInput" #fileInput/>
-                    <button type="button" (click)="fileInput.click()" class="btn btn-secondary col-md-3 btn-sm">Subir Foto</button><br>
-                    <a href="{{urlPublica}}" target="_blank" [(ngModel)]="usuario.foto" name="foto" ngDefaultControl>Foto Subida</a><br><br>
-                </div>
-            </div>
-
-            <div class="clearfix">
-                <button type="submit" class="signupbtn">Cargar Usuario</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

@@ -16,11 +16,11 @@ import { PrincipalService } from '../../servicios/principal.service';
   styleUrls: ['./poner-historia-clinica.component.css']
 })
 export class PonerHistoriaClinicaComponent implements OnInit {
-  @Output() sacar : EventEmitter <Boolean> = new EventEmitter<Boolean>();
+  @Output() sacar: EventEmitter <Boolean> = new EventEmitter<Boolean>();
 
-  checked: boolean = true;
+  checked = true;
 
-  historias:HistoriaClinica[];
+  historias: HistoriaClinica[];
 
   historia: HistoriaClinica;
   tratamientos = [
@@ -29,26 +29,22 @@ export class PonerHistoriaClinicaComponent implements OnInit {
     { name: 'Perno y corona', abbrev: 'CO' },
   ];
 
-  sacarPonerHistoria(e:Event){
-    if(e["toElement"].id=="cont"){
+  sacarPonerHistoria(e: Event){
+    if (e["toElement"].id === 'cont') {
       this.sacar.emit(true);
     }
-
-   
   }
   constructor(private principalService: PrincipalService,
-    public ruta: Router, private authService: AuthService) { }
+              public ruta: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    if (this.validarAcceso() == false) {
+    if (this.validarAcceso() === false) {
       this.ruta.navigate(['/Login']);
     }
 
     this.traerHistorias();
     this.historia = new HistoriaClinica();
   }
-
-
 
   async freno(ms: number) {
     await new Promise(resolve => setTimeout(() => resolve(), ms));
@@ -57,13 +53,10 @@ export class PonerHistoriaClinicaComponent implements OnInit {
 
   validarAcceso(): boolean {
 
-     let usu:Usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
+     let usu: Usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
 
-     return usu.especialidad == "Recepcionista";
-    
-
+     return usu.especialidad === 'Recepcionista';
   }
-
 
   ngSubmit(form: NgForm) {
     this.CargarHistoria(form);
@@ -73,8 +66,8 @@ export class PonerHistoriaClinicaComponent implements OnInit {
 
     this.principalService.traerHistoriasClinicas();
     this.principalService.historiaClinica.subscribe((e) => {
-      this.historias = e;  
-      console.log(this.historias)    
+      this.historias = e;
+      console.log(this.historias);
     });
 
   }
@@ -91,10 +84,7 @@ export class PonerHistoriaClinicaComponent implements OnInit {
       timer: 2000
     });
 
-    this.principalService.cargarHistoriaClinica(form.value, "123456");
+    this.principalService.cargarHistoriaClinica(form.value, '123456');
     Swal.showLoading();
   }
-
-
-
 }

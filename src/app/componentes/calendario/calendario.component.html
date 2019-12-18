@@ -1,24 +1,27 @@
 <div class="calendario">
-<div class="filtros" *ngIf="usuarioLogueado.especialidad=='Recepcionista'"><b>filtros</b>
-      medicos:  <select id="medicos" (change)="cambioElSelect($event.target.value)">
+    <div class="filtros" *ngIf="usuarioLogueado.especialidad=='Recepcionista'"><b>filtros</b> medicos: <select id="medicos" (change)="cambioElSelect($event.target.value)">
           <option value="-1">Todos</option>
         <option *ngFor="let medico of ser.listaMedicos"  [ngValue]="medico.matriculaMedico" >{{medico.matriculaMedico}}</option>
     </select>
-</div>
+    </div>
 
 
-        <div class="dia" *ngFor="let dia of dias"><b>{{dia.dia}}/{{dia.mes}}/{{dia.ano}}</b>
-            <div class="turno"  [class.ocupado]="turno.hasOwnProperty('turno')"  *ngFor="let turno of dia.turnos" (click)="clickTurno($event, turno, dia)">
-                <span  *ngIf="turno.minutos==0">{{turno.hora}}:{{turno.minutos}} </span>
-                <span *ngIf="turno.hasOwnProperty('turno')" class="turnoOcupado"> - Turno: {{turno.turno.key}}</span>
-            </div>
+    <div class="dia" *ngFor="let dia of dias"><b>{{dia.dia}}/{{dia.mes}}/{{dia.ano}}</b>
+        <div class="turno" [class.ocupado]="turno.hasOwnProperty('turno')" *ngFor="let turno of dia.turnos" (click)="clickTurno($event, turno, dia)">
+            <span *ngIf="turno.minutos==0">{{turno.hora}}:{{turno.minutos}} </span>
+            <span *ngIf="turno.hasOwnProperty('turno')" class="turnoOcupado"> - Turno: {{turno.turno.key}}</span>
         </div>
+    </div>
 
 </div>
 
 
-<app-poner-historia-clinica *ngIf="mostrarPonerHistoriaClinica" (sacar)="sacarHistoriaClinica($event)" ></app-poner-historia-clinica>
+<app-poner-historia-clinica *ngIf="mostrarPonerHistoriaClinica" (sacar)="sacarHistoriaClinica($event)"></app-poner-historia-clinica>
 
+<<<<<<< HEAD
+<app-pedirturno *ngIf="mostrarPedirTurno" (sacar)="sacarPedirTurno($event)" [fecha]="fechaClickeada"></app-pedirturno>
+=======
 <app-pedirturno *ngIf="mostrarPedirTurno" (sacar)="sacarPedirTurno($event)"  [fecha]="fechaClickeada" ></app-pedirturno>
 
 <app-ver-turno *ngIf="mostrarVerTurno" [turno]="turnoActivo" (sacar)="sacarVerTurno($event)"></app-ver-turno>
+>>>>>>> c8a194f285e8fab23eb3b427984cd396d0b35c07
