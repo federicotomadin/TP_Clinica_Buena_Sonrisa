@@ -52,6 +52,7 @@ export class PrincipalService {
   public medicos: any;
   public usuarios: any;
   public listaMedicos=[];
+  public listaTurnos=[]
   
   public listaUsuarios=[];
   public listaPacientes=[];
@@ -109,14 +110,27 @@ export class PrincipalService {
     this.turnos = this.miBase.collection('turno').snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Turno;
+        data.key= a.payload.doc.id;
         return data;
       });
     }));
+
+    this.turnos.subscribe(resp => {
+  
+    
+      resp.map( dat => {
+         this.listaTurnos.push(dat)
+         })      
+    });
+
+    
+    ///usuarios:
 
     this.usuariosMedicosCollection = this.miBase.collection('usuario');
     this.usuariosMedicos = this.usuariosMedicosCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Usuario;
+        data.key=a.payload.doc.id;
         return data;
       });
     }));
@@ -247,6 +261,12 @@ traerHistoriasClinicas() {
 
   getHistoraClinica() {
     return this.historiaClinica;
+  }
+
+  actualizarTurnoEnFirebase(t:Turno){
+    //let setDoc = db.collection('cities').doc('LA').set(data);
+    let id=0;
+    this.miBase.collection('turno').doc(id).set(t);
   }
 
 
