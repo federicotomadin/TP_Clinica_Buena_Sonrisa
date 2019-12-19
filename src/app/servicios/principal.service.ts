@@ -265,8 +265,8 @@ traerHistoriasClinicas() {
 
   actualizarTurnoEnFirebase(t:Turno){
     //let setDoc = db.collection('cities').doc('LA').set(data);
-    let id=0;
-    this.miBase.collection('turno').doc(id).set(t);
+    
+    this.miBase.collection('turno').doc(t.key).set(t);
   }
 
 

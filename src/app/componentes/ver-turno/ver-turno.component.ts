@@ -49,10 +49,11 @@ constructor(private auth: AuthService, private ser: PrincipalService) {
    }
 
    borrarTurno() {
-      console.log("borrar")
-      console.log(this.turno)
+     
+      
       this.turno.cancelado=true;
       this.ser.actualizarTurnoEnFirebase(this.turno);
+      this.sacar.emit(true);
    }
 
 }

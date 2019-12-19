@@ -115,7 +115,7 @@ export class CalendarioComponent implements OnInit {
         console.log(turno.turno)
         this.turnoActivo=turno.turno;
         this.mostrarVerTurno=true;
-        console.log(this.turnoActivo);
+    
 
         //// ACA EVALUAR SI LA FECHA ES ANTERIOR O PSTERIOR
 
@@ -152,20 +152,25 @@ export class CalendarioComponent implements OnInit {
     const usuario = this.auth.usuarioLogueado;
     this.setearArray(); // VACIO TODO
     this.ser.traerTurnos();
-    this.ser.turnos.subscribe((e) => {
-
+    this.todosLosTurnos=this.ser.listaTurnos
+      
       if (this.rol === 'recepcionista') {
-        this.todosLosTurnos = this.arrayTurnos = e;
+        this.arrayTurnos =this.ser.listaTurnos
       } else if (this.rol === 'paciente') {
 
-        this.arrayTurnos = e.filter(turno => turno.dniPaciente === usuario.dniUsuario);
+        this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.dniPaciente === usuario.dniUsuario);
 
       } else if (this.rol === 'odontologo') {
-        this.arrayTurnos = e.filter(turno => turno.matriculaMedico === usuario.matriculaMedico);
+        this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.matriculaMedico === usuario.matriculaMedico);
 
       }
-      this.ponerTurnosVisualmente();
-    });
+    
+
+    
+    this.ponerTurnosVisualmente();
+
+ 
+
   }
   ponerTurnosVisualmente() {
 
