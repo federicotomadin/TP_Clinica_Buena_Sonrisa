@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     Swal.fire({
     allowOutsideClick: false,
     icon: 'info',
-    text: 'Ingresando...',
+    text: 'logueando...',
     timer: 4000
     });
 
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
     if (this.recordarme) {
       localStorage.setItem('email', this.usuario.email);
     }
-    Swal.close();
+   // Swal.close();
 }
 
 ngSubmit(form: NgForm) {

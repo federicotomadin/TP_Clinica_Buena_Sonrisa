@@ -1,10 +1,14 @@
 .calendario {
-    width: 100%;
+    width: 80vw;
     position: relative;
-    height: 80vh;
-    overflow: scroll;
-    border: 2px solid #cccccc;
-    padding: 1vw;
+    left: 10vw;
+    overflow-x: hidden;
+    margin-top: 5vh;
+    /* background: green; */
+    height: 70vh;
+    overflow-y: scroll;
+    /* border: 2px solid #cccccc; */
+    /* padding: 1vw; */
     font-size: 2vw;
 }
 
@@ -14,25 +18,27 @@
 }
 
 .calendario b {
-    background: gray;
+    background: #287699;
     color: white;
     padding: 0%;
     border: 1px solid darkgray;
     display: block;
     margin-bottom: 5px;
+    font-size: 1.3vw;
 }
 
 .turno {
-    min-height: 10px;
-    background: white;
+    min-height: 21px;
+    background: #fff;
     max-height: 10px;
-    border: 1px solid #eeeeee;
+    /* padding-bottom: 20px; */
+    border: 1px solid #a8bfd6;
     font-size: 1.2vw;
     line-height: 5px;
 }
 
 .turno.ocupado{
-    background: #cccccc;
+    background: #b9d3df;
 }
 
 .turno:hover{

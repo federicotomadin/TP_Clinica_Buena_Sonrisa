@@ -20,7 +20,7 @@ export class ClienteComponent implements OnInit {
 
   constructor(ser: PrincipalService, auth: AuthService, router: Router) {
     if (auth.usuarioLogueado == undefined) {
-      router.navigate(['/Login']);
+      router.navigate(['Login']);
       localStorage.usuarioLogueado = undefined;
      } else    this.usuario = auth.usuarioLogueado;
     

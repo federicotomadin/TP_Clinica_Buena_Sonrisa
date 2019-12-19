@@ -165,10 +165,10 @@ export class CalendarioComponent implements OnInit {
       //   }
     } else {
       // NO HAY TURNO EN ESTE HORARIO
-      if (this.rol.toLowerCase() != "odontologo") {
+      if (this.rol.toLowerCase() != "odontologo" && this.rol.toLowerCase() != "laboratorista") {
         this.mostrarPedirTurno = true;
       } else {
-        console.log("el odontologo no pide turnos")
+        console.log("el odontologo / lab no pide turnos")
       }
 
 
@@ -190,7 +190,7 @@ export class CalendarioComponent implements OnInit {
 
       this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.dniPaciente === usuario.dniUsuario);
 
-    } else if (this.rol === 'odontologo') {
+    } else if (this.rol === 'odontologo' || this.rol=="laboratorista") {
       this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.matriculaMedico === usuario.matriculaMedico);
 
     }

@@ -1,6 +1,6 @@
 <div class="cont" (click)="quitarVerTurno($event)">
 
-    <div class="cuadrito">
+    <div class="cuadrito container">
 
         <p>fecha: {{fecha}}</p>
 
@@ -11,7 +11,7 @@
   
         <button (click)="borrarTurno()">cancelar turno</button><br>
 
-       <div *ngIf="turnoAnterior==1">
+       <div *ngIf="turnoAnterior==1 && auth.usuarioLogueado.especialidad.toLowerCase()=='paciente'">
         <label for="">Ingrese comentario del turno</label>
         <textarea maxlength="66" type="text-tarea" [(ngModel)]="turno.comentario" placeholder="reseña del turno"></textarea><br>
         <label for="">Puntaje Medico</label>
