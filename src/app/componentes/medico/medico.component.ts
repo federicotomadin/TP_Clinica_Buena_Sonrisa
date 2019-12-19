@@ -31,6 +31,14 @@ export class MedicoComponent implements OnInit {
     this.mostrarCalendario=true;
      }
   ngOnInit() {
+
+    if (this.auth.usuarioLogueado == undefined) {
+      this.router.navigate(['/Login']);
+     localStorage.usuarioLogueado=undefined;
+    } else {
+
+     this.usuario = this.auth.usuarioLogueado;
+    }
   }
 
 }

@@ -17,7 +17,7 @@ export class CalendarioComponent implements OnInit {
   @Input() rol: string;
 
   public usuarioLogueado: Usuario;
-  public fechaClickeada:Date;
+  public fechaClickeada: Date;
   public mostrarVerTurno=false;
 
   mostrarPonerHistoriaClinica = false;
@@ -28,7 +28,7 @@ export class CalendarioComponent implements OnInit {
   arrayTurnos = [];
   todosLosTurnos = [];
   public turnoActivo:Turno;
-
+  listaMedicos = [];
 
   constructor(private auth: AuthService, private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
 
@@ -178,20 +178,15 @@ export class CalendarioComponent implements OnInit {
   
     const fechaTurno = t.fecha.toDate();
 
- 
-
     for (let i = 0; i < this.dias.length; i++) {
       for(let j=0;j<this.dias[i].turnos.length;j++){
         let a=new Date( this.dias[i].ano+"-"+this.dias[i].mes+"-"+ this.dias[i].dia+" "+this.dias[i].turnos[j].hora+":"+this.dias[i].turnos[j].minutos+":00")
          let dif= a.getTime()-fechaTurno.getTime();
          //console.log(dif);
-         if(Math.abs(dif)<9*1000*60){
+        if(Math.abs(dif)<9*1000*60){
           this.dias[i].turnos[j].turno = t;
           return;
           }
-       
-        
-       
        }
     }
 /*
@@ -237,6 +232,14 @@ export class CalendarioComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.ser.getUsuariosMedicos().subscribe(resp => {
+      resp.map(dat => {
+        if (dat.especialidad == 'Odontologo' || dat.especialidad == 'Laboratorista') {
+          this.listaMedicos.push(dat);
+        }
+      });
+    });
 
 
 

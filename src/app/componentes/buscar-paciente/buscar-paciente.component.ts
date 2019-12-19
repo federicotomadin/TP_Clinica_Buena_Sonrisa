@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Usuario } from 'src/app/clases/usuario';
 import { PrincipalService } from '../../servicios/principal.service';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { UserOptions } from 'jspdf-autotable';
+
 
 
 
@@ -47,7 +51,7 @@ export class BuscarPacienteComponent implements OnInit {
   mostrarHistoriaClinica(dni: any) {
 
 
-alert(dni)
+// alert(dni)
 
     this.ser.getHistoraClinica().subscribe(resp => {
       resp.map(dat => {
@@ -63,6 +67,16 @@ alert(dni)
     //   this.historiaClinicaActiva=e.filter(a=>a.dniPaciente==dni);
 
     // });
+  }
+
+  DescargarPdf() {
+
+    const doc = new jsPDF('p', 'pt') as JsPDFWithPlugin;
+    interface JsPDFWithPlugin extends jsPDF {
+      autoTable: (options: UserOptions) => jsPDF;
+    }
+    doc.autoTable({html: '#tablaHistoriaClinica'});
+    doc.save('automoviles.pdf');
   }
 
 }

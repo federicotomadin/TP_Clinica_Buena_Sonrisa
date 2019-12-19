@@ -12,13 +12,13 @@ import {AuthService  } from '../../servicios/auth.service';
   styleUrls: ['./ver-turno.component.css']
 })
 export class VerTurnoComponent implements OnInit {
-public nombreMedico:string;
-public dniPaciente:string;
-public matriculaMedico:string;
-public fecha:any;
-public nombrePaciente:string;
-@Input() turno:Turno;
-@Output() sacar : EventEmitter <Boolean> = new EventEmitter<Boolean>();
+public nombreMedico: string;
+public dniPaciente: string;
+public matriculaMedico: string;
+public fecha: any;
+public nombrePaciente: string;
+@Input() turno: Turno;
+@Output() sacar: EventEmitter <Boolean> = new EventEmitter<Boolean>();
 
 
 constructor(private auth: AuthService, private ser: PrincipalService) {
@@ -29,11 +29,12 @@ constructor(private auth: AuthService, private ser: PrincipalService) {
 
   ngOnInit() {
 
+    this.nombrePaciente = this.turno.nombre;
     this.dniPaciente=this.turno.dniPaciente;
     this.matriculaMedico=this.turno.matriculaMedico;
     this.fecha=this.turno.fecha["toDate"]();
 
-    this.fecha= this.fecha.toLocaleDateString()+" "+ this.fecha.toLocaleTimeString()
+    this.fecha= this.fecha.toLocaleDateString()+" "+ this.fecha.toLocaleTimeString();
     
 
 
