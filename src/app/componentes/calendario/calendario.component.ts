@@ -18,7 +18,7 @@ export class CalendarioComponent implements OnInit {
 
   public usuarioLogueado: Usuario;
   public fechaClickeada: Date;
-  public mostrarVerTurno=false;
+  public mostrarVerTurno = false;
 
   mostrarPonerHistoriaClinica = false;
 
@@ -27,7 +27,7 @@ export class CalendarioComponent implements OnInit {
   dias = [];
   arrayTurnos = [];
   todosLosTurnos = [];
-  public turnoActivo:Turno;
+  public turnoActivo: Turno;
   listaMedicos = [];
 
   constructor(private auth: AuthService, private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
@@ -51,19 +51,36 @@ export class CalendarioComponent implements OnInit {
   }
   sacarHistoriaClinica() {
     this.mostrarPonerHistoriaClinica = false;
-    setTimeout(()=>this.ponerTurnosVisualmente() ,500);
+    setTimeout(() => {
+      this.traerTurnosQVeElUsuario();
+      this.ponerTurnosVisualmente()
+    }, 500);
   }
+
   sacarPedirTurno() {
     this.mostrarPedirTurno = false;
-setTimeout(()=>this.ponerTurnosVisualmente() ,500);  }
+
+    setTimeout(() => {
+      this.traerTurnosQVeElUsuario();
+      this.ponerTurnosVisualmente()
+    }, 500);
+
+  }
   sacarVerTurno() {
+
+
     this.mostrarVerTurno = false;
-    setTimeout(()=>this.ponerTurnosVisualmente() ,500);
-    }
+    setTimeout(() => {
+      this.traerTurnosQVeElUsuario();
+      this.ponerTurnosVisualmente()
+    }, 500)
+
+
+  }
 
   cambioElSelect(val: any) {
     // let select=e.target;
- 
+
     this.setearArray();
     this.arrayTurnos = [];
     for (let i = 0; i < this.todosLosTurnos.length; i++) {
@@ -107,42 +124,51 @@ setTimeout(()=>this.ponerTurnosVisualmente() ,500);  }
 
 
   clickTurno(e: Event, turno: any, dia: any) {
-    let a=new Date(dia.ano+"-"+dia.mes+"-"+dia.dia+" "+turno.hora+":"+turno.minutos+":00");
+    let a = new Date(dia.ano + "-" + dia.mes + "-" + dia.dia + " " + turno.hora + ":" + turno.minutos + ":00");
     //localStorage["dia"] = JSON.stringify(a);
-    this.fechaClickeada=a;
+    this.fechaClickeada = a;
 
-
+    console.log(this.fechaClickeada);
 
     if (turno.hasOwnProperty('turno')) {
-        console.log(turno.turno)
-        this.turnoActivo=turno.turno;
-        this.mostrarVerTurno=true;
-        console.log(this.turnoActivo);
+      console.log(turno.turno)
+      this.turnoActivo = turno.turno;
+      this.mostrarVerTurno = true;
+      console.log(this.turnoActivo);
 
-        //// ACA EVALUAR SI LA FECHA ES ANTERIOR O PSTERIOR
+      //// ACA EVALUAR SI LA FECHA ES ANTERIOR O PSTERIOR
 
-    /*  if (this.rol.toLowerCase() == "paciente" || this.rol.toLowerCase() == "recepcionista") {
-        this.turnoActivo=turno.turno;
-        this.mostrarVerTurno=true;
-        console.log(this.turnoActivo);
-      } else if (this.rol.toLowerCase() == "Odontologo") {
-        this.turnoActivo=turno.turno;
-        this.mostrarVerTurno=true;
-        console.log(this.turnoActivo);
-        //this.mostrarPonerHistoriaClinica = true;
+      let fecha_ref = new Date("2019-12-19 13:00:00");
+      console.log(fecha_ref, this.fechaClickeada)
+      if (this.fechaClickeada < fecha_ref) {
+        console.log("el evento es anterior")
+      } else {
+        console.log("el evento es posterior");
+      }
 
-      }*/
-    //  console.log(turno.turno);
+
+      /*  if (this.rol.toLowerCase() == "paciente" || this.rol.toLowerCase() == "recepcionista") {
+          this.turnoActivo=turno.turno;
+          this.mostrarVerTurno=true;
+          console.log(this.turnoActivo);
+        } else if (this.rol.toLowerCase() == "Odontologo") {
+          this.turnoActivo=turno.turno;
+          this.mostrarVerTurno=true;
+          console.log(this.turnoActivo);
+          //this.mostrarPonerHistoriaClinica = true;
+  
+        }*/
+      //  console.log(turno.turno);
       // HAY TURNO EN ESTE HORARIO
       //  if(JSON.parse(localStorage["usuarioLogueado"]).especialidad=="Odontologo"){
       //   }
     } else {
       // NO HAY TURNO EN ESTE HORARIO
-      if (this.rol.toLowerCase() != "odontologo" ) {
+      if (this.rol.toLowerCase() != "odontologo") {
         this.mostrarPedirTurno = true;
-      }else{
+      } else {
         console.log("el odontologo no pide turnos")
-        }
+      }
 
 
     }
@@ -154,21 +180,21 @@ setTimeout(()=>this.ponerTurnosVisualmente() ,500);  }
     const usuario = this.auth.usuarioLogueado;
     this.setearArray(); // VACIO TODO
     this.ser.traerTurnos();
-    
- 
-   
-      if (this.rol === 'recepcionista') {
-        this.todosLosTurnos = this.arrayTurnos = this.ser.listaTurnos
-      } else if (this.rol === 'paciente') {
 
-        this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.dniPaciente === usuario.dniUsuario);
 
-      } else if (this.rol === 'odontologo') {
-        this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.matriculaMedico === usuario.matriculaMedico);
 
-      }
-      this.ponerTurnosVisualmente();
-  
+    if (this.rol === 'recepcionista') {
+      this.todosLosTurnos = this.arrayTurnos = this.ser.listaTurnos
+    } else if (this.rol === 'paciente') {
+
+      this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.dniPaciente === usuario.dniUsuario);
+
+    } else if (this.rol === 'odontologo') {
+      this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.matriculaMedico === usuario.matriculaMedico);
+
+    }
+    this.ponerTurnosVisualmente();
+
   }
   ponerTurnosVisualmente() {
 
@@ -178,60 +204,60 @@ setTimeout(()=>this.ponerTurnosVisualmente() ,500);  }
 
   }
   agregarTurno(t: any) {
-  
+
     const fechaTurno = t.fecha.toDate();
 
     for (let i = 0; i < this.dias.length; i++) {
-      for(let j=0;j<this.dias[i].turnos.length;j++){
-        let a=new Date( this.dias[i].ano+"-"+this.dias[i].mes+"-"+ this.dias[i].dia+" "+this.dias[i].turnos[j].hora+":"+this.dias[i].turnos[j].minutos+":00")
-         let dif= a.getTime()-fechaTurno.getTime();
-         //console.log(dif);
-        if(Math.abs(dif)<9*1000*60){
+      for (let j = 0; j < this.dias[i].turnos.length; j++) {
+        let a = new Date(this.dias[i].ano + "-" + this.dias[i].mes + "-" + this.dias[i].dia + " " + this.dias[i].turnos[j].hora + ":" + this.dias[i].turnos[j].minutos + ":00")
+        let dif = a.getTime() - fechaTurno.getTime();
+        //console.log(dif);
+        if (Math.abs(dif) < 9 * 1000 * 60) {
           this.dias[i].turnos[j].turno = t;
           return;
-          }
-       }
-    }
-/*
-    if (fechaTurno.getFullYear() < this.dias[0].ano) {
-    //  console.log('el turno es de un año anterior al actual');
-      return;
-    } else {
-      if (fechaTurno.getMonth() + 1 < this.dias[0].mes) {
-      //  console.log('el turno es de un mes anterior..');
-        return;
-      } else {
-        if (fechaTurno.getDate() < this.dias[0].dia) {
-        //  console.log('el turno tiene dia menor');
-          return;
-        } else {
-          if (fechaTurno.getHours() < 9) {
-          //  console.log('el turno es para antes de las 9 de la mañana..cualca');
-            return;
-          } else {
-          //  console.log(t)
-            // esta todo bien y se carga
-            for (let i = 0; i < this.dias.length; i++) {
-             // console.log(this.dias[i].ano, fechaTurno.getFullYear())
-             // console.log(fechaTurno.getMonth() + 1 ,this.dias[i].mes , fechaTurno.getDate() , this.dias[i].dia)
-              if (fechaTurno.getMonth() + 1 == this.dias[i].mes && fechaTurno.getDate() == this.dias[i].dia) {
-                // es de este dia
-                for (let j = 0; j < this.dias[i].turnos.length; j++) {
-                  const tur = this.dias[i].turnos[j];
-
-                  if (tur.hora == fechaTurno.getHours()) {
-                    if (Math.abs(tur.minutos - fechaTurno.getMinutes()) < 10) {
-                      this.dias[i].turnos[j].turno = t;
-                      return 1;
-                    }
-                  }
-                }// for j
-              }
-            }// for
-          }
         }
       }
-    }*/
+    }
+    /*
+        if (fechaTurno.getFullYear() < this.dias[0].ano) {
+        //  console.log('el turno es de un año anterior al actual');
+          return;
+        } else {
+          if (fechaTurno.getMonth() + 1 < this.dias[0].mes) {
+          //  console.log('el turno es de un mes anterior..');
+            return;
+          } else {
+            if (fechaTurno.getDate() < this.dias[0].dia) {
+            //  console.log('el turno tiene dia menor');
+              return;
+            } else {
+              if (fechaTurno.getHours() < 9) {
+              //  console.log('el turno es para antes de las 9 de la mañana..cualca');
+                return;
+              } else {
+              //  console.log(t)
+                // esta todo bien y se carga
+                for (let i = 0; i < this.dias.length; i++) {
+                 // console.log(this.dias[i].ano, fechaTurno.getFullYear())
+                 // console.log(fechaTurno.getMonth() + 1 ,this.dias[i].mes , fechaTurno.getDate() , this.dias[i].dia)
+                  if (fechaTurno.getMonth() + 1 == this.dias[i].mes && fechaTurno.getDate() == this.dias[i].dia) {
+                    // es de este dia
+                    for (let j = 0; j < this.dias[i].turnos.length; j++) {
+                      const tur = this.dias[i].turnos[j];
+    
+                      if (tur.hora == fechaTurno.getHours()) {
+                        if (Math.abs(tur.minutos - fechaTurno.getMinutes()) < 10) {
+                          this.dias[i].turnos[j].turno = t;
+                          return 1;
+                        }
+                      }
+                    }// for j
+                  }
+                }// for
+              }
+            }
+          }
+        }*/
   }
 
   ngOnInit() {

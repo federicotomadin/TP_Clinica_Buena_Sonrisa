@@ -116,7 +116,7 @@ export class PrincipalService {
     }));
 
     this.turnos.subscribe(resp => {
-  
+      this.listaTurnos=[]
     
       resp.map( dat => {
          this.listaTurnos.push(dat)

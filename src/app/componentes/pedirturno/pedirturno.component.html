@@ -13,7 +13,7 @@
             
             paciente: <select [(ngModel)]="dniUsuario">
                
-                <option *ngIf="auth.usuarioLogueado.especialidad=='Paciente'" selected> {{auth.usuarioLogueado.dniUsuario}} - {{auth.usuarioLogueado.nombre}}</option>
+                <option *ngIf="auth.usuarioLogueado.especialidad=='Paciente'" value="{{auth.usuarioLogueado.dniUsuario}}" selected> {{auth.usuarioLogueado.dniUsuario}} - {{auth.usuarioLogueado.nombre}}</option>
 
 
               
