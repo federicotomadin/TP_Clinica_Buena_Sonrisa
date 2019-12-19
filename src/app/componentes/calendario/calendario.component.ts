@@ -51,13 +51,15 @@ export class CalendarioComponent implements OnInit {
   }
   sacarHistoriaClinica() {
     this.mostrarPonerHistoriaClinica = false;
+    setTimeout(()=>this.ponerTurnosVisualmente() ,500);
   }
   sacarPedirTurno() {
     this.mostrarPedirTurno = false;
-  }
+setTimeout(()=>this.ponerTurnosVisualmente() ,500);  }
   sacarVerTurno() {
     this.mostrarVerTurno = false;
-  }
+    setTimeout(()=>this.ponerTurnosVisualmente() ,500);
+    }
 
   cambioElSelect(val: any) {
     // let select=e.target;
@@ -115,7 +117,7 @@ export class CalendarioComponent implements OnInit {
         console.log(turno.turno)
         this.turnoActivo=turno.turno;
         this.mostrarVerTurno=true;
-    
+        console.log(this.turnoActivo);
 
         //// ACA EVALUAR SI LA FECHA ES ANTERIOR O PSTERIOR
 
@@ -152,10 +154,11 @@ export class CalendarioComponent implements OnInit {
     const usuario = this.auth.usuarioLogueado;
     this.setearArray(); // VACIO TODO
     this.ser.traerTurnos();
-    this.todosLosTurnos=this.ser.listaTurnos
-      
+    
+ 
+   
       if (this.rol === 'recepcionista') {
-        this.arrayTurnos =this.ser.listaTurnos
+        this.todosLosTurnos = this.arrayTurnos = this.ser.listaTurnos
       } else if (this.rol === 'paciente') {
 
         this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.dniPaciente === usuario.dniUsuario);
@@ -164,13 +167,8 @@ export class CalendarioComponent implements OnInit {
         this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.matriculaMedico === usuario.matriculaMedico);
 
       }
-    
-
-    
-    this.ponerTurnosVisualmente();
-
- 
-
+      this.ponerTurnosVisualmente();
+  
   }
   ponerTurnosVisualmente() {
 

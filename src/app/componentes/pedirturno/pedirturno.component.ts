@@ -23,7 +23,7 @@ export class PedirturnoComponent implements OnInit {
   listaMedicosLocal = [];
   listaDniUsuario = [];
 
-  constructor(public ser: PrincipalService) {
+  constructor(public ser: PrincipalService, public auth:AuthService) {
 
     this.traerListaMedicos();
 
@@ -35,7 +35,7 @@ export class PedirturnoComponent implements OnInit {
 
 
 
-    console.log(this.fecha);
+    console.log(this.auth);
 
   }
 
