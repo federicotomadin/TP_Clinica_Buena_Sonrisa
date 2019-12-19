@@ -49,6 +49,7 @@ constructor(private auth: AuthService, private ser: PrincipalService) {
 
   CargarResenia() {
     this.ser.actualizarTurnoEnFirebase(this.turno);
+    this.sacar.emit(true);
   }
 
 
