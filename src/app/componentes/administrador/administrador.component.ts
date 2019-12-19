@@ -51,10 +51,10 @@ export class AdministradorComponent implements OnInit {
       this.cantidadLaboratorista = 0;
       this.cantidadOdontologo = 0;
       resp.map(dat => {
-         if (dat.especialidad === 'Laboratorista') {
+         if (dat.especialidad == 'Laboratorista' || dat.matriculaMedico == 'lab12') {
              this.cantidadLaboratorista += 1;
 
-         } else if (dat.especialidad === 'Odontologo') {
+         } else if (dat.especialidad == 'Odontologo' || dat.matriculaMedico == '128') {
            this.cantidadOdontologo += 1;
          }
 

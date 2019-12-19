@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { PrincipalService } from '../../servicios/principal.service';
+import { Turno } from '../../clases/turno';
 
 @Component({
   selector: 'app-poner-puntaje',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PonerPuntajeComponent implements OnInit {
 
-  constructor() { }
+  @Input() turno: Turno;
+  // @Output() sacar: EventEmitter <Boolean> = new EventEmitter<Boolean>();
+
+  public reseña: string;
+
+
+  constructor(private ser: PrincipalService) {
+  
+
+    this.reseña = this.turno.comentario;
+    
+
+   }
 
   ngOnInit() {
+
+
+
   }
+
+
 
 }
