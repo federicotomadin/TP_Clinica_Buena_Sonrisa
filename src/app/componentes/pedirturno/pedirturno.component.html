@@ -6,8 +6,12 @@
 
         medico: <select [(ngModel)]="matriculaMedico">
             <option *ngFor="let medico of listaMedicosLocal"  value="{{medico.matriculaMedico}}" >
-                {{medico.especialidad}} - ({{medico.matriculaMedico}}) {{medico.nombre}}</option>
-            </select> paciente: <input [(ngModel)]="dniUsuario"> <br>
+                {{medico.especialidad}} - ({{medico.matriculaMedico}}) {{medico.nombre}}</option><br>
+            </select> paciente: <select [(ngModel)]="dniUsuario">
+                <option *ngFor="let paciente of listaDniUsuario"  value="{{paciente.dniUsuario}}" >
+                    {{paciente.dniUsuario}} - {{paciente.nombre}}</option>
+                </select>
+        <!-- paciente: <input [(ngModel)]="dniUsuario"> <br> -->
 
         <button (click)="pedirTurno()"> pedir turno</button>
 

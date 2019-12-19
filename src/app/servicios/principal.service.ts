@@ -51,7 +51,7 @@ export class PrincipalService {
 
   public medicos: any;
   public usuarios: any;
-  public listaMedicos: [];
+  public listaMedicos: Usuario[];
 
   RefClinica: AngularFireList<Clinica> = null;
   RefUsuario: AngularFireList<Usuario> = null;
@@ -184,10 +184,6 @@ traerUsuarios() {
     this.miBase.collection('turno').add({ ...t });
   }
 
-  matricula2Especialidad(m: any){
-    return this.listaMedicos.filter((med: any ) => {
-        return med.matriculaMedico == m})[0]["especialidad"];
-    }
 
 traerHistoriasClinicas() {
 

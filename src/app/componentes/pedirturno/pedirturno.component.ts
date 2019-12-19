@@ -21,6 +21,7 @@ export class PedirturnoComponent implements OnInit {
   public matriculaMedico: any;
   public dniUsuario: any;
   listaMedicosLocal = [];
+  listaDniUsuario = [];
 
   constructor(public ser: PrincipalService) { }
 
@@ -29,19 +30,29 @@ export class PedirturnoComponent implements OnInit {
     this.ser.getUsuariosMedicos().subscribe(resp => {
       resp.map( dat => {
         if (!isNullOrUndefined(dat.matriculaMedico)) {
-        if (dat.matriculaMedico.length > 2 && dat.especialidad != 'Administrador' && dat.especialidad != 'Paciente') {
-          console.log(dat.matriculaMedico);
+          if ( dat.especialidad == 'Paciente') {
+            this.listaDniUsuario.push(dat);
+          }
+          if (dat.matriculaMedico.length > 2 && dat.especialidad != 'Administrador' && dat.especialidad != 'Paciente') {
           this.listaMedicosLocal.push(dat);
         }
-        }
+      }
       });
     });
   }
 
   pedirTurno(f: Date) {
     let n = new Turno();
+
+    this.ser.getUsuariosMedicos().subscribe(resp => {
+      resp.map(dat => {
+        if (dat.matriculaMedico == this.matriculaMedico) {
+          n.especialidad = dat.especialidad;
+        }
+      });
+    });
+
     n.dniPaciente = this.dniUsuario;
-    n.especialidad =  this.ser.matricula2Especialidad(this.matriculaMedico);
     n.matriculaMedico = this.matriculaMedico;
   
     n.fecha = this.fecha;
