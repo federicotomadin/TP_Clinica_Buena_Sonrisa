@@ -269,6 +269,10 @@ traerHistoriasClinicas() {
     this.miBase.collection('turno').doc(t.key).set(t);
   }
 
+  dni2usuario(dni:any){
+    return this.listaUsuarios.filter(u=>u.dniUsuario==dni)
+  }
+
 
 
 
