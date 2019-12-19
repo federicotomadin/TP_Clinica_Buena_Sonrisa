@@ -38,6 +38,7 @@ export class AuthService {
 
   CrearPaciente(usuario: Usuario) {
     usuario.especialidad = 'Paciente';
+    usuario.matriculaMedico = '';
     this.afAuth.auth.createUserWithEmailAndPassword(usuario.email, usuario.password)
       .then(resp => {
         this.principalService.createUsuario(usuario);
@@ -136,7 +137,6 @@ export class AuthService {
 
           this.router.navigate(['/Login']);
 
-
         }
       });
   }
@@ -144,7 +144,4 @@ export class AuthService {
   Logout() {
     return this.afAuth.auth.signOut();
   }
-
-
-
 }

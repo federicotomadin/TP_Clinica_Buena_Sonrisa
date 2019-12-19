@@ -5,6 +5,7 @@ import {AuthService  } from '../../servicios/auth.service';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { HorarioLogueo } from '../../clases/horarioLogueo';
+import { storage } from 'firebase';
 
 @Component({
   selector: 'app-barra-superior',
@@ -38,6 +39,8 @@ export class BarraSuperiorComponent implements OnInit {
     this.horarioLogueo.email = this.auth.usuarioLogueado.email;
     this.principalService.crearFechaLogueo(this.horarioLogueo);
     this.afsAuth.auth.signOut();
+    this.afsAuth.auth.tenantId = null;
+    localStorage.removeItem('usuarioLogueado');
     this.router.navigate(['/Login']);
   }
 

@@ -7,9 +7,9 @@ export class Usuario {
     nombre?: string;
     password?: string;
     pedidosEstudios?: boolean;
-    especialidad: string;
+    especialidad?: string;
     matriculaMedico?: string;
-    foto: string;
+    foto?: string;
     }
 
 

@@ -46,9 +46,12 @@ export class PrincipalService {
 
   public error: string;
 
+  usuariosMedicosCollection: AngularFirestoreCollection<Usuario>;
+  usuariosMedicos: Observable<Usuario[]>;
+
   public medicos: any;
   public usuarios: any;
-  public listaMedicos:[];
+  public listaMedicos: [];
 
   RefClinica: AngularFireList<Clinica> = null;
   RefUsuario: AngularFireList<Usuario> = null;
@@ -104,12 +107,21 @@ export class PrincipalService {
       });
     }));
 
+<<<<<<< HEAD
 
 
     this.traerTodosLosMedicos();
     this.medicos.subscribe((e) => {
-      this.listaMedicos = e.filter((user) => user.matriculaMedico.length > 2);
+      this.listaMedicos = e.filter((user) => user.matriculaMedico != null && user.especialidad !== 'Administrador') ;
+=======
+    this.usuariosMedicosCollection = this.miBase.collection('usuario');
+    this.usuariosMedicos = this.usuariosMedicosCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Usuario;
+        return data;
+>>>>>>> 1fdb55fe2c5c889531ea80112801c00ed68ee9c6
       });
+    }));
 
   }
 
@@ -124,6 +136,14 @@ export class PrincipalService {
     return this.usuario;
   }
 
+  getMedicos() {
+    return this.medicos;
+  }
+
+  getUsuariosMedicos() {
+    return this.usuariosMedicos;
+  }
+
 
   // ========================Turnos
 
@@ -136,7 +156,7 @@ traerUsuarios() {
   traerTodosLosMedicos() {
 
     this.medicos = this.miBase.collection('usuario').snapshotChanges().pipe(map(actions => 
-      actions.map(a =>      a.payload.doc.data()     )));
+      actions.map(a => a.payload.doc.data())));
   }
 
   traerTurnos() {
@@ -172,11 +192,12 @@ traerUsuarios() {
     this.miBase.collection('turno').add({ ...t });
   }
 
-  matricula2Especialidad(m:any){
-    return this.listaMedicos.filter((med:any)=>{ return med.matriculaMedico==m})[0]["especialidad"];
-
+  matricula2Especialidad(m: any){
+    return this.listaMedicos.filter((med: any ) => {
+        return med.matriculaMedico == m})[0]["especialidad"];
     }
-  traerHistoriasClinicas() {
+
+traerHistoriasClinicas() {
 
     this.historiaClinica = this.miBase.collection('historiaClinica').snapshotChanges().pipe(map(actions => {
       // console.log(actions);
@@ -211,6 +232,10 @@ traerUsuarios() {
 
   getTurnos() {
     return this.turnos;
+  }
+
+  getHistoraClinica() {
+    return this.historiaClinica;
   }
 
 
