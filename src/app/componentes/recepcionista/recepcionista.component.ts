@@ -17,7 +17,7 @@ export class RecepcionistaComponent implements OnInit {
 
   constructor(private auth: AuthService, private ser: PrincipalService,   private router: Router) {
     if (auth.usuarioLogueado == undefined) {
-      router.navigate(['/Login']);
+      router.navigate(['Login']);
       localStorage.usuarioLogueado = undefined;
      } else    this.usuario = auth.usuarioLogueado;
   }

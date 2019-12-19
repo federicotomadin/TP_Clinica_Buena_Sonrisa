@@ -37,7 +37,7 @@ export class AdministradorComponent implements OnInit {
               private router: Router, auth:AuthService) {
 
                 if (auth.usuarioLogueado == undefined) {
-                  router.navigate(['/Login']);
+                  router.navigate(['Login']);
                   localStorage.usuarioLogueado = undefined;
                  } else    this.usuario = auth.usuarioLogueado;
 

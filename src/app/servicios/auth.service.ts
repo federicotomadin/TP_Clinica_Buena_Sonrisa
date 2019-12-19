@@ -85,49 +85,49 @@ export class AuthService {
               if (data.especialidad === 'Recepcionista') {
                 this.especialidad = data.especialidad;
 
-                Swal.fire({
+               /* Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
                     text: 'RECEPCIONISTA',
                     timer: 2000
-                  });
-                this.router.navigate(['/Recepcionista']);
+                  });*/
+                this.router.navigate(['Recepcionista']);
                 } else if (data.especialidad === 'Odontologo') {
                   this.especialidad = data.especialidad;
-                  Swal.fire({
+                /*  Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
                     text: 'ODONTOLOGO',
                     timer: 2000
-                  });
-                  this.router.navigate(['/Medico']);
+                  });*/
+                  this.router.navigate(['Medico']);
                 } else if (data.especialidad === 'Paciente') {
                   this.especialidad = data.especialidad;
-                  Swal.fire({
+                /*  Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
                     text: 'PACIENTE',
                     timer: 2000
-                  });
-                  this.router.navigate(['/Cliente']);
+                  });*/
+                  this.router.navigate(['Cliente']);
                 } else if (data.especialidad === 'Laboratorista') {
                   this.especialidad = data.especialidad;
-                  Swal.fire({
+                /*  Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
                     text: 'LABORATORISTA',
                     timer: 2000
-                  });
-                  this.router.navigate(['/Laboratorista']);
+                  });*/
+                  this.router.navigate(['Laboratorista']);
                 }  else if (data.especialidad === 'Administrador') {
                   this.especialidad = data.especialidad;
-                  Swal.fire({
+                 /* Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
                     text: 'ADMINISTRADOR',
                     timer: 2000
-                  });
-                  this.router.navigate(['/Administrador']);
+                  });*/
+                  this.router.navigate(['Administrador']);
                 }
 
               }
@@ -135,7 +135,7 @@ export class AuthService {
             });
           });
 
-          this.router.navigate(['/Login']);
+          this.router.navigate(['Login']);
 
         }
       });
