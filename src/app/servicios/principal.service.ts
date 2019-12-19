@@ -51,11 +51,17 @@ export class PrincipalService {
 
   public medicos: any;
   public usuarios: any;
-  public listaMedicos: Usuario[];
+  public listaMedicos=[];
+  
+  public listaUsuarios=[];
+  public listaPacientes=[];
 
   RefClinica: AngularFireList<Clinica> = null;
   RefUsuario: AngularFireList<Usuario> = null;
 
+
+
+  ////
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase,
               private miBase: AngularFirestore) {
     this.RefClinica = db.list(this.dbPathClinica);
@@ -114,6 +120,23 @@ export class PrincipalService {
         return data;
       });
     }));
+
+    
+  this.usuariosMedicos.subscribe(resp => {
+    this.listaUsuarios=[]
+    resp.map( dat => {
+      this.listaUsuarios.push(dat);
+      if (!dat.matriculaMedico!=undefined) {
+       
+        if ( dat.especialidad.toLowerCase() == 'paciente') {
+          this.listaPacientes.push(dat);
+        }
+        if (dat.matriculaMedico.length > 2 && dat.especialidad.toLowerCase() != 'administrador' && dat.especialidad.toLowerCase() != 'paciente') {
+        this.listaMedicos.push(dat);
+      }
+    }
+    });
+  });
 
   }
 
