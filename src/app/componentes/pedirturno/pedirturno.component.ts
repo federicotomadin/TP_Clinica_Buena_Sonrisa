@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { Usuario } from '../../clases/usuario';
 import { Turno } from '../../clases/turno';
 import { PrincipalService } from '../../servicios/principal.service';
+import { isNullOrUndefined } from 'util';
 
 
 
@@ -19,11 +20,22 @@ export class PedirturnoComponent implements OnInit {
 
   public matriculaMedico: any;
   public dniUsuario: any;
+  listaMedicosLocal = [];
 
   constructor(public ser: PrincipalService) { }
 
   ngOnInit() {
     console.log(this.fecha);
+    this.ser.getUsuariosMedicos().subscribe(resp => {
+      resp.map( dat => {
+        if (!isNullOrUndefined(dat.matriculaMedico)) {
+        if (dat.matriculaMedico.length > 2 && dat.especialidad != 'Administrador' && dat.especialidad != 'Paciente') {
+          console.log(dat.matriculaMedico);
+          this.listaMedicosLocal.push(dat);
+        }
+        }
+      });
+    });
   }
 
   pedirTurno(f: Date) {
@@ -43,7 +55,7 @@ export class PedirturnoComponent implements OnInit {
     
    // e.stopPropagation();
     //e.preventDefault();
-    if(e["toElement"].className=="cont"){
+    if (e["toElement"].className == 'cont'){
         this.sacar.emit(true);
       }
   }

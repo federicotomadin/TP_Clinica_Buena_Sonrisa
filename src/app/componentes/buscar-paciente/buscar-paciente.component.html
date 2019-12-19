@@ -5,13 +5,23 @@ dni: <input [(ngModel)]="dniPaciente" (keypress)="buscar()" (keyup)="buscar()">
     <div *ngFor="let pac of resultadosBusqueda">{{pac.dniUsuario}} - {{pac.nombre}} <button (click)="mostrarHistoriaClinica(pac.dniUsuario)">ver historia clinica</button></div>
 
 
-    <div class="container">
-        <div *ngFor="let item of historiaClinicaActiva">
-            Fecha: {{item.fecha}}<br>
-            Especialista: {{item.especialista}} (matrícula: {{item.matriculaEspecialista}})<br>
-            Tratamiento: {{item.tratamiento}}<br>
-            Descripcion: {{item.descripcion}}<br>
-            <hr>
-        </div>
-    </div>
-</div>
+    <table class="table table-striped" id="tablaVehiculos">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Especilaista</th>
+                <th scope="col">Matricula</th>
+                <th scope="col">Tratamiento</th>
+                <th scope="col">Descripcion</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of historiaClinicaActiva">
+            <tr>
+                <td>{{item.fecha}}</td>
+                <td>{{item.especialista}}</td>
+                <td>{{item.matriculaEspecialista}}</td>
+                <td>{{item.tratamiento}}</td>
+                <td>{{item.descripcion}}</td>
+            </tr>
+        </tbody>
+    </table>
