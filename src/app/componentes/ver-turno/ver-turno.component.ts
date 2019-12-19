@@ -5,6 +5,7 @@ import { Turno } from '../../clases/turno';
 
 import { PrincipalService } from '../../servicios/principal.service';
 import {AuthService  } from '../../servicios/auth.service';
+import { analytics } from 'firebase';
 
 @Component({
   selector: 'app-ver-turno',
@@ -21,14 +22,17 @@ public nombrePaciente: string;
 @Input() turno: Turno;
 @Output() sacar: EventEmitter <Boolean> = new EventEmitter<Boolean>();
 
+turnoAnterior: any;
 
 constructor(private auth: AuthService, private ser: PrincipalService) {
-
-
-
+  
   }
 
   ngOnInit() {
+
+    this.turnoAnterior = localStorage.getItem('elTurnoEsAnterior');
+
+
 
     this.nombrePaciente = this.turno.nombre;
     this.dniPaciente=this.turno.dniPaciente;

@@ -42,7 +42,6 @@ export class PedirturnoComponent implements OnInit {
 traerListaMedicos(){
 
 
-
 }
 
   pedirTurno() {

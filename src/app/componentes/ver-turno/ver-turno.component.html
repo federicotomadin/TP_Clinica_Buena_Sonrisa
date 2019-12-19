@@ -11,8 +11,12 @@
   
 
 
-        <button (click)="borrarTurno()">cancelar turno</button>
+        <button (click)="borrarTurno()">cancelar turno</button><br>
 
+       <div *ngIf="turnoAnterior==1">
+        <label for="">Ingrese comentario del turno</label>
+        <input type="text"  placeholder="reseña del turno">
+    </div>
 
     </div>
 </div>
