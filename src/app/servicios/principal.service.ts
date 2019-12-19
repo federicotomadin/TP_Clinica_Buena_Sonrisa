@@ -108,7 +108,7 @@ export class PrincipalService {
 
     this.traerTodosLosMedicos();
     this.medicos.subscribe((e) => {
-      this.listaMedicos = e.filter((user) => user.matriculaMedico.length > 2 && user.especialidad !== 'Administrador') ;
+      this.listaMedicos = e.filter((user) => user.matriculaMedico != null && user.especialidad !== 'Administrador') ;
       });
 
   }
@@ -136,7 +136,7 @@ traerUsuarios() {
   traerTodosLosMedicos() {
 
     this.medicos = this.miBase.collection('usuario').snapshotChanges().pipe(map(actions => 
-      actions.map(a =>      a.payload.doc.data()     )));
+      actions.map(a => a.payload.doc.data())));
   }
 
   traerTurnos() {

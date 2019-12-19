@@ -20,7 +20,7 @@
             </ng-template>
 
             <div class="container">
-                <label><b>Usuario</b></label><br>
+                <label><b>Email</b></label><br>
                 <span *ngIf="f.submitted && f.controls['email'].errors" class="text-danger animated fadeIn">El email es obligatorio</span>
                 <input type="text" placeholder="Email" [(ngModel)]="usuario.email" name="email" required>
 

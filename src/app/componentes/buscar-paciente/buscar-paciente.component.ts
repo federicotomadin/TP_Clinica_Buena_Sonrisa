@@ -47,6 +47,8 @@ export class BuscarPacienteComponent implements OnInit {
   mostrarHistoriaClinica(dni: any) {
 
 
+alert(dni)
+
     this.ser.getHistoraClinica().subscribe(resp => {
       resp.map(dat => {
         console.log(dat);
