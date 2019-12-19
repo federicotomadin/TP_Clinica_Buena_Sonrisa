@@ -109,27 +109,38 @@ export class CalendarioComponent implements OnInit {
     //localStorage["dia"] = JSON.stringify(a);
     this.fechaClickeada=a;
 
-    if (turno.hasOwnProperty('turno')) {
-      if (this.rol.toLowerCase() == "paciente" || this.rol.toLowerCase() == "recepcionista") {
-        this.turnoActivo=turno.turno;
-        this.mostrarVerTurno=true;
-        console.log(this.turnoActivo);
-      } else if (this.rol == "Odontologo") {
-        this.turnoActivo=turno.turno;
-        this.mostrarVerTurno=true;
-        console.log(this.turnoActivo);
-        this.mostrarPonerHistoriaClinica = true;
 
-      }
+
+    if (turno.hasOwnProperty('turno')) {
+        console.log(turno.turno)
+        this.turnoActivo=turno.turno;
+        this.mostrarVerTurno=true;
+        console.log(this.turnoActivo);
+
+        //// ACA EVALUAR SI LA FECHA ES ANTERIOR O PSTERIOR
+
+    /*  if (this.rol.toLowerCase() == "paciente" || this.rol.toLowerCase() == "recepcionista") {
+        this.turnoActivo=turno.turno;
+        this.mostrarVerTurno=true;
+        console.log(this.turnoActivo);
+      } else if (this.rol.toLowerCase() == "Odontologo") {
+        this.turnoActivo=turno.turno;
+        this.mostrarVerTurno=true;
+        console.log(this.turnoActivo);
+        //this.mostrarPonerHistoriaClinica = true;
+
+      }*/
     //  console.log(turno.turno);
       // HAY TURNO EN ESTE HORARIO
       //  if(JSON.parse(localStorage["usuarioLogueado"]).especialidad=="Odontologo"){
       //   }
     } else {
       // NO HAY TURNO EN ESTE HORARIO
-      if (this.rol != "Odontologo") {
+      if (this.rol.toLowerCase() != "odontologo" ) {
         this.mostrarPedirTurno = true;
-      }
+      }else{
+        console.log("el odontologo no pide turnos")
+        }
 
 
     }
