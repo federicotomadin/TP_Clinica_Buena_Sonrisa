@@ -30,7 +30,7 @@ export class CalendarioComponent implements OnInit {
   public turnoActivo: Turno;
   listaMedicos = [];
 
-  constructor(public auth: AuthService, public ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
+  constructor(private auth: AuthService, public ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
 
     if (this.auth.usuarioLogueado == undefined || this.auth.usuarioLogueado == null) {
       this.usuarioLogueado = new Usuario();
