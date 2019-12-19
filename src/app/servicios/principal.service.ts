@@ -119,7 +119,7 @@ export class PrincipalService {
       this.listaTurnos=[]
     
       resp.map( dat => {
-         this.listaTurnos.push(dat)
+         if(dat.cancelado==false) this.listaTurnos.push(dat)
          })      
     });
 
