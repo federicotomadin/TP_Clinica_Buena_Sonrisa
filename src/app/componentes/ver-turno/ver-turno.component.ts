@@ -17,6 +17,7 @@ public nombreMedico: string;
 public dniPaciente: string;
 public matriculaMedico: string;
 public fecha: any;
+public info_paciente:Usuario;
 public nombrePaciente: string;
 @Input() turno: Turno;
 @Output() sacar: EventEmitter <Boolean> = new EventEmitter<Boolean>();
@@ -40,7 +41,7 @@ constructor(private auth: AuthService, private ser: PrincipalService) {
 
     this.fecha= this.fecha.toLocaleDateString()+" "+ this.fecha.toLocaleTimeString();
     
-
+    this.info_paciente=this.ser.dni2usuario(this.dniPaciente)[0]
 
   }
   quitarVerTurno(e:Event){

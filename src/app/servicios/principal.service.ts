@@ -116,7 +116,7 @@ export class PrincipalService {
     }));
 
     this.turnos.subscribe(resp => {
-  
+      this.listaTurnos=[]
     
       resp.map( dat => {
          this.listaTurnos.push(dat)
@@ -267,6 +267,10 @@ traerHistoriasClinicas() {
     //let setDoc = db.collection('cities').doc('LA').set(data);
     
     this.miBase.collection('turno').doc(t.key).set(t);
+  }
+
+  dni2usuario(dni:any){
+    return this.listaUsuarios.filter(u=>u.dniUsuario==dni)
   }
 
 
