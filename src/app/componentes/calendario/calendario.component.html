@@ -1,7 +1,7 @@
 <div class="calendario">
     <div class="filtros" *ngIf="usuarioLogueado.especialidad=='Recepcionista'"><b>filtros</b> medicos: <select id="medicos" (change)="cambioElSelect($event.target.value)">
           <option value="-1">Todos</option>
-         <option *ngFor="let medico of listaMedicos" value="{{medico.matriculaMedico}}" >{{medico.especialidad}} - ({{medico.matriculaMedico}}) {{medico.nombre}}</option>
+         <option *ngFor="let medico of ser.listaMedicos" value="{{medico.matriculaMedico}}" >{{medico.especialidad}} - ({{medico.matriculaMedico}}) {{medico.nombre}}</option>
         
     </select>
     </div>
