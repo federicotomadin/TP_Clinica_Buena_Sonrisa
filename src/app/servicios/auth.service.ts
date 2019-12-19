@@ -38,6 +38,7 @@ export class AuthService {
 
   CrearPaciente(usuario: Usuario) {
     usuario.especialidad = 'Paciente';
+    usuario.matriculaMedico = '';
     this.afAuth.auth.createUserWithEmailAndPassword(usuario.email, usuario.password)
       .then(resp => {
         this.principalService.createUsuario(usuario);

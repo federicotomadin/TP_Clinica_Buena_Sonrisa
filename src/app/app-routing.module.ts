@@ -23,7 +23,7 @@ import { MedicoGuardGuard } from './guards/medico-guard.guard';
 const routes = [
   { path: '', component: LoginComponent},
   { path: 'Calendario', component: CalendarioComponent, canActivate: [AuthGuard] },
-  { path: 'Cliente', component: ClienteComponent, canActivate: [AuthGuard,MedicoGuardGuard, RecepcionistaGuardGuard] },
+  { path: 'Cliente', component: ClienteComponent, canActivate: [AuthGuard] },
   //{ path: 'Historia', component: HistoriaclinicaComponent, canActivate: [AuthGuard]},
   { path: 'Login', component: LoginComponent},
   { path: 'Medico', component: MedicoComponent, canActivate: [MedicoGuardGuard]},

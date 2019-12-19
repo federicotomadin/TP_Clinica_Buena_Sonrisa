@@ -29,7 +29,7 @@ export class BuscarPacienteComponent implements OnInit {
   }
 
   buscar() {
-    this.historiaClinicaActiva=[];
+    this.historiaClinicaActiva = [];
     this.resultadosBusqueda = [];
     for (let i = 0; i < this.listaPacientes.length; i++) {
       
@@ -49,7 +49,10 @@ export class BuscarPacienteComponent implements OnInit {
 
     this.ser.getHistoraClinica().subscribe(resp => {
       resp.map(dat => {
-        console.log(dat);
+         if (dat.dniPaciente == dni) {
+           console.log(dat);
+           this.historiaClinicaActiva.push(dat);
+         }
       });
     });
 

@@ -46,9 +46,12 @@ export class PrincipalService {
 
   public error: string;
 
+  usuariosMedicosCollection: AngularFirestoreCollection<Usuario>;
+  usuariosMedicos: Observable<Usuario[]>;
+
   public medicos: any;
   public usuarios: any;
-  public listaMedicos:[];
+  public listaMedicos: [];
 
   RefClinica: AngularFireList<Clinica> = null;
   RefUsuario: AngularFireList<Usuario> = null;
@@ -104,12 +107,13 @@ export class PrincipalService {
       });
     }));
 
-
-
-    this.traerTodosLosMedicos();
-    this.medicos.subscribe((e) => {
-      this.listaMedicos = e.filter((user) => user.matriculaMedico.length > 2 && user.especialidad !== 'Administrador') ;
+    this.usuariosMedicosCollection = this.miBase.collection('usuario');
+    this.usuariosMedicos = this.usuariosMedicosCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Usuario;
+        return data;
       });
+    }));
 
   }
 
@@ -122,6 +126,14 @@ export class PrincipalService {
 
   getUsuario() {
     return this.usuario;
+  }
+
+  getMedicos() {
+    return this.medicos;
+  }
+
+  getUsuariosMedicos() {
+    return this.usuariosMedicos;
   }
 
 
