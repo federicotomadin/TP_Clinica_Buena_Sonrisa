@@ -102,6 +102,8 @@ export class CalendarioComponent implements OnInit {
 
     }
   }
+
+
   clickTurno(e: Event, turno: any, dia: any) {
     let a=new Date(dia.ano+"-"+dia.mes+"-"+dia.dia+" "+turno.hora+":"+turno.minutos+":00");
     //localStorage["dia"] = JSON.stringify(a);
@@ -113,7 +115,9 @@ export class CalendarioComponent implements OnInit {
         this.mostrarVerTurno=true;
         console.log(this.turnoActivo);
       } else if (this.rol == "Odontologo") {
-
+        this.turnoActivo=turno.turno;
+        this.mostrarVerTurno=true;
+        console.log(this.turnoActivo);
         this.mostrarPonerHistoriaClinica = true;
 
       }
