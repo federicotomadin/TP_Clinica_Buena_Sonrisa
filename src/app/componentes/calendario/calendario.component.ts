@@ -139,7 +139,7 @@ export class CalendarioComponent implements OnInit {
 
       //// ACA EVALUAR SI LA FECHA ES ANTERIOR O PSTERIOR
 
-      let fecha_ref = new Date("2019-12-19 13:00:00");
+      let fecha_ref = new Date();
       console.log(fecha_ref, this.fechaClickeada)
       if (this.fechaClickeada < fecha_ref) {
         localStorage["elTurnoEsAnterior"]=1
