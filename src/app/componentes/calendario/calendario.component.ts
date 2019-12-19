@@ -127,6 +127,7 @@ export class CalendarioComponent implements OnInit {
     let a = new Date(dia.ano + "-" + dia.mes + "-" + dia.dia + " " + turno.hora + ":" + turno.minutos + ":00");
     //localStorage["dia"] = JSON.stringify(a);
     this.fechaClickeada = a;
+    localStorage["elTurnoEsAnterior"]=null;
 
     console.log(this.fechaClickeada);
 
@@ -141,9 +142,9 @@ export class CalendarioComponent implements OnInit {
       let fecha_ref = new Date("2019-12-19 13:00:00");
       console.log(fecha_ref, this.fechaClickeada)
       if (this.fechaClickeada < fecha_ref) {
-        console.log("el evento es anterior")
+        localStorage["elTurnoEsAnterior"]=1
       } else {
-        console.log("el evento es posterior");
+        localStorage["elTurnoEsAnterior"]=0
       }
 
 
