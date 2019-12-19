@@ -23,6 +23,7 @@ public nombrePaciente: string;
 @Output() sacar: EventEmitter <Boolean> = new EventEmitter<Boolean>();
 
 turnoAnterior: any;
+comemtario: string;
 
 constructor(private auth: AuthService, private ser: PrincipalService) {
   
@@ -44,6 +45,13 @@ constructor(private auth: AuthService, private ser: PrincipalService) {
     this.info_paciente=this.ser.dni2usuario(this.dniPaciente)[0]
 
   }
+
+
+  CargarResenia() {
+    this.ser.actualizarTurnoEnFirebase(this.turno);
+  }
+
+
   quitarVerTurno(e:Event){
     
     // e.stopPropagation();
