@@ -145,7 +145,7 @@ export class PrincipalService {
         if ( dat.especialidad.toLowerCase() == 'paciente') {
           this.listaPacientes.push(dat);
         }
-        if (dat.matriculaMedico.length > 2 && dat.especialidad.toLowerCase() != 'administrador' && dat.especialidad.toLowerCase() != 'paciente') {
+        if (dat.matriculaMedico.length > 2  && dat.especialidad.toLowerCase() != 'recepcionista' && dat.especialidad.toLowerCase() != 'administrador' && dat.especialidad.toLowerCase() != 'paciente') {
         this.listaMedicos.push(dat);
       }
     }
