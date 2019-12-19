@@ -107,19 +107,11 @@ export class PrincipalService {
       });
     }));
 
-<<<<<<< HEAD
-
-
-    this.traerTodosLosMedicos();
-    this.medicos.subscribe((e) => {
-      this.listaMedicos = e.filter((user) => user.matriculaMedico != null && user.especialidad !== 'Administrador') ;
-=======
     this.usuariosMedicosCollection = this.miBase.collection('usuario');
     this.usuariosMedicos = this.usuariosMedicosCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Usuario;
         return data;
->>>>>>> 1fdb55fe2c5c889531ea80112801c00ed68ee9c6
       });
     }));
 
