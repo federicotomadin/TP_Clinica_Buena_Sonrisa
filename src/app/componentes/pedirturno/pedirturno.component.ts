@@ -41,7 +41,7 @@ export class PedirturnoComponent implements OnInit {
     });
   }
 
-  pedirTurno(f: Date) {
+  pedirTurno() {
     let n = new Turno();
 
     this.ser.getUsuariosMedicos().subscribe(resp => {

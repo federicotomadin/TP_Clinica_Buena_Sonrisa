@@ -48,4 +48,8 @@ constructor(private auth: AuthService, private ser: PrincipalService) {
        }
    }
 
+   borrarTurno() {
+     
+   }
+
 }

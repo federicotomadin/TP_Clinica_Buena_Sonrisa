@@ -2,10 +2,10 @@
     <div class="jumbotron" style="padding:50px;">
 
         <form (ngSubmit)="ngSubmit( f )" #f="ngForm" class="modal-content animate">
-
-            <div *ngIf="mostrarImagen; then imagenUrl; else imagenIcono">
-                <!-- <img src=" ../../../assets/imagenes/login.png" alt="Smiley face "> -->
-            </div>
+            <!-- 
+            <div *ngIf="mostrarImagen">
+                <img src=" ../../../assets/imagenes/login.png" alt="Smiley face ">
+            </div> -->
 
             <!-- <ng-template #imagenIcono>
                 <div class="imgcontainer">
@@ -17,15 +17,15 @@
                 <p>qué se hizo:</p>
                 <input type="text" placeholder="qué se hizo" [(ngModel)]="historia.descripcion" name="descripcion" required>
                 <br>
-                <p> tratamiento:</p>                
-                    <select name="tratamiento" ngModel>
+                <p> tratamiento:</p>
+                <select name="tratamiento" ngModel>
                       <option value="" disabled>Sin especificar</option>
                       <option *ngFor="let trat of tratamientos" [ngValue]="trat.name">
                         {{ trat.name }}
                       </option>
                     </select>
-                  
- 
+
+
                 <button type="submit">Cargar Tratamiento</button><br>
 
             </div>
@@ -35,36 +35,35 @@
 
 
 
-<table class="table table-hover table-dark" id="tablaEmpleados">
+    <table class="table table-hover table-dark" id="tablaEmpleados">
 
-    <thead>
-        <tr>
-            <th class="contenidoHeader" scope="col">Fecha</th>
-            <th class="contenidoHeader" scope="col">Tratamiento</th>
-            <th class="contenidoHeader" scope="col">Descripción</th>
-            <th class="contenidoHeader" scope="col">especialista</th>
-        </tr>
-    </thead>
+        <thead>
+            <tr>
+                <th class="contenidoHeader" scope="col">Fecha</th>
+                <th class="contenidoHeader" scope="col">Tratamiento</th>
+                <th class="contenidoHeader" scope="col">Descripción</th>
+                <th class="contenidoHeader" scope="col">especialista</th>
+            </tr>
+        </thead>
 
-    <tbody>
-        <tr *ngFor="let historia of historias">
+        <tbody>
+            <tr *ngFor="let historia of historias">
 
-     
-            <td>
-                <input class="contenidoModalChico" [(ngModel)]="historia.fecha" name="historia.fecha">
-            </td>
-            <td>
-                <input class="contenidoModalChico" [(ngModel)]="historia.tratamiento" name="historia.tratamiento">
-            </td>
-            <td>
-                <input class="contenidoModalDescripcion" [(ngModel)]="historia.descripcion" name="historia.descripcion">
-            </td>
-            <td>
-                <input class="contenidoModalChico" [(ngModel)]="historia.especialista" name="historia.especialista">
-            </td>
 
-    </tbody>
-</table>
+                <td>
+                    <input class="contenidoModalChico" [(ngModel)]="historia.fecha" name="historia.fecha">
+                </td>
+                <td>
+                    <input class="contenidoModalChico" [(ngModel)]="historia.tratamiento" name="historia.tratamiento">
+                </td>
+                <td>
+                    <input class="contenidoModalDescripcion" [(ngModel)]="historia.descripcion" name="historia.descripcion">
+                </td>
+                <td>
+                    <input class="contenidoModalChico" [(ngModel)]="historia.especialista" name="historia.especialista">
+                </td>
+
+        </tbody>
+    </table>
 
 </div>
-

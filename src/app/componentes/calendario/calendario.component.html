@@ -17,8 +17,8 @@
 </div>
 
 
-<app-poner-historia-clinica *ngIf="mostrarPonerHistoriaClinica" (sacar)="sacarHistoriaClinica($event)"></app-poner-historia-clinica>
+<app-poner-historia-clinica *ngIf="mostrarPonerHistoriaClinica" (sacar)="sacarHistoriaClinica()"></app-poner-historia-clinica>
 
-<app-pedirturno *ngIf="mostrarPedirTurno" (sacar)="sacarPedirTurno($event)" [fecha]="fechaClickeada"></app-pedirturno>
+<app-pedirturno *ngIf="mostrarPedirTurno" (sacar)="sacarPedirTurno()" [fecha]="fechaClickeada"></app-pedirturno>
 
-<app-ver-turno *ngIf="mostrarVerTurno" [turno]="turnoActivo" (sacar)="sacarVerTurno($event)"></app-ver-turno>
+<app-ver-turno *ngIf="mostrarVerTurno" [turno]="turnoActivo" (sacar)="sacarVerTurno()"></app-ver-turno>

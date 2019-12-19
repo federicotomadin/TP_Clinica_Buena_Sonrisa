@@ -1,8 +1,7 @@
-<app-barra-superior (mostrarBuscador)="verBuscador($event)" (mostrarCalendario)="verCalendario($event)"></app-barra-superior>
+<app-barra-superior (mostrarBuscador)="verBuscador()" (mostrarCalendario)="verCalendario()"></app-barra-superior>
 <hr>
 
 
-<app-calendario rol="odontologo"  *ngIf="mostrarCalendario"></app-calendario> 
+<app-calendario rol="odontologo" *ngIf="mostrarCalendario"></app-calendario>
 
-<app-buscar-paciente *ngIf="mostrarBuscadorPacientes"   ></app-buscar-paciente> 
-
+<app-buscar-paciente *ngIf="mostrarBuscadorPacientes"></app-buscar-paciente>
