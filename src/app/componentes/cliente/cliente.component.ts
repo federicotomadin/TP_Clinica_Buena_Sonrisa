@@ -20,22 +20,21 @@ export class ClienteComponent implements OnInit {
 
   constructor(ser: PrincipalService, auth: AuthService, router: Router) {
     if (auth.usuarioLogueado == undefined) {
-      router.navigate(['Login']);
+      router.navigate(['/Login']);
       localStorage.usuarioLogueado = undefined;
-     } else    this.usuario = auth.usuarioLogueado;
-    
+     } else {    this.usuario = auth.usuarioLogueado; }
 
   }
 
 
   verBuscador() {
-    console.log("ver buscador - func recepcionista")
+    console.log('ver buscador - func recepcionista')
     this.mostrarBuscadorPacientes = true;
     this.mostrarCalendario = false;
   }
 
   verCalendario() {
-    console.log("ver calendario - func recepcionista")
+    console.log('ver calendario - func recepcionista')
     this.mostrarBuscadorPacientes = false;
     this.mostrarCalendario = true;
   }

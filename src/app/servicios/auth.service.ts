@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { BehaviorSubject } from 'rxjs';
 import { isNullOrUndefined } from 'util';
 import { HorarioLogueo } from '../clases/horarioLogueo';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +67,6 @@ export class AuthService {
             resp.map(data => {
 
               if (data.email === usuarioCredential.user.email) {
-               // console.log("USUARIO LOGUEADO:", data);
               localStorage.usuarioLogueado = JSON.stringify(data);
               this.usuarioLogueado = data;
               // usuarioCredential.providerData[0]
@@ -91,7 +91,7 @@ export class AuthService {
                     text: 'RECEPCIONISTA',
                     timer: 2000
                   });*/
-                this.router.navigate(['Recepcionista']);
+                this.router.navigate(['/Recepcionista']);
                 } else if (data.especialidad === 'Odontologo') {
                   this.especialidad = data.especialidad;
                 /*  Swal.fire({
@@ -100,7 +100,7 @@ export class AuthService {
                     text: 'ODONTOLOGO',
                     timer: 2000
                   });*/
-                  this.router.navigate(['Medico']);
+                  this.router.navigate(['/Medico']);
                 } else if (data.especialidad === 'Paciente') {
                   this.especialidad = data.especialidad;
                 /*  Swal.fire({
@@ -109,7 +109,7 @@ export class AuthService {
                     text: 'PACIENTE',
                     timer: 2000
                   });*/
-                  this.router.navigate(['Cliente']);
+                  this.router.navigate(['/Cliente']);
                 } else if (data.especialidad === 'Laboratorista') {
                   this.especialidad = data.especialidad;
                 /*  Swal.fire({
@@ -118,7 +118,7 @@ export class AuthService {
                     text: 'LABORATORISTA',
                     timer: 2000
                   });*/
-                  this.router.navigate(['Laboratorista']);
+                  this.router.navigate(['/Laboratorista']);
                 }  else if (data.especialidad === 'Administrador') {
                   this.especialidad = data.especialidad;
                  /* Swal.fire({
@@ -127,7 +127,7 @@ export class AuthService {
                     text: 'ADMINISTRADOR',
                     timer: 2000
                   });*/
-                  this.router.navigate(['Administrador']);
+                  this.router.navigate(['/Administrador']);
                 }
 
               }
@@ -135,13 +135,22 @@ export class AuthService {
             });
           });
 
-          this.router.navigate(['Login']);
+          this.router.navigate(['/Login']);
 
         }
       });
   }
 
   Logout() {
-    return this.afAuth.auth.signOut();
+    firebase.auth().onAuthStateChanged(resp => {
+      resp.delete();
+    });
+    firebase.auth().signOut()
+    .then( () => {
+      alert('se cerro la seion');
+    })
+    .catch( () => {
+      alert('la sesion no se cerro');
+    });
   }
 }

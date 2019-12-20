@@ -38,7 +38,7 @@ export class BarraSuperiorComponent implements OnInit {
     this.horarioLogueo.matriculaMedico = this.auth.usuarioLogueado.matriculaMedico;
     this.horarioLogueo.email = this.auth.usuarioLogueado.email;
     this.principalService.crearFechaLogueo(this.horarioLogueo);
-    this.afsAuth.auth.signOut();
+    this.auth.Logout();
     this.afsAuth.auth.tenantId = null;
     localStorage.removeItem('usuarioLogueado');
     this.router.navigate(['/Login']);

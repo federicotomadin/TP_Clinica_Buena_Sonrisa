@@ -28,7 +28,6 @@ export class MedicoGuardGuard implements CanActivate {
 
          this.afsAuth.idTokenResult.subscribe(dat => {
            if (isNullOrUndefined(dat)) {
-            this.router.navigate(['/Login']);
             return false;
            }
          });

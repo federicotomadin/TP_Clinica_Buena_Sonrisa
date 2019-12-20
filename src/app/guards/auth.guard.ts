@@ -43,7 +43,8 @@ export class AuthGuard implements CanActivate {
          return true;
 
          } else {
-          this.router.navigate(['/Login']);
+          this.afsAuth.auth.signOut();
+         
          }
 }
   }
