@@ -25,7 +25,7 @@ export class PedirturnoComponent implements OnInit {
   constructor(public ser: PrincipalService) { }
 
   ngOnInit() {
-    console.log(this.fecha);
+   
     this.ser.getUsuariosMedicos().subscribe(resp => {
       resp.map( dat => {
         if (!isNullOrUndefined(dat.matriculaMedico)) {
@@ -55,6 +55,9 @@ export class PedirturnoComponent implements OnInit {
     
    // e.stopPropagation();
     //e.preventDefault();
+
+    this.listaMedicosLocal = null;
+
     if (e["toElement"].className == 'cont'){
         this.sacar.emit(true);
       }

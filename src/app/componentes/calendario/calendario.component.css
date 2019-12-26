@@ -3,13 +3,31 @@
     position: relative;
     height: 80vh;
     overflow: scroll;
-    border: 2px solid #cccccc;
+    /* border: 2px solid #cccccc; */
     padding: 1vw;
     font-size: 2vw;
+    overflow-x: hidden;
 }
 
+.carousel.slide{
+    border-radius: 15%;
+}
+
+.calendario::-webkit-scrollbar {
+    width: 1em;
+  }
+
+  .calendario::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .calendario::-webkit-scrollbar-thumb {
+    background-color: rgb(15, 109, 104);
+    outline: 1px solid slategrey;
+  }
+
 .dia {
-    width: 14.15%;
+    width: 13%;
     display: inline-block;
 }
 
@@ -22,21 +40,64 @@
     margin-bottom: 5px;
 }
 
+.item_activo{
+    padding: 0% 8% 0% 12%;
+}
+
 .turno {
-    min-height: 10px;
+    min-height: 25px;
     background: white;
-    max-height: 10px;
+    max-height: 25px;
     border: 1px solid #eeeeee;
     font-size: 1.2vw;
     line-height: 5px;
+    text-align: left;
 }
 
 .turno.ocupado{
     background: #cccccc;
 }
 
+
+.turnoBloqueado{
+    min-height: 25px;
+    max-height: 25px;
+    border: 1px solid #eeeeee;
+    font-size: 1.2vw;
+    line-height: 5px;
+    text-align: left;
+    background-color: red;
+}
+
 .turno:hover{
 
 background:#eeeeee;
 }
-    
+
+#flechitaIzquierda{
+    color:rgb(10, 83, 80);
+    position: fixed;
+    left: 5%;
+    top: 50%;
+}
+
+.glyphicon {
+    font-size: 50px;
+}
+
+
+#flechitaDerecha{
+    color:rgb(10, 83, 80);
+    position: fixed;
+    left: 90%;
+    top: 50%;
+    }
+
+.paleta{
+    color:#17252A;
+    color: #2B7A78;
+    color:rgb(15, 109, 104);
+    color: #3AAFA9;
+    color:#DEF2F1;
+    color: #FEFFFF;
+}

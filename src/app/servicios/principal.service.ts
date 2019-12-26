@@ -57,7 +57,7 @@ export class PrincipalService {
   RefUsuario: AngularFireList<Usuario> = null;
 
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase,
-              private miBase: AngularFirestore) {
+    private miBase: AngularFirestore) {
     this.RefClinica = db.list(this.dbPathClinica);
 
 
@@ -107,19 +107,11 @@ export class PrincipalService {
       });
     }));
 
-<<<<<<< HEAD
-
-
-    this.traerTodosLosMedicos();
-    this.medicos.subscribe((e) => {
-      this.listaMedicos = e.filter((user) => user.matriculaMedico != null && user.especialidad !== 'Administrador') ;
-=======
     this.usuariosMedicosCollection = this.miBase.collection('usuario');
     this.usuariosMedicos = this.usuariosMedicosCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Usuario;
         return data;
->>>>>>> 1fdb55fe2c5c889531ea80112801c00ed68ee9c6
       });
     }));
 
@@ -147,15 +139,15 @@ export class PrincipalService {
 
   // ========================Turnos
 
-traerUsuarios() {
-  this.usuarios = this.miBase.collection('usuario').snapshotChanges().pipe(map(actions => 
-    actions.map(a => a.payload.doc.data())));
+  traerUsuarios() {
+    this.usuarios = this.miBase.collection('usuario').snapshotChanges().pipe(map(actions =>
+      actions.map(a => a.payload.doc.data())));
 
-}
+  }
 
   traerTodosLosMedicos() {
 
-    this.medicos = this.miBase.collection('usuario').snapshotChanges().pipe(map(actions => 
+    this.medicos = this.miBase.collection('usuario').snapshotChanges().pipe(map(actions =>
       actions.map(a => a.payload.doc.data())));
   }
 
@@ -188,16 +180,17 @@ traerUsuarios() {
     this.miBase.collection('historiaClinica').add({ ...historia });
   }
   cargarTurno(t: Turno) {
-   
+
     this.miBase.collection('turno').add({ ...t });
   }
 
-  matricula2Especialidad(m: any){
-    return this.listaMedicos.filter((med: any ) => {
-        return med.matriculaMedico == m})[0]["especialidad"];
-    }
+  matricula2Especialidad(m: any) {
+    return this.listaMedicos.filter((med: any) => {
+      return med.matriculaMedico == m
+    })[0]["especialidad"];
+  }
 
-traerHistoriasClinicas() {
+  traerHistoriasClinicas() {
 
     this.historiaClinica = this.miBase.collection('historiaClinica').snapshotChanges().pipe(map(actions => {
       // console.log(actions);
@@ -219,11 +212,22 @@ traerHistoriasClinicas() {
   }
 
   createUsuario(usuario: Usuario): void {
-    this.usuarioCollection.add({ ...usuario });
-  }
 
+    //anterior
+    //this.usuarioCollection.add({ ...usuario });
+
+    var usuariosRef = this.miBase.collection('usuario');
+
+    usuariosRef.doc(usuario.email).set({
+      dniUsuario: usuario.dniUsuario, email: usuario.email, especialidad: usuario.especialidad,
+      matriculaMedico: usuario.matriculaMedico, nombre: usuario.nombre,
+      password: usuario.password, pedidoEstudio: false
+    });
+
+  }
+  
   crearFechaLogueo(horarioLogueo: HorarioLogueo): void {
-    this.horarioLogueoCollection.add({...horarioLogueo});
+    this.horarioLogueoCollection.add({ ...horarioLogueo });
   }
 
   getFechasLogueo() {

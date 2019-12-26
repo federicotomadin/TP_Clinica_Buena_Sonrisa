@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { HorarioLogueo } from '../../clases/horarioLogueo';
 import { storage } from 'firebase';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-barra-superior',
@@ -23,6 +24,7 @@ export class BarraSuperiorComponent implements OnInit {
 
   constructor(private principalService: PrincipalService, private auth: AuthService,
               private router: Router, private afsAuth: AngularFireAuth) {
+                
     this.usuario = this.auth.usuarioLogueado;
     this.horarioLogueo = new HorarioLogueo();
     if (this.auth.usuarioLogueado) {
@@ -31,6 +33,28 @@ export class BarraSuperiorComponent implements OnInit {
 
     window["barra_sup"] = this;
   }
+
+  ngOnInit() {
+
+    let usu: Usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
+
+    if(usu == undefined || usu == null){
+      
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'error',
+      text: 'Por favor loguearse',
+      timer: 4000
+    });
+
+      this.router.navigate(['/Login']);
+    }
+    else{
+      this.usuario = usu;  
+      this.taLogueado = true;    
+    }
+  }
+
 
   logout() {
     this.horarioLogueo.horarioSalida = Date();
@@ -52,8 +76,5 @@ export class BarraSuperiorComponent implements OnInit {
     console.log('mostrar buscador por dni');
     this.mostrarBuscador.emit(true);
     }
-
-  ngOnInit() {
-  }
 
 }

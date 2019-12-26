@@ -83,8 +83,8 @@
                         <input type="text" placeholder="Nombre" [(ngModel)]="usuario.nombre" name="nombre" required><br>
                     </div>
                     <div class="col-sm">
-                        <label><b>Dni del Usuario</b></label>
-                        <span *ngIf="f.submitted && f.controls['dniUsuario'].errors" class="text-danger animated fadeIn">El dni es obligatorio</span><br>
+                        <label><b>DNI del Usuario</b></label>
+                        <span *ngIf="f.submitted && f.controls['dniUsuario'].errors" class="text-danger animated fadeIn">El DNI es obligatorio</span><br>
                         <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Ingresá el año" [(ngModel)]="usuario.dniUsuario" name="dniUsuario" maxlength="8" minlength="8" required><br>
                     </div>
                 </div>

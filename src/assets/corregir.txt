@@ -1,0 +1,10 @@
+#login:
+-qué pasa cuando presiono login??
+
+
+#arreglar listado profesionales cuando se busca turno
+
+
+# al actualizar desaparece el navbar
+
+# mensajes de error en el logueo

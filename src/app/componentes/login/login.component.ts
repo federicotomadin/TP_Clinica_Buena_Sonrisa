@@ -26,11 +26,11 @@ export class LoginComponent implements OnInit {
   horarioLogueo: HorarioLogueo;
 
   constructor(private principalService: PrincipalService,
-              public ruta: Router, private authService: AuthService) {
-                this.TraerImagenLogin();
-                this.horarioLogueo = new HorarioLogueo();
+    public ruta: Router, private authService: AuthService) {
+    this.TraerImagenLogin();
+    this.horarioLogueo = new HorarioLogueo();
 
-              }
+  }
 
   ngOnInit() {
     this.usuario = new Usuario();
@@ -42,40 +42,43 @@ export class LoginComponent implements OnInit {
   }
 
   TraerImagenLogin() {
-  if (localStorage.getItem('urlFoto')) {
-    this.mostrarImagen = true;
-    this.urlFoto = localStorage.getItem('urlFoto');
-  } else {
-    this.urlFoto = '../../../assets/imagenes/login.png';
+    if (localStorage.getItem('urlFoto')) {
+      this.mostrarImagen = true;
+      this.urlFoto = localStorage.getItem('urlFoto');
+    } else {
+      this.urlFoto = '../../../assets/imagenes/login.png';
+    }
   }
-}
 
   Login(form: NgForm) {
 
-    if (form.invalid) { return; }
+    if (form.invalid) {
+      return;
+    }
 
     Swal.fire({
-    allowOutsideClick: false,
-    icon: 'info',
-    text: 'Ingresando...',
-    timer: 4000
+      allowOutsideClick: false,
+      icon: 'info',
+      text: 'Verificando datos...',
+      timer: 4000
     });
 
     this.authService.Login(form.value);
-    localStorage.setItem('email', this.usuario.email);
-    const usu: Usuario = form.value;
+    
+    // localStorage.setItem('email', this.usuario.email);
+    // const usu: Usuario = form.value;
 
-    Swal.showLoading();
-    if (this.recordarme) {
-      localStorage.setItem('email', this.usuario.email);
-    }
-    Swal.close();
-}
+    // Swal.showLoading();
+    // if (this.recordarme) {
+    //   localStorage.setItem('email', this.usuario.email);
+    // }
+    // Swal.close();
+  }
 
-ngSubmit(form: NgForm) {
+  ngSubmit(form: NgForm) {
 
-this.Login(form);
+    this.Login(form);
 
-}
+  }
 }
 
