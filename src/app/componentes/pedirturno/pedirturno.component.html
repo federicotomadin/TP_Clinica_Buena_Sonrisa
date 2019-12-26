@@ -1,15 +1,44 @@
-<div class="cont" (click)="quitarPedirTurno($event)">
+<div class="cont " (click)="quitarPedirTurno($event)">
 
-    <div class="cuadrito">
+    <div class="cuadrito container">
 
         <h2> Pedir turno</h2>
 
+<<<<<<< HEAD
         Médico: <select [(ngModel)]="matriculaMedico">
             <option *ngFor="let medico of listaMedicosLocal" value="{{medico.matriculaMedico}}">
                 {{medico.especialidad}} - ({{medico.matriculaMedico}}) {{medico.nombre}}</option>
         </select>
 
         paciente: <input [(ngModel)]="dniUsuario"> <br>
+=======
+        medico: <select [(ngModel)]="matriculaMedico">
+            <option *ngFor="let medico of ser.listaMedicos"  value="{{medico.matriculaMedico}}" >
+                {{medico.especialidad}} - ({{medico.matriculaMedico}}) {{medico.nombre}}</option><br>
+            </select>
+            
+            <hr>
+            
+            paciente: <select [(ngModel)]="dniUsuario">
+               
+                <option *ngIf="auth.usuarioLogueado.especialidad=='Paciente'" value="{{auth.usuarioLogueado.dniUsuario}}" selected> {{auth.usuarioLogueado.dniUsuario}} - {{auth.usuarioLogueado.nombre}}</option>
+
+
+              
+                <ng-container *ngIf="auth.usuarioLogueado.especialidad!='Paciente'">
+                    
+              
+                <option   *ngFor="let paciente of ser.listaPacientes"  value="{{paciente.dniUsuario}}" >
+                    {{paciente.dniUsuario}} - {{paciente.nombre}}
+                </option>
+
+            </ng-container>
+
+                </select>
+
+                <hr>
+        <!-- paciente: <input [(ngModel)]="dniUsuario"> <br> -->
+>>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58
 
         <button (click)="pedirTurno()"> pedir turno</button>
 

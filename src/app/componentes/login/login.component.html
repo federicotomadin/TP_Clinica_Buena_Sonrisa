@@ -1,44 +1,37 @@
-<div class="container animated fadeInLeft faster">
-    <div class="jumbotron" style="padding:50px;">
+<div class="container   ">
+    <div style="padding:2vw;">
 
-        <form (ngSubmit)="ngSubmit( f )" #f="ngForm" class="modal-content animate">
-
-            <div *ngIf="mostrarImagen; then imagenUrl; else imagenIcono">
-                <!-- <img src=" ../../../assets/imagenes/login.png" alt="Smiley face "> -->
-            </div>
-
-            <ng-template #imagenUrl>
-                <div class="imgcontainer">
-                    <img src="{{urlFoto}}" alt="Smiley face ">
-                </div>
-            </ng-template>
-
-            <ng-template #imagenIcono>
-                <div class="imgcontainer">
-                    <img src="{{urlFoto}}" alt="Smiley face ">
-                </div>
-            </ng-template>
+        <form (ngSubmit)="ngSubmit( f )" #f="ngForm" class="modal-content ">
 
             <div class="container">
                 <label><b>Email</b></label><br>
-                <span *ngIf="f.submitted && f.controls['email'].errors" class="text-danger animated fadeIn">El email es obligatorio</span>
+                <span *ngIf="f.submitted && f.controls['email'].errors" class="text-danger  ">El email es obligatorio</span>
                 <input type="text" placeholder="Email" [(ngModel)]="usuario.email" name="email" required>
 
                 <label><b>Clave</b></label><br>
-                <span *ngIf="f.submitted && f.controls['password'].errors" class="text-danger animated fadeIn">La contraseña es obligatoria</span>
+                <span *ngIf="f.submitted && f.controls['password'].errors" class="text-danger  ">La contraseña es obligatoria</span>
                 <input type="password" placeholder="Clave" [(ngModel)]="usuario.password" name="password" minlength="6" required>
 
-                <button type="submit">Ingresar</button><br>
+                <button type="submit">Login</button><br>
                 <!-- <app-mi-captcha (captcha)="ReconociendoCaptcha($event)"></app-mi-captcha> -->
 
-                <input type="checkbox" [(ngModel)]="recordarme" name="remember-me">Recordar mis datos <br>
+                <input type="checkbox" [(ngModel)]="recordarme" name="remember-me">Recordarme <br>
             </div>
 
 
-            <div class="container" style="background-color:#f1f1f1">
+            <div class="container">
                 <button type="button" class="aceptbtn" routerLink="/Registro">Registrar Usuario</button>
                 <!-- <span class="psw ">Te olvidaste <a href="# ">la clave?</a></span> -->
             </div>
         </form>
+
+        <br>
+
+        <br><br>
+        <hr>
+        <div style="font-size:10px">
+            recepcionista: mario@gmail:123456<br> odontologo: odonto@gmail:123456<br> odontologo: jacinto@gmail:123456<br> laboratorista: roberto@gmail:123456<br> paciente: gisela@gmail:123456<br>
+
+        </div>
     </div>
 </div>

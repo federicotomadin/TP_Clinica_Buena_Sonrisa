@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 <h2>Buscar paciente por DNI:</h2>
 dni: <input [(ngModel)]="dniPaciente" (keypress)="buscar()" (keyup)="buscar()">
+=======
+>>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58
 
 <div class="container">
+
+
+<b>DNI: </b> <input [(ngModel)]="dniPaciente" (keypress)="buscar()" (keyup)="buscar()">
+
     <div *ngFor="let pac of resultadosBusqueda">{{pac.dniUsuario}} - {{pac.nombre}} <button (click)="mostrarHistoriaClinica(pac.dniUsuario)">ver historia clinica</button></div>
 
 
-    <table class="table table-striped" id="tablaVehiculos">
+    <table class="table table-striped" id="tablaHistoriaClinica">
         <thead class="thead-dark">
             <tr>
                 <th scope="col">Fecha</th>
@@ -24,4 +31,6 @@ dni: <input [(ngModel)]="dniPaciente" (keypress)="buscar()" (keyup)="buscar()">
                 <td>{{item.descripcion}}</td>
             </tr>
         </tbody>
-    </table>
+    </table><br>
+    <button type="button" (click)="DescargarPdf()" class="btn btn-primary">Descargar PDF</button>
+</div>

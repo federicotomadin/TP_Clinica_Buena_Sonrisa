@@ -33,7 +33,7 @@ export class RegistroComponent implements OnInit {
       });
       // Swal.showLoading();
     this.authService.CrearPaciente(form.value);
-    this.router.navigate(['/Cliente']);
+    this.router.navigate(['Cliente']);
     }
 
 

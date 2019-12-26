@@ -1,0 +1,23 @@
+.cont{
+  position: fixed;
+  top:0px;
+  left:0px;
+  width:100vw;
+  height:100vh;
+  background-color: rgba(0,0,0,0.4);
+  
+      }
+  
+      .cuadrito{
+        text-align: center;
+    position: fixed;
+    transform: translateX(-50%) translateY(-50%);
+    top: 50%;
+    left: 50%;
+    width: 50vw;
+    padding: 2vw;
+    max-height: 90vh;
+    height: max-content;
+    background: white;
+    color: black;
+      }

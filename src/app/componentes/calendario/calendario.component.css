@@ -1,5 +1,5 @@
 .calendario {
-    width: 100%;
+    width: 80vw;
     position: relative;
     height: 80vh;
     overflow: scroll;
@@ -32,12 +32,13 @@
 }
 
 .calendario b {
-    background: gray;
+    background: #287699;
     color: white;
     padding: 0%;
     border: 1px solid darkgray;
     display: block;
     margin-bottom: 5px;
+    font-size: 1.3vw;
 }
 
 .item_activo{
@@ -55,7 +56,7 @@
 }
 
 .turno.ocupado{
-    background: #cccccc;
+    background: #b9d3df;
 }
 
 

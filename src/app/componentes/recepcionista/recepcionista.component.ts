@@ -16,13 +16,16 @@ export class RecepcionistaComponent implements OnInit {
   public mostrarBuscadorPacientes:Boolean=false;
 
   constructor(private auth: AuthService, private ser: PrincipalService,   private router: Router) {
-    
+    if (auth.usuarioLogueado == undefined) {
+      router.navigate(['Login']);
+      localStorage.usuarioLogueado = undefined;
+     } else    this.usuario = auth.usuarioLogueado;
   }
   
   verBuscador(){
-    console.log("ver buscador - func recepcionista")
-  this.mostrarBuscadorPacientes=true;
-  this.mostrarCalendario=false;
+    console.log('ver buscador - func recepcionista')
+  this.mostrarBuscadorPacientes = true;
+  this.mostrarCalendario = false;
    }
 
    verCalendario(){
@@ -32,15 +35,6 @@ export class RecepcionistaComponent implements OnInit {
      }
 
   ngOnInit() {
-  /*
-    if(this.auth.usuarioLogueado==undefined){
-        this.router.navigate(['/Login']);
-       localStorage.usuarioLogueado=undefined;
-      }else{
-
-       this.usuario = this.auth.usuarioLogueado;
-      }
-*/
 
 
   }

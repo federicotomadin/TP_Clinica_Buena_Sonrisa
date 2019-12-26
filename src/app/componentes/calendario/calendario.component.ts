@@ -98,12 +98,31 @@ export class CalendarioComponent implements OnInit {
 
   sacarHistoriaClinica() {
     this.mostrarPonerHistoriaClinica = false;
+    setTimeout(() => {
+      this.traerTurnosQVeElUsuario();
+      this.ponerTurnosVisualmente()
+    }, 500);
   }
+
   sacarPedirTurno() {
     this.mostrarPedirTurno = false;
+
+    setTimeout(() => {
+      this.traerTurnosQVeElUsuario();
+      this.ponerTurnosVisualmente()
+    }, 500);
+
   }
   sacarVerTurno() {
+
+
     this.mostrarVerTurno = false;
+    setTimeout(() => {
+      this.traerTurnosQVeElUsuario();
+      this.ponerTurnosVisualmente()
+    }, 500)
+
+
   }
 
   cambioElSelect(val: any) {
@@ -180,29 +199,54 @@ export class CalendarioComponent implements OnInit {
 
     }
   }
+
+
   clickTurno(e: Event, turno: any, dia: any) {
     let a = new Date(dia.ano + "-" + dia.mes + "-" + dia.dia + " " + turno.hora + ":" + turno.minutos + ":00");
     //localStorage["dia"] = JSON.stringify(a);
     this.fechaClickeada = a;
+    localStorage["elTurnoEsAnterior"]=null;
+
+    console.log(this.fechaClickeada);
 
     if (turno.hasOwnProperty('turno')) {
-      if (this.rol.toLowerCase() == "paciente" || this.rol.toLowerCase() == "recepcionista") {
-        this.turnoActivo = turno.turno;
-        this.mostrarVerTurno = true;
-        console.log(this.turnoActivo);
-      } else if (this.rol == "Odontologo") {
+      console.log(turno.turno)
+      this.turnoActivo = turno.turno;
+      this.mostrarVerTurno = true;
+      console.log(this.turnoActivo);
 
-        this.mostrarPonerHistoriaClinica = true;
+      //// ACA EVALUAR SI LA FECHA ES ANTERIOR O PSTERIOR
 
+      let fecha_ref = new Date();
+      console.log(fecha_ref, this.fechaClickeada)
+      if (this.fechaClickeada < fecha_ref) {
+        localStorage["elTurnoEsAnterior"]=1
+      } else {
+        localStorage["elTurnoEsAnterior"]=0
       }
+
+
+      /*  if (this.rol.toLowerCase() == "paciente" || this.rol.toLowerCase() == "recepcionista") {
+          this.turnoActivo=turno.turno;
+          this.mostrarVerTurno=true;
+          console.log(this.turnoActivo);
+        } else if (this.rol.toLowerCase() == "Odontologo") {
+          this.turnoActivo=turno.turno;
+          this.mostrarVerTurno=true;
+          console.log(this.turnoActivo);
+          //this.mostrarPonerHistoriaClinica = true;
+  
+        }*/
       //  console.log(turno.turno);
       // HAY TURNO EN ESTE HORARIO
       //  if(JSON.parse(localStorage["usuarioLogueado"]).especialidad=="Odontologo"){
       //   }
     } else {
       // NO HAY TURNO EN ESTE HORARIO
-      if (this.rol != "Odontologo") {
+      if (this.rol.toLowerCase() != "odontologo" && this.rol.toLowerCase() != "laboratorista") {
         this.mostrarPedirTurno = true;
+      } else {
+        console.log("el odontologo / lab no pide turnos")
       }
 
 
@@ -215,20 +259,20 @@ export class CalendarioComponent implements OnInit {
 
     this.ser.traerTurnos();
 
-    this.ser.turnos.subscribe((e) => {
 
-      if (this.rol === 'recepcionista') {
-        this.todosLosTurnos = this.arrayTurnos = e;
-      } else if (this.rol === 'paciente') {
 
-        this.arrayTurnos = e.filter(turno => turno.dniPaciente === usuario.dniUsuario);
+    if (this.rol === 'recepcionista') {
+      this.todosLosTurnos = this.arrayTurnos = this.ser.listaTurnos
+    } else if (this.rol === 'paciente') {
 
-      } else if (this.rol === 'odontologo') {
-        this.arrayTurnos = e.filter(turno => turno.matriculaMedico === usuario.matriculaMedico);
+      this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.dniPaciente === usuario.dniUsuario);
 
-      }
-      this.ponerTurnosVisualmente();
-    });
+    } else if (this.rol === 'odontologo' || this.rol=="laboratorista") {
+      this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.matriculaMedico === usuario.matriculaMedico);
+
+    }
+    this.ponerTurnosVisualmente();
+
   }
   ponerTurnosVisualmente() {
 
@@ -241,8 +285,6 @@ export class CalendarioComponent implements OnInit {
 
     const fechaTurno = t.fecha.toDate();
 
-
-
     for (let i = 0; i < this.dias.length; i++) {
       for (let j = 0; j < this.dias[i].turnos.length; j++) {
         let a = new Date(this.dias[i].ano + "-" + this.dias[i].mes + "-" + this.dias[i].dia + " " + this.dias[i].turnos[j].hora + ":" + this.dias[i].turnos[j].minutos + ":00")
@@ -252,9 +294,6 @@ export class CalendarioComponent implements OnInit {
           this.dias[i].turnos[j].turno = t;
           return;
         }
-
-
-
       }
     }
     /*

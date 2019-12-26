@@ -34,8 +34,16 @@ export class AdministradorComponent implements OnInit {
   cantidadOdontologo: any;
 
   constructor(private principalService: PrincipalService, private serviceFireStorage: FirestorageService, private authService: AuthService,
-              private router: Router) {
+              private router: Router, auth:AuthService) {
+
+                if (auth.usuarioLogueado == undefined) {
+                  router.navigate(['Login']);
+                  localStorage.usuarioLogueado = undefined;
+                 } else    this.usuario = auth.usuarioLogueado;
+
+
               }
+              
 
   ngOnInit() {
     this.usuario = new Usuario();
@@ -51,10 +59,10 @@ export class AdministradorComponent implements OnInit {
       this.cantidadLaboratorista = 0;
       this.cantidadOdontologo = 0;
       resp.map(dat => {
-         if (dat.especialidad === 'Laboratorista') {
+         if (dat.especialidad == 'Laboratorista') {
              this.cantidadLaboratorista += 1;
 
-         } else if (dat.especialidad === 'Odontologo') {
+         } else if (dat.especialidad == 'Odontologo') {
            this.cantidadOdontologo += 1;
          }
 

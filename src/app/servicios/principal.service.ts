@@ -51,11 +51,18 @@ export class PrincipalService {
 
   public medicos: any;
   public usuarios: any;
-  public listaMedicos: [];
+  public listaMedicos=[];
+  public listaTurnos=[]
+  
+  public listaUsuarios=[];
+  public listaPacientes=[];
 
   RefClinica: AngularFireList<Clinica> = null;
   RefUsuario: AngularFireList<Usuario> = null;
 
+
+
+  ////
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase,
     private miBase: AngularFirestore) {
     this.RefClinica = db.list(this.dbPathClinica);
@@ -103,17 +110,47 @@ export class PrincipalService {
     this.turnos = this.miBase.collection('turno').snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Turno;
+        data.key= a.payload.doc.id;
         return data;
       });
     }));
+
+    this.turnos.subscribe(resp => {
+      this.listaTurnos=[]
+    
+      resp.map( dat => {
+         if(dat.cancelado==false) this.listaTurnos.push(dat)
+         })      
+    });
+
+    
+    ///usuarios:
 
     this.usuariosMedicosCollection = this.miBase.collection('usuario');
     this.usuariosMedicos = this.usuariosMedicosCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Usuario;
+        data.key=a.payload.doc.id;
         return data;
       });
     }));
+
+    
+  this.usuariosMedicos.subscribe(resp => {
+    this.listaUsuarios=[]
+    resp.map( dat => {
+      this.listaUsuarios.push(dat);
+      if (!dat.matriculaMedico!=undefined) {
+       
+        if ( dat.especialidad.toLowerCase() == 'paciente') {
+          this.listaPacientes.push(dat);
+        }
+        if (dat.matriculaMedico.length > 2  && dat.especialidad.toLowerCase() != 'recepcionista' && dat.especialidad.toLowerCase() != 'administrador' && dat.especialidad.toLowerCase() != 'paciente') {
+        this.listaMedicos.push(dat);
+      }
+    }
+    });
+  });
 
   }
 
@@ -184,11 +221,6 @@ export class PrincipalService {
     this.miBase.collection('turno').add({ ...t });
   }
 
-  matricula2Especialidad(m: any) {
-    return this.listaMedicos.filter((med: any) => {
-      return med.matriculaMedico == m
-    })[0]["especialidad"];
-  }
 
   traerHistoriasClinicas() {
 
@@ -240,6 +272,16 @@ export class PrincipalService {
 
   getHistoraClinica() {
     return this.historiaClinica;
+  }
+
+  actualizarTurnoEnFirebase(t:Turno){
+    //let setDoc = db.collection('cities').doc('LA').set(data);
+    
+    this.miBase.collection('turno').doc(t.key).set(t);
+  }
+
+  dni2usuario(dni:any){
+    return this.listaUsuarios.filter(u=>u.dniUsuario==dni)
   }
 
 

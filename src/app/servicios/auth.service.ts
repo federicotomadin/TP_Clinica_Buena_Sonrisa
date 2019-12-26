@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { BehaviorSubject } from 'rxjs';
 import { isNullOrUndefined } from 'util';
 import { HorarioLogueo } from '../clases/horarioLogueo';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +64,26 @@ export class AuthService {
         //verifico que venga algo de auth
         if (usuarioCredential) {
 
+<<<<<<< HEAD
           const suscription = this.principalService.getUsuario().subscribe(resp => {
+=======
+          this.principalService.getUsuario().subscribe(resp => {
+            resp.map(data => {
+
+              if (data.email === usuarioCredential.user.email) {
+              localStorage.usuarioLogueado = JSON.stringify(data);
+              this.usuarioLogueado = data;
+              // usuarioCredential.providerData[0]
+
+
+              this.horarioLogueo = new HorarioLogueo();
+              this.horarioLogueo.horarioEntrada = new Date().toDateString();
+              this.horarioLogueo.email = this.usuarioLogueado.email;
+
+              this.horarioLogueo.dniUsuario = this.usuarioLogueado.dniUsuario;
+              this.horarioLogueo.matriculaMedico = this.usuarioLogueado.matriculaMedico;
+              this.principalService.crearFechaLogueo(this.horarioLogueo);
+>>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58
 
             resp.filter(data => data.email === usuarioCredential.user.email).map(resultado => {
 
@@ -71,6 +91,7 @@ export class AuthService {
 
               suscription.unsubscribe();
 
+<<<<<<< HEAD
               switch (resultado.especialidad) {
                 case 'Recepcionista':
                   this.router.navigate(['/Recepcionista']);
@@ -85,6 +106,50 @@ export class AuthService {
                   this.router.navigate(['/Laboratorista']);
                   break;
                 case 'Administrador':
+=======
+               /* Swal.fire({
+                    allowOutsideClick: false,
+                    icon: 'info',
+                    text: 'RECEPCIONISTA',
+                    timer: 2000
+                  });*/
+                this.router.navigate(['/Recepcionista']);
+                } else if (data.especialidad === 'Odontologo') {
+                  this.especialidad = data.especialidad;
+                /*  Swal.fire({
+                    allowOutsideClick: false,
+                    icon: 'info',
+                    text: 'ODONTOLOGO',
+                    timer: 2000
+                  });*/
+                  this.router.navigate(['/Medico']);
+                } else if (data.especialidad === 'Paciente') {
+                  this.especialidad = data.especialidad;
+                /*  Swal.fire({
+                    allowOutsideClick: false,
+                    icon: 'info',
+                    text: 'PACIENTE',
+                    timer: 2000
+                  });*/
+                  this.router.navigate(['/Cliente']);
+                } else if (data.especialidad === 'Laboratorista') {
+                  this.especialidad = data.especialidad;
+                /*  Swal.fire({
+                    allowOutsideClick: false,
+                    icon: 'info',
+                    text: 'LABORATORISTA',
+                    timer: 2000
+                  });*/
+                  this.router.navigate(['/Laboratorista']);
+                }  else if (data.especialidad === 'Administrador') {
+                  this.especialidad = data.especialidad;
+                 /* Swal.fire({
+                    allowOutsideClick: false,
+                    icon: 'info',
+                    text: 'ADMINISTRADOR',
+                    timer: 2000
+                  });*/
+>>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58
                   this.router.navigate(['/Administrador']);
                   break;
                 default:
@@ -115,6 +180,15 @@ export class AuthService {
   }
 
   Logout() {
-    return this.afAuth.auth.signOut();
+    firebase.auth().onAuthStateChanged(resp => {
+      resp.delete();
+    });
+    firebase.auth().signOut()
+    .then( () => {
+      alert('se cerro la seion');
+    })
+    .catch( () => {
+      alert('la sesion no se cerro');
+    });
   }
 }

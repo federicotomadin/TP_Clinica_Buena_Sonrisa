@@ -1,0 +1,11 @@
+PACIENTE:
+////-pedir paciente con su dni ya puesto
+///-cancelar turno
+-si el turno es pasado, tanto el medico como el paciente ven el componente de dejarReseña y se guarda en el turno.
+
+MEDICO:
+-si el turno es pasado poner historia clinica
+-si el turno es futuro ver quien es
+
+
+q no entre a las rutas q no peude, en on init ;O

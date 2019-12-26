@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
     }
 
     Swal.fire({
+<<<<<<< HEAD
       allowOutsideClick: false,
       icon: 'info',
       text: 'Verificando datos...',
@@ -74,6 +75,24 @@ export class LoginComponent implements OnInit {
     // }
     // Swal.close();
   }
+=======
+    allowOutsideClick: false,
+    icon: 'info',
+    text: 'logueando...',
+    timer: 4000
+    });
+
+    this.authService.Login(form.value);
+    localStorage.setItem('email', this.usuario.email);
+    const usu: Usuario = form.value;
+
+    Swal.showLoading();
+    if (this.recordarme) {
+      localStorage.setItem('email', this.usuario.email);
+    }
+   // Swal.close();
+}
+>>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58
 
   ngSubmit(form: NgForm) {
 

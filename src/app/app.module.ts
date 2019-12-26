@@ -16,7 +16,6 @@ import { ClienteComponent } from './componentes/cliente/cliente.component';
 import { PedirturnoComponent } from './componentes/pedirturno/pedirturno.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { LoginComponent } from './componentes/login/login.component';
-//import { HistoriaclinicaComponent } from './componentes/historiaclinica/historiaclinica.component';
 import { CalendarioComponent } from './componentes/calendario/calendario.component';
 import { PonerPuntajeComponent } from './componentes/poner-puntaje/poner-puntaje.component';
 import { PonerHistoriaClinicaComponent } from './componentes/poner-historia-clinica/poner-historia-clinica.component';
@@ -36,7 +35,6 @@ import { BarraSuperiorComponent } from './componentes/barra-superior/barra-super
 import { BuscarPacienteComponent } from './componentes/buscar-paciente/buscar-paciente.component';
 import { VerTurnoComponent } from './componentes/ver-turno/ver-turno.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +42,6 @@ import { VerTurnoComponent } from './componentes/ver-turno/ver-turno.component';
     PedirturnoComponent,
     RegistroComponent,
     LoginComponent,
-    //HistoriaclinicaComponent,
     CalendarioComponent,
     PonerPuntajeComponent,
     PonerHistoriaClinicaComponent,
@@ -67,7 +64,6 @@ import { VerTurnoComponent } from './componentes/ver-turno/ver-turno.component';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase)
-    // firebase.initializeApp(environment.firebase)
   ],
 
   providers: [PrincipalService, AuthService, FirestorageService],

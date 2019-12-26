@@ -1,13 +1,47 @@
 <div class="cont" (click)="quitarVerTurno($event)">
 
-    <div class="cuadrito">
+    <div class="cuadrito container">
 
-<p>fecha: {{fecha}}</p>
-<p>DNI paciente: {{dniPaciente}} - {{nombrePaciente}}</p>
-<p>Médico: {{matriculaMedico}} - {{nombreMedico}}</p>
+        <p>fecha: {{fecha}}</p>
 
+        <p>Médico: {{matriculaMedico}} - {{nombreMedico}}</p>
 
-<button (click)="borrarTurno()">cancelar turno</button>
+        <p>DNI paciente: {{dniPaciente}} - {{nombrePaciente}}</p>
+      
+  
+        <button (click)="borrarTurno()">cancelar turno</button><br>
 
+       <div *ngIf="turnoAnterior==1 && auth.usuarioLogueado.especialidad.toLowerCase()=='paciente'">
+        <label for="">Ingrese comentario del turno</label>
+        <textarea maxlength="66" type="text-tarea" [(ngModel)]="turno.comentario" placeholder="reseña del turno"></textarea><br>
+        <label for="">Puntaje Medico</label>
+        <select name="" [(ngModel)]="turno.puntajeMedico">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <label for="">Puntaje Clinica</label>
+        <select name="" [(ngModel)]="turno.puntajeClinica">
+            <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <button (click)="CargarResenia()" >Cargar Reseña</button>
+    </div>
 
-    </div></div>
+    </div>
+</div>
