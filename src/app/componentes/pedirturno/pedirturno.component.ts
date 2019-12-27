@@ -23,18 +23,14 @@ export class PedirturnoComponent implements OnInit {
   listaMedicosLocal = [];
   listaDniUsuario = [];
 
-  constructor(public ser: PrincipalService, public auth:AuthService) {
+  constructor(public ser: PrincipalService, public auth: AuthService) {
 
     this.traerListaMedicos();
 
    }
 
   ngOnInit() {
-<<<<<<< HEAD
-   
-=======
-
-    window["pedirturno"]=this;
+    window["pedirturno"] = this;
 
 
 
@@ -48,9 +44,8 @@ traerListaMedicos(){
 }
 
   pedirTurno() {
-    let n = new Turno();
+    const n = new Turno();
 
->>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58
     this.ser.getUsuariosMedicos().subscribe(resp => {
       resp.map(dat => {
         if (dat.matriculaMedico == this.matriculaMedico) {
@@ -69,7 +64,7 @@ traerListaMedicos(){
     this.sacar.emit(true);
   }
 
-  quitarPedirTurno(e:Event){
+  quitarPedirTurno(e: Event){
     
    // e.stopPropagation();
     //e.preventDefault();

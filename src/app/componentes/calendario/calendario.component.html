@@ -2,9 +2,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<div class="calendario"  id="style-1">
-    <div class="filtros" *ngIf="usuarioLogueado.especialidad=='Recepcionista'"><b>Seleccionar: </b> Médicos: <select
-            id="medicos" (change)="cambioElSelect($event.target.value)">
+<div class="calendario" id="style-1">
+    <div class="filtros" *ngIf="usuarioLogueado.especialidad=='Recepcionista'"><b>Seleccionar: </b> Médicos: <select id="medicos" (change)="cambioElSelect($event.target.value)">
             <option value="-1">Todos</option>
             <option *ngFor="let medico of medicos" value="{{medico.matriculaMedico}}">{{medico.especialidad}} -
                 ({{medico.matriculaMedico}}) {{medico.nombre}}</option>
@@ -14,7 +13,6 @@
 
     <!-- inicio carrousel -->
 
-<<<<<<< HEAD
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <!-- Wrapper for slides -->
@@ -22,27 +20,20 @@
             <div class="item_activo">
                 <!-- intermedio carrousel -->
                 <div class="dia" *ngFor="let dia of dias"><b>{{dia.dia}}/{{dia.mes}}/{{dia.ano}}</b>
-                    
-                    <div class="turno" [class.ocupado]="turno.hasOwnProperty('turno')" *ngFor="let turno of dia.turnos"
-                        (click)="clickTurno($event, turno, dia)">
+
+                    <div class="turno" [class.ocupado]="turno.hasOwnProperty('turno')" *ngFor="let turno of dia.turnos" (click)="clickTurno($event, turno, dia)">
                         <span *ngIf="turno.minutos==0">{{turno.hora}}:{{turno.minutos}} </span>
                         <span *ngIf="turno.hasOwnProperty('turno')" class="turnoOcupado">Ocupado</span>
-                            <!-- {{turno.turno.key}}</span> -->
+                        <!-- {{turno.turno.key}}</span> -->
                     </div>
                 </div>
                 <!-- footer carrousel  -->
             </div>
-=======
-    <div class="dia" *ngFor="let dia of dias"><b>{{dia.dia}}/{{dia.mes}}/{{dia.ano}}</b>
-        <div class="turno" [class.ocupado]="turno.hasOwnProperty('turno')" *ngFor="let turno of dia.turnos" (click)="clickTurno($event, turno, dia)">
-            <span *ngIf="turno.minutos==0">{{turno.hora}}:00 </span>
-            <span *ngIf="turno.hasOwnProperty('turno') " class="turnoOcupado" >  </span>
->>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58
         </div>
 
         <!-- Left and right controls -->
         <!-- <a class="left carousel-control" data-slide="prev" (click)="anterior()"></a> -->
-        <a  data-slide="prev" (click)="anterior()">
+        <a data-slide="prev" (click)="anterior()">
             <span class="glyphicon glyphicon-chevron-left" id="flechitaIzquierda"></span>
         </a>
         <a data-slide="next" (click)="proximo()">
@@ -52,21 +43,20 @@
 
     <!-- fin footer carrousel -->
 
-<<<<<<< HEAD
-</div>
-<app-poner-historia-clinica *ngIf="mostrarPonerHistoriaClinica" (sacar)="sacarHistoriaClinica($event)">
-</app-poner-historia-clinica>
+    <<<<<<< HEAD </div>
+        <app-poner-historia-clinica *ngIf="mostrarPonerHistoriaClinica" (sacar)="sacarHistoriaClinica($event)">
+        </app-poner-historia-clinica>
 
-<app-pedirturno *ngIf="mostrarPedirTurno" (sacar)="sacarPedirTurno($event)" [fecha]="fechaClickeada"></app-pedirturno>
+        <app-pedirturno *ngIf="mostrarPedirTurno" (sacar)="sacarPedirTurno($event)" [fecha]="fechaClickeada"></app-pedirturno>
 
-<app-ver-turno *ngIf="mostrarVerTurno" [turno]="turnoActivo" (sacar)="sacarVerTurno($event)"></app-ver-turno>
+        <app-ver-turno *ngIf="mostrarVerTurno" [turno]="turnoActivo" (sacar)="sacarVerTurno($event)"></app-ver-turno>
 
-=======
-<app-poner-historia-clinica *ngIf="mostrarPonerHistoriaClinica" (sacar)="sacarHistoriaClinica()"></app-poner-historia-clinica>
+        =======
+        <app-poner-historia-clinica *ngIf="mostrarPonerHistoriaClinica" (sacar)="sacarHistoriaClinica()"></app-poner-historia-clinica>
 
-<app-pedirturno *ngIf="mostrarPedirTurno" (sacar)="sacarPedirTurno()" [fecha]="fechaClickeada"></app-pedirturno>
+        <app-pedirturno *ngIf="mostrarPedirTurno" (sacar)="sacarPedirTurno()" [fecha]="fechaClickeada"></app-pedirturno>
 
-<app-ver-turno *ngIf="mostrarVerTurno" [turno]="turnoActivo" (sacar)="sacarVerTurno()"></app-ver-turno>
+        <app-ver-turno *ngIf="mostrarVerTurno" [turno]="turnoActivo" (sacar)="sacarVerTurno()"></app-ver-turno>
 
-<!-- <app-poner-puntaje *ngIf="mostrarVerTurno"  [turno]="turnoActivo" (sacar)="sacarVerTurno()"></app-poner-puntaje> -->
->>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58
+        <!-- <app-poner-puntaje *ngIf="mostrarVerTurno"  [turno]="turnoActivo" (sacar)="sacarVerTurno()"></app-poner-puntaje> -->
+        >>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58

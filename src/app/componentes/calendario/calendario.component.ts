@@ -20,14 +20,14 @@ export class CalendarioComponent implements OnInit {
 
   public usuarioLogueado: Usuario;
   public fechaClickeada: Date;
-  public medicos:Usuario[];
+  public medicos: Usuario[];
   public mostrarVerTurno = false;
 
   public fechaPruebaDaro: Date;
 
   mostrarPonerHistoriaClinica = false;
 
-  mostrarPedirTurno: Boolean = false;
+  mostrarPedirTurno = false;
 
   dias = [];
   arrayTurnos = [];
@@ -35,7 +35,8 @@ export class CalendarioComponent implements OnInit {
   public turnoActivo: Turno;
 
 
-  constructor(private router: Router, private auth: AuthService, private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
+  constructor(private router: Router, private auth: AuthService,
+              private ser: PrincipalService/*, private hc:PonerHistoriaClinicaComponent*/) {
 
     if (this.auth.usuarioLogueado == undefined || this.auth.usuarioLogueado == null) {
       this.usuarioLogueado = new Usuario();
@@ -50,23 +51,22 @@ export class CalendarioComponent implements OnInit {
 
     this.setearArray(this.fechaPruebaDaro);
 
-    window["calendario"] = this;
+    window['calendario'] = this;
 
   }
 
   ngOnInit() {
 
-    let usu: Usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    const usu: Usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
 
     if (usu == undefined || usu == null) {
       this.router.navigate(['/Login']);
-    }
-    else {
+    } else {
 
       this.usuarioLogueado.especialidad = usu.especialidad;
 
-      this.traerTurnosQVeElUsuario(); 
-      this.traerMedicos();      
+      this.traerTurnosQVeElUsuario();
+      this.traerMedicos();
 
       this.fechaPruebaDaro = this.obtenerDomingo(new Date());
       this.setearArray(this.fechaPruebaDaro);
@@ -74,7 +74,7 @@ export class CalendarioComponent implements OnInit {
     }
   }
 
-  traerMedicos(){
+  traerMedicos() {
     
     this.ser.getUsuariosMedicos().subscribe(resp => {
       resp.map( dat => {
@@ -92,7 +92,7 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
-  cargarMedicos(dat:any){
+  cargarMedicos(dat: any){
     this.medicos.push(dat);
   }
 
@@ -119,8 +119,8 @@ export class CalendarioComponent implements OnInit {
     this.mostrarVerTurno = false;
     setTimeout(() => {
       this.traerTurnosQVeElUsuario();
-      this.ponerTurnosVisualmente()
-    }, 500)
+      this.ponerTurnosVisualmente();
+    }, 500 );
 
 
   }
@@ -184,7 +184,8 @@ export class CalendarioComponent implements OnInit {
 
       unDiaMas.setDate(unDiaMas.getDate() + i);
 
-      this.dias[i] = { dia: unDiaMas.getDate(), mes: unDiaMas.getMonth() + 1, ano: unDiaMas.getUTCFullYear(), turnos: [], bloqueado: tienebloqueo };
+      this.dias[i] = { dia: unDiaMas.getDate(), mes: unDiaMas.getMonth() + 1,
+                       ano: unDiaMas.getUTCFullYear(), turnos: [], bloqueado: tienebloqueo };
       // de 8 a 18, 10hs*4 turnos disponibles:
 
       const hora = new Date(unDiaMas);
@@ -202,7 +203,7 @@ export class CalendarioComponent implements OnInit {
 
 
   clickTurno(e: Event, turno: any, dia: any) {
-    let a = new Date(dia.ano + "-" + dia.mes + "-" + dia.dia + " " + turno.hora + ":" + turno.minutos + ":00");
+    let a = new Date(dia.ano + '-' + dia.mes + '-' + dia.dia + ' ' + turno.hora + ':' + turno.minutos + ':00');
     //localStorage["dia"] = JSON.stringify(a);
     this.fechaClickeada = a;
     localStorage["elTurnoEsAnterior"]=null;
@@ -210,7 +211,7 @@ export class CalendarioComponent implements OnInit {
     console.log(this.fechaClickeada);
 
     if (turno.hasOwnProperty('turno')) {
-      console.log(turno.turno)
+      console.log(turno.turno);
       this.turnoActivo = turno.turno;
       this.mostrarVerTurno = true;
       console.log(this.turnoActivo);
@@ -243,10 +244,10 @@ export class CalendarioComponent implements OnInit {
       //   }
     } else {
       // NO HAY TURNO EN ESTE HORARIO
-      if (this.rol.toLowerCase() != "odontologo" && this.rol.toLowerCase() != "laboratorista") {
+      if (this.rol.toLowerCase() != 'odontologo' && this.rol.toLowerCase() != 'laboratorista') {
         this.mostrarPedirTurno = true;
       } else {
-        console.log("el odontologo / lab no pide turnos")
+        console.log('el odontologo / lab no pide turnos');
       }
 
 
@@ -262,12 +263,12 @@ export class CalendarioComponent implements OnInit {
 
 
     if (this.rol === 'recepcionista') {
-      this.todosLosTurnos = this.arrayTurnos = this.ser.listaTurnos
+      this.todosLosTurnos = this.arrayTurnos = this.ser.listaTurnos;
     } else if (this.rol === 'paciente') {
 
       this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.dniPaciente === usuario.dniUsuario);
 
-    } else if (this.rol === 'odontologo' || this.rol=="laboratorista") {
+    } else if (this.rol === 'odontologo' || this.rol == 'laboratorista') {
       this.arrayTurnos = this.ser.listaTurnos.filter(turno => turno.matriculaMedico === usuario.matriculaMedico);
 
     }
@@ -277,7 +278,7 @@ export class CalendarioComponent implements OnInit {
   ponerTurnosVisualmente() {
 
     for (let i = 0; i < this.arrayTurnos.length; i++) {
-      this.agregarTurno(this.arrayTurnos[i]);
+         this.agregarTurno(this.arrayTurnos[i]);
     }
 
   }

@@ -15,20 +15,20 @@ import * as firebase from 'firebase';
   providedIn: 'root'
 })
 export class AuthService {
-
-  public horarioLogueo: HorarioLogueo;
+  public  horarioLogueo: HorarioLogueo;
   public eventAuthError = new BehaviorSubject<boolean>(true);
   public eventAuthErrors = this.eventAuthError.asObservable();
+
   public isLogin = false;
   public usuarioLogueado: Usuario;
   especialidad: string;
 
-  constructor(public afAuth: AngularFireAuth,
-    public db: AngularFirestore,
-    public dbBase: AngularFireDatabase,
-    public router: Router,
-    public principalService: PrincipalService) { }
 
+  constructor(public afAuth: AngularFireAuth,
+              public db: AngularFirestore,
+              public dbBase: AngularFireDatabase,
+              public router: Router,
+              public principalService: PrincipalService) { }
 
   CrearUsuario(usuario: Usuario) {
     this.afAuth.auth.createUserWithEmailAndPassword(usuario.email, usuario.password)
@@ -60,13 +60,9 @@ export class AuthService {
         });
       })
       .then(usuarioCredential => {
-
-        //verifico que venga algo de auth
         if (usuarioCredential) {
 
-<<<<<<< HEAD
-          const suscription = this.principalService.getUsuario().subscribe(resp => {
-=======
+
           this.principalService.getUsuario().subscribe(resp => {
             resp.map(data => {
 
@@ -83,30 +79,12 @@ export class AuthService {
               this.horarioLogueo.dniUsuario = this.usuarioLogueado.dniUsuario;
               this.horarioLogueo.matriculaMedico = this.usuarioLogueado.matriculaMedico;
               this.principalService.crearFechaLogueo(this.horarioLogueo);
->>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58
 
-            resp.filter(data => data.email === usuarioCredential.user.email).map(resultado => {
 
-              this.CargarDatos(resultado);
 
-              suscription.unsubscribe();
+              if (data.especialidad === 'Recepcionista') {
+                this.especialidad = data.especialidad;
 
-<<<<<<< HEAD
-              switch (resultado.especialidad) {
-                case 'Recepcionista':
-                  this.router.navigate(['/Recepcionista']);
-                  break;
-                case 'Odontologo':
-                  this.router.navigate(['/Medico']);
-                  break;
-                case 'Paciente':
-                  this.router.navigate(['/Cliente']);
-                  break;
-                case 'Laboratorista':
-                  this.router.navigate(['/Laboratorista']);
-                  break;
-                case 'Administrador':
-=======
                /* Swal.fire({
                     allowOutsideClick: false,
                     icon: 'info',
@@ -149,40 +127,21 @@ export class AuthService {
                     text: 'ADMINISTRADOR',
                     timer: 2000
                   });*/
->>>>>>> 8f1da6d889f75c35802b9045e969215215a70c58
                   this.router.navigate(['/Administrador']);
-                  break;
-                default:
-                  this.router.navigate(['/Login']);
-                  break;
+                }
+
               }
+
             });
+          });
 
-          })
+          this.router.navigate(['/Login']);
+
         }
-        this.router.navigate(['/Login']);
-      })
-  }
-
-  CargarDatos(data: any) {
-
-    
-    localStorage.usuarioLogueado = JSON.stringify(data);
-    this.usuarioLogueado = data;
-    this.especialidad = data.especialidad;
-    this.horarioLogueo = new HorarioLogueo();
-    this.horarioLogueo.horarioEntrada = new Date().toDateString();
-    this.horarioLogueo.email = this.usuarioLogueado.email;
-
-    this.horarioLogueo.dniUsuario = this.usuarioLogueado.dniUsuario;
-    this.horarioLogueo.matriculaMedico = this.usuarioLogueado.matriculaMedico;
-    this.principalService.crearFechaLogueo(this.horarioLogueo);
+      });
   }
 
   Logout() {
-    firebase.auth().onAuthStateChanged(resp => {
-      resp.delete();
-    });
     firebase.auth().signOut()
     .then( () => {
       alert('se cerro la seion');
