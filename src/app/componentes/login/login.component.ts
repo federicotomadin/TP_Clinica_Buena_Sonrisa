@@ -65,8 +65,10 @@ export class LoginComponent implements OnInit {
 
     this.authService.Login(form.value);
     
-    // localStorage.setItem('email', this.usuario.email);
-    // const usu: Usuario = form.value;
+    if (this.recordarme) {
+      localStorage.setItem('email', this.usuario.email);
+    } 
+   
 
     // Swal.showLoading();
     // if (this.recordarme) {

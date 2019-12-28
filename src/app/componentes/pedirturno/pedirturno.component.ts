@@ -69,6 +69,8 @@ traerListaMedicos(){
    // e.stopPropagation();
     //e.preventDefault();
 
+    console.log(e);
+
     this.listaMedicosLocal = null;
 
     if (e["toElement"].className == 'cont'){
