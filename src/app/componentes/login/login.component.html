@@ -12,7 +12,7 @@
                 <span *ngIf="f.submitted && f.controls['password'].errors" class="text-danger  ">La contraseña es obligatoria</span>
                 <input type="password" placeholder="Clave" [(ngModel)]="usuario.password" name="password" minlength="6" required>
 
-                <button type="submit">Login</button><br>
+                <button type="submit">LOGIN</button><br>
                 <!-- <app-mi-captcha (captcha)="ReconociendoCaptcha($event)"></app-mi-captcha> -->
 
                 <input type="checkbox" [(ngModel)]="recordarme" name="remember-me">Recordarme <br>
