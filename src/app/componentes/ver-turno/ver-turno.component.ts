@@ -25,7 +25,7 @@ public nombrePaciente: string;
 turnoAnterior: any;
 comemtario: string;
 
-constructor(private auth: AuthService, private ser: PrincipalService) {
+constructor(public auth: AuthService, private ser: PrincipalService) {
   
   }
 

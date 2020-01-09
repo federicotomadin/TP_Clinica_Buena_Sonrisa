@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ClinicaOdontologica",
+            "outputPath": "dist/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -51,7 +51,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
+                  "maximumWarning": "4mb",
                   "maximumError": "5mb"
                 },
                 {
@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "ClinicaOdontologica"
+  "defaultProject": "ClinicaOdontologica",
+  "cli": {
+    "analytics": "72095c5d-fcb8-49d9-9ea3-c56615119578"
+  }
 }
