@@ -30,7 +30,7 @@
         "file-saver": "^2.0.2",
         "firebase": "^7.6.1",
         "font-awesome": "^4.7.0",
-        "jspdf": "^1.5.3",
+        "jspdf": "^2.3.1",
         "jspdf-autotable": "^3.2.11",
         "ng-recaptcha": "^5.0.0",
         "ngx-qrcode2": "0.0.9",
